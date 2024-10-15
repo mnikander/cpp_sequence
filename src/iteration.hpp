@@ -4,9 +4,9 @@
 
 namespace smp {
 
-struct example_loop_object
+struct for_loop_object
 {
-    example_loop_object(int first, int last) : _i{first}, _last{last} {}
+    for_loop_object(int first, int last) : _i{first}, _last{last} {}
 
     int operator++() { return ++_i; }
     bool keep_going() const { return _i != _last; }
