@@ -1,18 +1,31 @@
 #pragma once
 
+#include <string>
+
 namespace smp {
 
-struct Something{};
+struct example_loop_object
+{
+    example_loop_object(int first, int last) : _i{first}, _last{last} {}
+
+    int operator++() { return ++_i; }
+    bool keep_going() const { return _i != _last; }
+
+    int _i;
+    int const _last;
+    std::string _result{""};
+};
 
 
 template <typename LoopCondition, typename Block>
-constexpr auto iterate(LoopCondition loop_condition, Block block)
+constexpr auto iterate(LoopCondition loop, Block block)
 {
-    while (loop_condition)
+    while (loop.keep_going())
     {
-        block();
+        loop._result = block(loop._i, loop._result);
+        ++loop;
     }
-    return Something{};
+    return loop._result;
 }
 
 }
