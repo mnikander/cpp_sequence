@@ -1,6 +1,6 @@
 #pragma once
 
-namespace smp {
+namespace msp {
 
 template <typename Condition, typename BlockTrue, typename BlockFalse>
 constexpr auto select(Condition condition, BlockTrue block_true, BlockFalse block_false)

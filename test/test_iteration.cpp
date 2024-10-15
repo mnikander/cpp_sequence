@@ -13,16 +13,16 @@ struct concatenate_value {
 
 TEST(iterate, nothing)
 {
-    smp::for_loop_object zero{0, 0, std::string{""}};
-    auto const iteration_result = smp::iterate(zero, concatenate_value{});
+    msp::for_loop_object zero{0, 0, std::string{""}};
+    auto const iteration_result = msp::iterate(zero, concatenate_value{});
 
     EXPECT_EQ(iteration_result, std::string(""));
 }
 
 TEST(iterate, five)
 {
-    smp::for_loop_object zeroToFive{0, 5, std::string{""}};
-    auto const iteration_result = smp::iterate(zeroToFive, concatenate_value{});
+    msp::for_loop_object zeroToFive{0, 5, std::string{""}};
+    auto const iteration_result = msp::iterate(zeroToFive, concatenate_value{});
 
     EXPECT_EQ(iteration_result, std::string("0 1 2 3 4 "));
 }

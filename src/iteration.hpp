@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace smp {
+namespace msp {
 
 template <typename T>
 struct for_loop_object
