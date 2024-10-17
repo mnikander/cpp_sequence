@@ -12,7 +12,8 @@ struct iterate {
 
     using ResultType = typename Block::ResultType;
 
-    iterate(Condition condition, Block block) : _condition{condition}, _block{block} {}
+    iterate(Condition condition, Block block)
+        : _condition{condition}, _block{block} {}
 
     template <typename InputType>
     ResultType operator()(int initial, InputType input) const
