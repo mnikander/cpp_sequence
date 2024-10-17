@@ -11,3 +11,12 @@ TEST(select, nothing)
 
     EXPECT_EQ(result, "");
 }
+
+TEST(select, one)
+{
+    using namespace sample;
+
+    std::string const result = msp::select{equal_to{1}, string_catenate{}, default_construct<std::string>{}}(1, std::string{""});
+
+    EXPECT_EQ(result, "1 ");
+}
