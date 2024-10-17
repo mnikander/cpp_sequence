@@ -32,16 +32,32 @@ struct less_than
 {
     using ResultType = bool;
 
-    explicit less_than(int limit) : _limit{limit} {}
+    explicit less_than(int value) : _value{value} {}
 
     template <typename T>
     bool operator()(int i, T result) const
     {
         (void)result;
-        return i < _limit;
+        return i < _value;
     }
 
-    int const _limit;
+    int const _value;
+};
+
+struct equal_to
+{
+    using ResultType = bool;
+
+    explicit equal_to(int value) : _value{value} {}
+
+    template <typename T>
+    bool operator()(int i, T result) const
+    {
+        (void)result;
+        return i == _value;
+    }
+
+    int const _value;
 };
 
 }
