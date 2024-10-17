@@ -7,7 +7,7 @@ struct string_catenate
 {
     using ResultType = std::string;
 
-    std::string operator()(int i, std::string result)
+    std::string operator()(int i, std::string result) const
     {
         return std::move(result) + std::to_string(i) + std::string(" ");
     }
@@ -18,7 +18,7 @@ struct less_than
     using ResultType = bool;
 
     explicit less_than(int limit) : _limit{limit} {}
-    
+
     template <typename T>
     bool operator()(int i, T result) const
     {
@@ -31,14 +31,14 @@ struct less_than
 
 TEST(iterate, nothing)
 {
-    auto const iteration_result = msp::iterate(less_than{0}, string_catenate{});
+    auto const iteration_result = msp::iterate{less_than{0}, string_catenate{}}(0, std::string{""});
 
     EXPECT_EQ(iteration_result, std::string(""));
 }
 
 TEST(iterate, five)
 {
-    auto const iteration_result = msp::iterate(less_than{5}, string_catenate{});
+    auto const iteration_result = msp::iterate{less_than{5}, string_catenate{}}(0, std::string{""});
 
     EXPECT_EQ(iteration_result, std::string("0 1 2 3 4 "));
 }
