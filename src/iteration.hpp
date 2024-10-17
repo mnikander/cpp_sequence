@@ -4,18 +4,32 @@
 
 namespace msp {
 
+// TODO: I might be able to get rid of the 'ResultType' alias, and derive the return type automatically
+//       in any child nodes
+
 template <typename Condition, typename Block>
-constexpr auto iterate(Condition condition, Block block)
-{
-    int i = 0;
-    auto result = typename Block::ResultType{};
-    
-    while (condition(i, result))
+struct iterate {
+
+    using ResultType = typename Block::ResultType;
+
+    iterate(Condition condition, Block block) : _condition{condition}, _block{block} {}
+
+    template <typename InputType>
+    ResultType operator()(int initial, InputType input) const
     {
-        result = block(i, result);
-        ++i;
+        int i = initial;
+        InputType result = input;
+
+        while (_condition(i, input))
+        {
+            result = _block(i, result);
+            ++i;
+        }
+        return result;
     }
-    return result;
-}
+
+    Condition _condition;
+    Block _block;
+};
 
 }
