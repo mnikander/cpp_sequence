@@ -31,3 +31,19 @@ TEST(sequence, pair)
 
     EXPECT_EQ(result, std::make_pair(0, 0));
 }
+
+TEST(sequence, recursive_add)
+{
+    using namespace sample;
+
+    auto const result = msp::sequence{std::plus<>{}, msp::sequence{std::plus<>{}, get_result<int>{}, get_result<int>{}}, get_result<int>{}}(0, 1);
+    EXPECT_EQ(result, 3);
+}
+
+TEST(sequence, recursive_pair)
+{
+    using namespace sample;
+
+    auto const result = msp::sequence{std::make_pair<std::pair<int, int>, int>, msp::sequence{std::make_pair<int, int>, get_result<int>{}, get_result<int>{}}, get_result<int>{}}(0, 1);
+    EXPECT_EQ(result, std::make_pair(std::make_pair(1, 1), 1));
+}
