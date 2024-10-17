@@ -2,7 +2,7 @@
 #include <iostream>
 
 #include "../src/example_functions.hpp"
-#include "../src/iteration.hpp"
+#include "../src/iterate.hpp"
 
 TEST(iterate, nothing)
 {
