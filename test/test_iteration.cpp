@@ -3,7 +3,7 @@
 
 #include "../src/iteration.hpp"
 
-struct concatenate_value {
+struct catenate_value {
     template <typename LoopObject>
     std::string operator()(LoopObject loop)
     {
@@ -14,7 +14,7 @@ struct concatenate_value {
 TEST(iterate, nothing)
 {
     msp::for_loop_object zero{0, 0, std::string{""}};
-    auto const iteration_result = msp::iterate(zero, concatenate_value{});
+    auto const iteration_result = msp::iterate(zero, catenate_value{});
 
     EXPECT_EQ(iteration_result, std::string(""));
 }
@@ -22,7 +22,7 @@ TEST(iterate, nothing)
 TEST(iterate, five)
 {
     msp::for_loop_object zeroToFive{0, 5, std::string{""}};
-    auto const iteration_result = msp::iterate(zeroToFive, concatenate_value{});
+    auto const iteration_result = msp::iterate(zeroToFive, catenate_value{});
 
     EXPECT_EQ(iteration_result, std::string("0 1 2 3 4 "));
 }
