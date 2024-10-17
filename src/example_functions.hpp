@@ -18,6 +18,20 @@ struct default_construct
     }
 };
 
+template <typename ResultT>
+struct get_result
+{
+    using ResultType = ResultT;
+
+    template <typename InputType>
+    ResultType operator()(int i, InputType input) const
+    {
+        static_assert(std::is_same<InputType, ResultType>(),
+                      "InputType must equal ResultType.");
+        return input;
+    }
+};
+
 struct string_catenate
 {
     using ResultType = std::string;
