@@ -8,8 +8,8 @@ namespace msp {
 //       in any child nodes
 
 template <typename Condition, typename Block>
-struct iterate {
-
+struct iterate
+{
     using ResultType = typename Block::ResultType;
 
     iterate(Condition condition, Block block)

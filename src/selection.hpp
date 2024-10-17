@@ -5,8 +5,8 @@
 namespace msp {
 
 template <typename Condition, typename BlockTrue, typename BlockFalse>
-struct select {
-    
+struct select
+{
     static_assert(std::is_same<typename BlockTrue::ResultType, typename BlockFalse::ResultType>(),
                   "BlockTrue and BlockFalse must have the same ResultType");
     using ResultType = typename BlockTrue::ResultType;
