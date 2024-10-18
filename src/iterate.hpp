@@ -7,13 +7,13 @@ namespace msp {
 // TODO: I might be able to get rid of the 'ResultType' alias, and derive the return type automatically
 //       in any child nodes
 
-template <typename Condition, typename Block>
+template <typename Predicate, typename Block>
 struct iterate
 {
     using ResultType = typename Block::ResultType;
 
-    iterate(Condition condition, Block block)
-        : _condition{condition}, _block{block} {}
+    iterate(Predicate predicate, Block block)
+        : _predicate{predicate}, _block{block} {}
 
     template <typename InputType>
     ResultType operator()(int initial, InputType input) const
@@ -21,7 +21,7 @@ struct iterate
         int i = initial;
         InputType result = input;
 
-        while (_condition(i, input))
+        while (_predicate(i, input))
         {
             result = _block(i, result);
             ++i;
@@ -29,7 +29,7 @@ struct iterate
         return result;
     }
 
-    Condition _condition;
+    Predicate _predicate;
     Block _block;
 };
 
