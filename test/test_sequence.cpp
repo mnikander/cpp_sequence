@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 #include <functional>
 #include <utility>
+#include <vector>
 
 #include "../src/example_functions.hpp"
 #include "../src/sequence.hpp"

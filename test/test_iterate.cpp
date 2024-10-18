@@ -1,5 +1,7 @@
 #include <gtest/gtest.h>
 #include <iostream>
+#include <string>
+#include <vector>
 
 #include "../src/example_functions.hpp"
 #include "../src/example_predicates.hpp"
