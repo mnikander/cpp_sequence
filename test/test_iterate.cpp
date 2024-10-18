@@ -11,18 +11,20 @@ TEST(iterate, nothing)
 {
     using namespace sample;
 
-    auto const iteration_result = msp::iterate{less_than{0}, string_catenate{}}(0, std::string{""});
+    auto const f             = msp::iterate{less_than{0}, string_catenate{}};
+    std::string const result = f(0, std::string{""});
 
-    EXPECT_EQ(iteration_result, std::string(""));
+    EXPECT_EQ(result, std::string(""));
 }
 
 TEST(iterate, five)
 {
     using namespace sample;
 
-    auto const iteration_result = msp::iterate{less_than{5}, string_catenate{}}(0, std::string{""});
+    auto const f             = msp::iterate{less_than{5}, string_catenate{}};
+    std::string const result = f(0, std::string{""});
 
-    EXPECT_EQ(iteration_result, std::string("0 1 2 3 4 "));
+    EXPECT_EQ(result, std::string("0 1 2 3 4 "));
 }
 
 TEST(iterate, container)
@@ -32,7 +34,8 @@ TEST(iterate, container)
     std::vector<int> const vec{1, 2, 4, 8};
     auto condition   = less_than{static_cast<int>(vec.size())};
     auto getter      = get{vec};
-    int const result = msp::iterate(condition, getter)(0, -1);
+    auto const f     = msp::iterate(condition, getter);
+    int const result = f(0, -1);
     int const expected{8};
 
     EXPECT_EQ(result, expected);
