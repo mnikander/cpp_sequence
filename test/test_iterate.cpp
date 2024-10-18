@@ -22,3 +22,16 @@ TEST(iterate, five)
 
     EXPECT_EQ(iteration_result, std::string("0 1 2 3 4 "));
 }
+
+TEST(iterate, container)
+{
+    using namespace sample;
+
+    std::vector<int> const vec{1, 2, 4, 8};
+    auto condition   = less_than{static_cast<int>(vec.size())};
+    auto getter      = get{vec};
+    int const result = msp::iterate(condition, getter)(0, -1);
+    int const expected{8};
+
+    EXPECT_EQ(result, expected);
+}

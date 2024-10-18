@@ -5,6 +5,24 @@
 namespace sample {
 
 template <typename ResultT>
+struct constant
+{
+    using ResultType = ResultT;
+
+    explicit constant(ResultType value) : _value{value} {}
+
+    template <typename InputType>
+    ResultType operator()(int i, InputType input) const
+    {
+        (void)i;
+        (void)input;
+        return _value;
+    }
+
+    ResultType const _value;
+};
+
+template <typename ResultT>
 struct default_construct
 {
     using ResultType = ResultT;
@@ -41,6 +59,23 @@ struct string_catenate
     {
         return std::move(input) + std::to_string(i) + std::string(" ");
     }
+};
+
+template <typename Container>
+struct get
+{
+    using ResultType = typename Container::value_type;
+
+    explicit get(Container container) : _container{container} {}
+
+    template <typename T>
+    ResultType operator()(int i, T input) const
+    {
+        (void)input;
+        return _container[i];
+    }
+
+    Container _container;
 };
 
 }

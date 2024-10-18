@@ -32,6 +32,35 @@ TEST(sequence, pair)
     EXPECT_EQ(result, std::make_pair(0, 0));
 }
 
+TEST(sequence, container_and_constant)
+{
+    using namespace sample;
+
+    std::vector<int> const even{0, 2, 4, 6};
+    auto glue = std::make_pair<int, int>;
+    auto a    = get{even};
+    auto b    = constant{42};
+    auto const result = msp::sequence(glue, a, b)(2, -1);
+    std::pair<int, int> const expected{4, 42};
+
+    EXPECT_EQ(result, expected);
+}
+
+TEST(sequence, container_and_container)
+{
+    using namespace sample;
+
+    std::vector<int> const even{0, 2, 4, 6};
+    std::vector<int> const odd{1, 3, 5, 7};
+    auto glue = std::make_pair<int, int>;
+    auto a    = get{even};
+    auto b    = get{odd};
+    auto const result = msp::sequence(glue, a, b)(2, -1);
+    std::pair<int, int> const expected{4, 5};
+
+    EXPECT_EQ(result, expected);
+}
+
 TEST(sequence, recursive_add)
 {
     using namespace sample;
