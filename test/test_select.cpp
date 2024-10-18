@@ -1,6 +1,7 @@
 #include <gtest/gtest.h>
 
 #include "../src/example_functions.hpp"
+#include "../src/example_predicates.hpp"
 #include "../src/select.hpp"
 
 TEST(select, nothing)

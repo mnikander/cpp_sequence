@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "../src/example_functions.hpp"
+#include "../src/example_predicates.hpp"
 #include "../src/iterate.hpp"
 
 TEST(iterate, nothing)
