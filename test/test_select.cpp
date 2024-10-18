@@ -32,6 +32,9 @@ TEST(select, container)
 
     std::vector<int> const vec{13, 26, 42};
 
+    // we are going to build a function similar to:
+    // auto f = [](int i){ return (vec[i] == 42) ? std::string("Yes") : std::string("No"); };
+
     auto getter               = get{vec};
     auto answer               = constant{42};
     auto glue                 = std::equal_to<int>{};
