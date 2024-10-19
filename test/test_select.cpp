@@ -51,3 +51,22 @@ TEST(select, container)
     EXPECT_EQ(result1, std::string("No"));
     EXPECT_EQ(result2, std::string("Yes"));
 }
+
+TEST(select, recursive)
+{
+    using namespace sample;
+
+    std::string const s1 = "one";
+    std::string const s2 = "two";
+    std::string const s3 = "other";
+
+    auto f = msp::select(equal_to{1},
+                            constant{s1},
+                            msp::select(equal_to{2},
+                                constant{s2},
+                                constant{s3}));
+
+    EXPECT_EQ(f(1, std::string{}), s1);
+    EXPECT_EQ(f(2, std::string{}), s2);
+    EXPECT_EQ(f(3, std::string{}), s3);
+}
