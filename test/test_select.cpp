@@ -22,7 +22,7 @@ TEST(select, one)
 {
     using namespace sample;
 
-    auto const f             = msp::select{equal_to{1}, string_catenate{}, default_construct<std::string>{}};
+    auto const f             = msp::select{counter_equal_to{1}, string_catenate{}, default_construct<std::string>{}};
     std::string const result = f(1, std::string{""});
 
     EXPECT_EQ(result, "1 ");
@@ -60,9 +60,9 @@ TEST(select, recursive)
     std::string const s2 = "two";
     std::string const s3 = "other";
 
-    auto f = msp::select(equal_to{1},
+    auto f = msp::select(counter_equal_to{1},
                             constant{s1},
-                            msp::select(equal_to{2},
+                            msp::select(counter_equal_to{2},
                                 constant{s2},
                                 constant{s3}));
 
