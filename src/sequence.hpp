@@ -21,5 +21,4 @@ struct sequence
     BlockSecond _block_second;
 };
 
-
 }

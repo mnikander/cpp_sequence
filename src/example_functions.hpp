@@ -79,8 +79,8 @@ struct get
 
     explicit get(Container container) : _container{container} {}
 
-    template <typename T>
-    ResultType operator()(int i, T input) const
+    template <typename InputType>
+    ResultType operator()(int i, InputType input) const
     {
         (void)input;
         return _container[i];
