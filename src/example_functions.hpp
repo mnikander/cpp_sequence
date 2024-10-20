@@ -51,6 +51,17 @@ struct get_result
     }
 };
 
+struct to_string
+{
+    using ResultType = std::string;
+
+    template <typename InputType>
+    ResultType operator()(int i, InputType input) const
+    {
+        return std::to_string(input);
+    }
+};
+
 struct string_catenate
 {
     using ResultType = std::string;
