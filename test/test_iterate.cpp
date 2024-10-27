@@ -34,7 +34,7 @@ TEST(iterate, container)
     std::vector<int> const vec{1, 2, 4, 8};
     auto condition   = less_than{static_cast<int>(vec.size())};
     auto getter      = get{vec};
-    auto const f     = msp::iterate(condition, getter);
+    auto const f     = msp::iterate{condition, getter};
     int const result = f(0, -1);
     int const expected{8};
 

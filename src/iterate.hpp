@@ -19,7 +19,7 @@ struct iterate
     ResultType operator()(int initial, InputType input) const
     {
         int i = initial;
-        InputType result = input;
+        ResultType result;
 
         while (_predicate(i, input))
         {
