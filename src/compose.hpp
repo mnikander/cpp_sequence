@@ -2,22 +2,42 @@
 
 namespace msp {
 
-template <typename BlockFirst, typename BlockSecond>
+// I think 'map' is really just: 'compose' inside the context of an iteration
+
+template <typename F, typename G>
 struct compose
 {
-    using ResultType = typename BlockSecond::ResultType;
+    using ResultType = typename F::ResultType;
 
-    compose(BlockFirst block_first, BlockSecond block_second)
-        : _block_first{block_first}, _block_second{block_second} {}
+    compose(F f, G g)
+        : _f{f}, _g{g} {}
 
     template <typename InputType>
     ResultType operator()(int i, InputType input) const
     {
-        return _block_second(i, _block_first(i, input));
+        return _f(i, _g(i, input));
     }
 
-    BlockFirst _block_first;
-    BlockSecond _block_second;
+    F _f;
+    G _g;
+};
+
+template <typename F, typename G>
+struct reverse_compose
+{
+    using ResultType = typename G::ResultType;
+
+    reverse_compose(F f, G g)
+        : _f{f}, _g{g} {}
+
+    template <typename InputType>
+    ResultType operator()(int i, InputType input) const
+    {
+        return _g(i, _f(i, input));
+    }
+
+    F _f;
+    G _g;
 };
 
 }
