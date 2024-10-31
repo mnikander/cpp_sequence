@@ -37,7 +37,7 @@ struct default_construct
 };
 
 template <typename ResultT>
-struct get_result
+struct get_argument
 {
     using ResultType = ResultT;
 

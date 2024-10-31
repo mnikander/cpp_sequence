@@ -22,7 +22,7 @@ TEST(sequence, add)
     using namespace msp;
     using namespace sample;
 
-    auto      f      = sequence{std::plus<>{}, get_result<int>{}, get_result<int>{}};
+    auto      f      = sequence{std::plus<>{}, get_argument<int>{}, get_argument<int>{}};
     int const result = f(0, 42);
 
     EXPECT_EQ(result, 84);
@@ -77,7 +77,7 @@ TEST(sequence, recursive_add)
     using namespace msp;
     using namespace sample;
 
-    auto      f      = sequence{std::plus<>{}, sequence{std::plus<>{}, get_result<int>{}, get_result<int>{}}, get_result<int>{}};
+    auto      f      = sequence{std::plus<>{}, sequence{std::plus<>{}, get_argument<int>{}, get_argument<int>{}}, get_argument<int>{}};
     int const result = f(0, 1);
     EXPECT_EQ(result, 3);
 }
@@ -87,7 +87,7 @@ TEST(sequence, recursive_pair)
     using namespace msp;
     using namespace sample;
 
-    auto       f      = sequence{std::make_pair<std::pair<int, int>, int>, sequence{std::make_pair<int, int>, get_result<int>{}, get_result<int>{}}, get_result<int>{}};
+    auto       f      = sequence{std::make_pair<std::pair<int, int>, int>, sequence{std::make_pair<int, int>, get_argument<int>{}, get_argument<int>{}}, get_argument<int>{}};
     auto const result = f(0, 1);
     EXPECT_EQ(result, std::make_pair(std::make_pair(1, 1), 1));
 }
