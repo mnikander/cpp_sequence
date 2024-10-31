@@ -89,4 +89,23 @@ struct get
     Container _container;
 };
 
+template <typename F, typename T>
+struct accumulator
+{
+    using ResultType = T;
+
+    explicit accumulator(F binary_function, T initial_value) : _binary_function{binary_function}, _value{initial_value} {}
+
+    template <typename InputType>
+    ResultType operator()(int i, InputType input)
+    {
+        (void)i;
+        return _value = _binary_function(_value, input);
+    }
+
+    // mutable state means this code is not referentially transparent :(
+    F _binary_function;
+    T _value;
+};
+
 }
