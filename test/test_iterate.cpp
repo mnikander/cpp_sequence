@@ -7,6 +7,7 @@
 #include "../src/example_functions.hpp"
 #include "../src/example_predicates.hpp"
 #include "../src/iterate.hpp"
+#include "../src/algorithm/fold_left.hpp"
 #include "../src/algorithm/from.hpp"
 
 TEST(iterate, nothing)
@@ -52,7 +53,7 @@ TEST(iterate, plus_reduce)
     using namespace sample;
 
     std::vector<int> const vec{1, 2, 4, 8, 16};
-    auto      f      = from{vec, accumulator{std::plus<>{}, 0}};
+    auto      f      = from{vec, fold_left{std::plus<>{}, 0}};
     int const result = f(0, 0);
 
     EXPECT_EQ(result, 31);
@@ -64,7 +65,7 @@ TEST(iterate, max_reduce)
     using namespace sample;
 
     std::vector<int> const vec{1, 2, 16, 4, 8};
-    auto      f      = from{vec, accumulator{[](int l, int r){ return std::max(l, r); }, 0}};
+    auto      f      = from{vec, fold_left{[](int l, int r){ return std::max(l, r); }, 0}};
     int const result = f(0, 0);
 
     EXPECT_EQ(result, 16);
