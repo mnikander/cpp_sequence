@@ -15,6 +15,7 @@ add_executable(unit_tests ${SOURCES}
                           test/test_iterate.cpp
                           test/test_select.cpp
                           test/test_sequence.cpp
+                          test/test_to.cpp
 )
 target_link_libraries(unit_tests ${GTEST_LIBRARIES} pthread)
 
