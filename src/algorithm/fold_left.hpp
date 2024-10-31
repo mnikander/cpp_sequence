@@ -13,7 +13,7 @@ struct fold_left
     ResultType operator()(int i, InputType input)
     {
         (void)i;
-        return _value = _binary_function(_value, input);
+        return _value = _binary_function(std::move(_value), input);
     }
 
     // mutable state means this code is not referentially transparent :(

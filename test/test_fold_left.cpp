@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <string>
 #include <vector>
 
 #include "../src/algorithm/fold_left.hpp"
@@ -26,4 +27,14 @@ TEST(fold_left, max)
     int const result = f(0, 0);
 
     EXPECT_EQ(result, 16);
+}
+
+TEST(fold_left, string_catenate)
+{
+    using namespace msp;
+    
+    std::vector<char> const input  = {'h', 'e', 'l', 'l', 'o', ' ', 'w', 'o', 'r', 'l', 'd'};
+    auto                    f      = from{input, fold_left{[](auto l, auto r){ return l + r; }, std::string("")}};
+    std::string const       result = f(0, 0);
+    EXPECT_EQ(result, std::string("hello world"));
 }
