@@ -12,8 +12,8 @@ TEST(select, nothing)
 {
     using namespace sample;
     
-    auto              f      = msp::select{less_than{0}, string_catenate{}, default_construct<std::string>{}};
-    std::string const result = f(0, std::string{""});
+    auto              f      = msp::select{less_than{0}, to_string{}, default_construct<std::string>{}};
+    std::string const result = f(0, ' ');
 
     EXPECT_EQ(result, "");
 }
@@ -22,10 +22,10 @@ TEST(select, one)
 {
     using namespace sample;
 
-    auto              f      = msp::select{counter_equal_to{1}, string_catenate{}, default_construct<std::string>{}};
-    std::string const result = f(1, std::string{""});
+    auto              f      = msp::select{counter_equal_to{1}, to_string{}, default_construct<std::string>{}};
+    std::string const result = f(1, 42);
 
-    EXPECT_EQ(result, "1 ");
+    EXPECT_EQ(result, std::string("42"));
 }
 
 TEST(select, container)

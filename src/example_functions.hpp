@@ -58,17 +58,8 @@ struct to_string
     template <typename Arg>
     ResultType operator()(int i, Arg argument) const
     {
+        (void)i;
         return std::to_string(argument);
-    }
-};
-
-struct string_catenate
-{
-    using ResultType = std::string;
-
-    ResultType operator()(int i, std::string argument) const
-    {
-        return std::move(argument) + std::to_string(i) + std::string(" ");
     }
 };
 

@@ -14,8 +14,8 @@ TEST(iterate, nothing)
     using namespace msp;
     using namespace sample;
 
-    auto              f      = iterate{less_than{0}, string_catenate{}};
-    std::string const result = f(0, std::string{""});
+    auto              f      = iterate{less_than{0}, to_string{}};
+    std::string const result = f(0, ' ');
 
     EXPECT_EQ(result, std::string(""));
 }
