@@ -41,7 +41,7 @@ TEST(from, map)
     std::vector<int> const expected = {2, 3, 5, 9};
     std::vector<int> output         = {-1, -1, -1, -1};
 
-    auto       f      = from{input, compose{to{output}, increment_int_value{}}};
+    auto       f      = from{input, reverse_compose{increment_int_value{}, to{output}}};
     auto const result = f(0, -1);
 
     EXPECT_EQ(output, expected);
