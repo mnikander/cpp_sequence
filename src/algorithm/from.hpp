@@ -16,14 +16,14 @@ struct from
     using ResultType = typename Block::ResultType;
     explicit from(Container const& c, Block block) : _container{c}, _block{block} {}
 
-    template <typename T>
-    ResultType operator()(int i, T const& input) const
+    template <typename Arg>
+    ResultType operator()(int i, Arg const& argument) const
     {
         // TODO: I could try to make `f` a member instead of the container and the block
         auto condition = sample::less_than{static_cast<int>(_container.size())};
         auto getter    = sample::get{_container};
         auto f         = iterate{condition, compose{_block, getter}}; // we call: block(getter)
-        return f(i, input);
+        return f(i, argument);
     }
 
     // TODO: this feels REALLY unsafe, and holding references as members is strongly discouraged by the cpp core

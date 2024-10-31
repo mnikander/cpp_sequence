@@ -15,15 +15,15 @@ struct iterate
     iterate(Predicate predicate, Block block)
         : _predicate{predicate}, _block{block} {}
 
-    template <typename InputType>
-    ResultType operator()(int initial, InputType input)
+    template <typename Arg>
+    ResultType operator()(int initial, Arg argument)
     {
         int i = initial;
         ResultType result;
 
-        while (_predicate(i, input))
+        while (_predicate(i, argument))
         {
-            result = _block(i, input);
+            result = _block(i, argument);
             ++i;
         }
         return result;

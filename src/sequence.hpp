@@ -10,10 +10,10 @@ struct sequence
     sequence(Glue glue, BlockFirst block_first, BlockSecond block_second)
         : _glue{glue}, _block_first{block_first}, _block_second{block_second} {}
 
-    template <typename InputType>
-    ResultType operator()(int i, InputType input)
+    template <typename Arg>
+    ResultType operator()(int i, Arg argument)
     {
-        return _glue(_block_first(i, input), _block_second(i, input));
+        return _glue(_block_first(i, argument), _block_second(i, argument));
     }
 
     Glue _glue;

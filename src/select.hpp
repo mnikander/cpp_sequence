@@ -14,10 +14,10 @@ struct select
     select(Predicate predicate, BlockTrue block_true, BlockFalse block_false)
         : _predicate{predicate}, _block_true{block_true}, _block_false{block_false} {}
 
-    template <typename InputType>
-    ResultType operator()(int i, InputType input)
+    template <typename Arg>
+    ResultType operator()(int i, Arg argument)
     {
-        return _predicate(i, input) ? _block_true(i, input) : _block_false(i, input);
+        return _predicate(i, argument) ? _block_true(i, argument) : _block_false(i, argument);
     }
 
     Predicate _predicate;

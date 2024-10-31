@@ -12,10 +12,10 @@ struct compose
     compose(F f, G g)
         : _f{f}, _g{g} {}
 
-    template <typename InputType>
-    ResultType operator()(int i, InputType input)
+    template <typename Arg>
+    ResultType operator()(int i, Arg argument)
     {
-        return _f(i, _g(i, input));
+        return _f(i, _g(i, argument));
     }
 
     F _f;
@@ -30,10 +30,10 @@ struct reverse_compose
     reverse_compose(F f, G g)
         : _f{f}, _g{g} {}
 
-    template <typename InputType>
-    ResultType operator()(int i, InputType input)
+    template <typename Arg>
+    ResultType operator()(int i, Arg argument)
     {
-        return _g(i, _f(i, input));
+        return _g(i, _f(i, argument));
     }
 
     F _f;

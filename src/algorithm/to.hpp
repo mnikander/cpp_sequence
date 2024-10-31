@@ -21,9 +21,9 @@ struct to
     explicit to(Container & c) : _container{c} {}
 
     template <typename T>
-    ResultType operator()(int i, T const& input)
+    ResultType operator()(int i, T const& argument)
     {
-       _container[i] = input;
+       _container[i] = argument;
        return Nothing{};
     }
 

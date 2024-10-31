@@ -11,11 +11,11 @@ struct constant
 
     explicit constant(ResultType value) : _value{value} {}
 
-    template <typename InputType>
-    ResultType operator()(int i, InputType input) const
+    template <typename Arg>
+    ResultType operator()(int i, Arg argument) const
     {
         (void)i;
-        (void)input;
+        (void)argument;
         return _value;
     }
 
@@ -27,11 +27,11 @@ struct default_construct
 {
     using ResultType = ResultT;
 
-    template <typename InputType>
-    ResultType operator()(int i, InputType input) const
+    template <typename Arg>
+    ResultType operator()(int i, Arg argument) const
     {
         (void)i;
-        (void)input;
+        (void)argument;
         return ResultType{};
     }
 };
@@ -41,13 +41,13 @@ struct get_result
 {
     using ResultType = ResultT;
 
-    template <typename InputType>
-    ResultType operator()(int i, InputType input) const
+    template <typename Arg>
+    ResultType operator()(int i, Arg argument) const
     {
-        static_assert(std::is_same<InputType, ResultType>(),
-                      "InputType must equal ResultType.");
+        static_assert(std::is_same<Arg, ResultType>(),
+                      "Arg must equal ResultType.");
         (void)i;
-        return input;
+        return argument;
     }
 };
 
@@ -55,10 +55,10 @@ struct to_string
 {
     using ResultType = std::string;
 
-    template <typename InputType>
-    ResultType operator()(int i, InputType input) const
+    template <typename Arg>
+    ResultType operator()(int i, Arg argument) const
     {
-        return std::to_string(input);
+        return std::to_string(argument);
     }
 };
 
@@ -66,9 +66,9 @@ struct string_catenate
 {
     using ResultType = std::string;
 
-    ResultType operator()(int i, std::string input) const
+    ResultType operator()(int i, std::string argument) const
     {
-        return std::move(input) + std::to_string(i) + std::string(" ");
+        return std::move(argument) + std::to_string(i) + std::string(" ");
     }
 };
 
@@ -79,10 +79,10 @@ struct get
 
     explicit get(Container const& container) : _container{container} {}
 
-    template <typename InputType>
-    ResultType operator()(int i, InputType input) const
+    template <typename Arg>
+    ResultType operator()(int i, Arg argument) const
     {
-        (void)input;
+        (void)argument;
         return _container[i];
     }
 
