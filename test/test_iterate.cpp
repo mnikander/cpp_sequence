@@ -25,10 +25,10 @@ TEST(iterate, five)
     using namespace msp;
     using namespace sample;
 
-    auto              f      = iterate{less_than{5}, string_catenate{}};
-    std::string const result = f(0, std::string{""});
+    auto              f      = iterate{less_than{5}, to_string{}};
+    std::string const result = f(0, 0);
 
-    EXPECT_EQ(result, std::string("0 1 2 3 4 "));
+    EXPECT_EQ(result, "0");
 }
 
 TEST(iterate, container)

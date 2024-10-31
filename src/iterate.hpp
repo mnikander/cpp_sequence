@@ -23,7 +23,7 @@ struct iterate
 
         while (_predicate(i, input))
         {
-            result = _block(i, result);
+            result = _block(i, input);
             ++i;
         }
         return result;
