@@ -15,7 +15,7 @@ struct select
         : _predicate{predicate}, _block_true{block_true}, _block_false{block_false} {}
 
     template <typename InputType>
-    ResultType operator()(int i, InputType input) const
+    ResultType operator()(int i, InputType input)
     {
         return _predicate(i, input) ? _block_true(i, input) : _block_false(i, input);
     }

@@ -13,7 +13,7 @@ struct compose
         : _f{f}, _g{g} {}
 
     template <typename InputType>
-    ResultType operator()(int i, InputType input) const
+    ResultType operator()(int i, InputType input)
     {
         return _f(i, _g(i, input));
     }
@@ -31,7 +31,7 @@ struct reverse_compose
         : _f{f}, _g{g} {}
 
     template <typename InputType>
-    ResultType operator()(int i, InputType input) const
+    ResultType operator()(int i, InputType input)
     {
         return _g(i, _f(i, input));
     }

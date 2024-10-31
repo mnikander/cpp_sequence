@@ -12,7 +12,7 @@ TEST(select, nothing)
 {
     using namespace sample;
     
-    auto const f             = msp::select{less_than{0}, string_catenate{}, default_construct<std::string>{}};
+    auto              f      = msp::select{less_than{0}, string_catenate{}, default_construct<std::string>{}};
     std::string const result = f(0, std::string{""});
 
     EXPECT_EQ(result, "");
@@ -22,7 +22,7 @@ TEST(select, one)
 {
     using namespace sample;
 
-    auto const f             = msp::select{counter_equal_to{1}, string_catenate{}, default_construct<std::string>{}};
+    auto              f      = msp::select{counter_equal_to{1}, string_catenate{}, default_construct<std::string>{}};
     std::string const result = f(1, std::string{""});
 
     EXPECT_EQ(result, "1 ");
@@ -37,12 +37,12 @@ TEST(select, container)
     // we are going to build a function similar to:
     // auto f = [](int i){ return (vec[i] == 42) ? std::string("Yes") : std::string("No"); };
 
-    auto getter               = get{vec};
-    auto answer               = constant{42};
-    auto glue                 = std::equal_to<int>{};
-    auto yea                  = constant{std::string("Yes")};
-    auto nay                  = constant{std::string("No")};
-    auto const f              = msp::select{msp::sequence(glue, getter, answer), yea, nay};
+    auto              getter  = get{vec};
+    auto              answer  = constant{42};
+    auto              glue    = std::equal_to<int>{};
+    auto              yea     = constant{std::string("Yes")};
+    auto              nay     = constant{std::string("No")};
+    auto              f       = msp::select{msp::sequence(glue, getter, answer), yea, nay};
     std::string const result0 = f(0, 0);
     std::string const result1 = f(1, 0);
     std::string const result2 = f(2, 0);

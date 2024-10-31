@@ -39,7 +39,7 @@ struct increment_int_value
 
 TEST(compose, nothing)
 {
-    auto const f     = msp::compose(return_empty{}, return_empty{});
+    auto       f      = msp::compose(return_empty{}, return_empty{});
     auto const result = f(0, 0);
     EXPECT_EQ(result, Empty{});
 }
@@ -57,8 +57,8 @@ TEST(compose, increment)
         }
     };
 
-    auto const f       = msp::compose(increment_value{}, increment_value{});
-    int const result   = f(0, 0);
+    auto      f      = msp::compose(increment_value{}, increment_value{});
+    int const result = f(0, 0);
     EXPECT_EQ(result, 2);
 }
 

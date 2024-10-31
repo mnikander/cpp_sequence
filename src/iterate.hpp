@@ -16,7 +16,7 @@ struct iterate
         : _predicate{predicate}, _block{block} {}
 
     template <typename InputType>
-    ResultType operator()(int initial, InputType input) const
+    ResultType operator()(int initial, InputType input)
     {
         int i = initial;
         ResultType result;

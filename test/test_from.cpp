@@ -26,7 +26,7 @@ TEST(from, container)
 
     std::vector<int> const vec{1, 2, 4, 8};
 
-    auto const f     = msp::from{vec, to_string{}};
+    auto              f      = msp::from{vec, to_string{}};
     std::string const result = f(0, -1);
     std::string const expected{"8"};
 
@@ -41,7 +41,7 @@ TEST(from, map)
     std::vector<int> const expected = {2, 3, 5, 9};
     std::vector<int> output         = {-1, -1, -1, -1};
 
-    auto const f      = from{input, compose{to{output}, increment_int_value{}}};
+    auto       f      = from{input, compose{to{output}, increment_int_value{}}};
     auto const result = f(0, -1);
 
     EXPECT_EQ(output, expected);

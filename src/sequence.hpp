@@ -11,7 +11,7 @@ struct sequence
         : _glue{glue}, _block_first{block_first}, _block_second{block_second} {}
 
     template <typename InputType>
-    ResultType operator()(int i, InputType input) const
+    ResultType operator()(int i, InputType input)
     {
         return _glue(_block_first(i, input), _block_second(i, input));
     }
