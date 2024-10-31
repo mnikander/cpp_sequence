@@ -20,8 +20,13 @@ struct to
 
     explicit to(Container & c) : _container{c} {}
 
+    // TODO: This works, but we are claiming the member-function is const
+    //       even though we are modifying the contents of the container.
+    //       Making operator() non-const, breaks the code completely though.
+    //       Is the const-ness a false claim on my side? Is this a bug?
+    //       Does this need to be fixed?
     template <typename T>
-    ResultType operator()(int i, T const& input)
+    ResultType operator()(int i, T const& input) const
     {
        _container[i] = input;
        return Nothing{};

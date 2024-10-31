@@ -3,9 +3,10 @@
 #include <string>
 #include <vector>
 
+#include "../src/compose.hpp"
 #include "../src/example_functions.hpp"
 #include "../src/example_predicates.hpp"
-#include "../src/compose.hpp"
+#include "../src/algorithm/to.hpp"
 
 struct Empty
 {
@@ -22,6 +23,17 @@ struct return_empty
         (void)i;
         (void)value;
         return Empty{};
+    }
+};
+
+struct increment_int_value
+{
+    using ResultType = int;
+
+    ResultType operator()(int i, int value) const
+    {
+        (void)i;
+        return value + 1;
     }
 };
 
@@ -48,4 +60,16 @@ TEST(compose, increment)
     auto const f       = msp::compose(increment_value{}, increment_value{});
     int const result   = f(0, 0);
     EXPECT_EQ(result, 2);
+}
+
+TEST(compose, map)
+{
+    std::vector<int> output = {-1, -1, -1};
+
+    auto map = msp::compose{msp::to{output}, increment_int_value{}};
+    map(1, 42);
+
+    EXPECT_EQ(output[0], -1);
+    EXPECT_EQ(output[1], 43);
+    EXPECT_EQ(output[2], -1);
 }
