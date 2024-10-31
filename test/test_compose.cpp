@@ -3,10 +3,10 @@
 #include <string>
 #include <vector>
 
+#include "../src/algorithm/to.hpp"
 #include "../src/compose.hpp"
 #include "../src/example_functions.hpp"
 #include "../src/example_predicates.hpp"
-#include "../src/algorithm/to.hpp"
 
 struct Empty
 {

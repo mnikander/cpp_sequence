@@ -1,10 +1,11 @@
 #pragma once
 
 #include <string>
+
 #include "../compose.hpp"
-#include "../iterate.hpp"
-#include "../example_functions.hpp"
 #include "../example_predicates.hpp"
+#include "../iterate.hpp"
+#include "get.hpp"
 
 namespace msp {
 
@@ -21,7 +22,7 @@ struct from
     {
         // TODO: I could try to make `f` a member instead of the container and the block
         auto condition = sample::less_than{static_cast<int>(_container.size())};
-        auto getter    = sample::get{_container};
+        auto getter    = get{_container};
         auto f         = iterate{condition, compose{_block, getter}}; // we call: block(getter)
         return f(i, argument);
     }

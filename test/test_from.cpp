@@ -3,10 +3,10 @@
 #include <string>
 #include <vector>
 
-#include "../src/compose.hpp"
-#include "../src/example_functions.hpp"
 #include "../src/algorithm/from.hpp"
 #include "../src/algorithm/to.hpp"
+#include "../src/compose.hpp"
+#include "../src/example_functions.hpp"
 
 struct increment_int_value
 {

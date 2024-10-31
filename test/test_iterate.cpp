@@ -4,10 +4,11 @@
 #include <string>
 #include <vector>
 
+#include "../src/algorithm/from.hpp"
+#include "../src/algorithm/get.hpp"
 #include "../src/example_functions.hpp"
 #include "../src/example_predicates.hpp"
 #include "../src/iterate.hpp"
-#include "../src/algorithm/from.hpp"
 
 TEST(iterate, nothing)
 {

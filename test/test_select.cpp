@@ -3,6 +3,7 @@
 #include <string>
 #include <vector>
 
+#include "../src/algorithm/get.hpp"
 #include "../src/example_functions.hpp"
 #include "../src/example_predicates.hpp"
 #include "../src/select.hpp"
@@ -37,7 +38,7 @@ TEST(select, container)
     // we are going to build a function similar to:
     // auto f = [](int i){ return (vec[i] == 42) ? std::string("Yes") : std::string("No"); };
 
-    auto              getter  = get{vec};
+    auto              getter  = msp::get{vec};
     auto              answer  = constant{42};
     auto              glue    = std::equal_to<int>{};
     auto              yea     = constant{std::string("Yes")};

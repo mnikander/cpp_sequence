@@ -3,6 +3,7 @@
 #include <utility>
 #include <vector>
 
+#include "../src/algorithm/get.hpp"
 #include "../src/example_functions.hpp"
 #include "../src/sequence.hpp"
 
