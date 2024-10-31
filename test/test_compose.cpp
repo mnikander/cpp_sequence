@@ -39,13 +39,17 @@ struct increment_int_value
 
 TEST(compose, nothing)
 {
-    auto       f      = msp::compose(return_empty{}, return_empty{});
+    using namespace msp;
+    
+    auto       f      = compose(return_empty{}, return_empty{});
     auto const result = f(0, 0);
     EXPECT_EQ(result, Empty{});
 }
 
 TEST(compose, increment)
 {
+    using namespace msp;
+    
     struct increment_value
     {
         using ResultType = int;
@@ -57,16 +61,17 @@ TEST(compose, increment)
         }
     };
 
-    auto      f      = msp::compose(increment_value{}, increment_value{});
+    auto      f      = compose(increment_value{}, increment_value{});
     int const result = f(0, 0);
     EXPECT_EQ(result, 2);
 }
 
 TEST(compose, map)
 {
+    using namespace msp;
     std::vector<int> output = {-1, -1, -1};
 
-    auto map = msp::compose{msp::to{output}, increment_int_value{}};
+    auto map = compose{to{output}, increment_int_value{}};
     map(1, 42);
 
     EXPECT_EQ(output[0], -1);

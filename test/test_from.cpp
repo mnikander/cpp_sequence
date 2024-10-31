@@ -26,7 +26,7 @@ TEST(from, container)
 
     std::vector<int> const vec{1, 2, 4, 8};
 
-    auto              f      = msp::from{vec, to_string{}};
+    auto              f      = from{vec, to_string{}};
     std::string const result = f(0, -1);
     std::string const expected{"8"};
 
