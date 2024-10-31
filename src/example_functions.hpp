@@ -77,7 +77,7 @@ struct get
 {
     using ResultType = typename Container::value_type;
 
-    explicit get(Container container) : _container{container} {}
+    explicit get(Container const& container) : _container{container} {}
 
     template <typename InputType>
     ResultType operator()(int i, InputType input) const
@@ -86,7 +86,7 @@ struct get
         return _container[i];
     }
 
-    Container _container;
+    Container const& _container;
 };
 
 }
