@@ -1,9 +1,9 @@
-template <typename A, typename I, typename P, typename B>
-A iterate(A accumulator, I first, I last, P predicate, B block)
+template <typename F, typename A, typename I, typename P>
+A reduce(F function, A accumulator, I first, I last, P predicate)
 {
     while (predicate(accumulator, first, last))
     {
-        accumulator = block(accumulator, first, last);
+        accumulator = function(accumulator, first, last);
         ++first;
     }
     return accumulator;
@@ -26,6 +26,6 @@ A plus(A accumulator, I first, I last)
 int main()
 {
     int result = 0;
-    result     = iterate(0, 0, 5, inBounds<int, int>, plus<int, int>);
+    result     = reduce(plus<int, int>, 0, 0, 5, inBounds<int, int>);
     return result;
 }

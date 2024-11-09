@@ -1,15 +1,21 @@
-template <typename A, typename I, typename C>
-void plus_reduce(A accumulator, I first, I last, C continuation)
+template <typename F, typename A, typename I, typename C>
+void reduce(F function, A accumulator, I first, I last, C continuation)
 {
-    if (first == last)
+    if (first != last)
     {
-        continuation(accumulator);
+        accumulator = function(accumulator, first);
+        reduce(function, accumulator, ++first, last, continuation);
     }
     else
     {
-        accumulator += first;
-        plus_reduce(accumulator, ++first, last, continuation);
+        continuation(accumulator);
     }
+}
+
+template <typename A, typename T>
+A plus(A accumulator, T value)
+{
+    return accumulator + value;
 }
 
 template <typename T>
@@ -27,6 +33,6 @@ struct assign
 int main()
 {
     int result = 0;
-    plus_reduce(0, 0, 5, assign{result});
+    reduce(plus<int, int>, 0, 0, 5, assign{result});
     return result;
 }
