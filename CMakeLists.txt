@@ -12,6 +12,7 @@ add_executable(structured_copy_if       samples/structured_program/copy_if.cpp)
 add_executable(structured_plus_reduce   samples/structured_program/plus_reduce.cpp)
 add_executable(structured_find          samples/structured_program/find.cpp)
 add_executable(structured_map           samples/structured_program/map.cpp)
+add_executable(structured_zip           samples/structured_program/zip.cpp)
 
 # Locate GTest
 find_package(GTest REQUIRED)
