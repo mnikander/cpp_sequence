@@ -4,10 +4,10 @@ project(cpp_meta_structured_programming)
 
 set(CMAKE_CXX_STANDARD 23)
 
+add_executable(cps_find                samples/continuation_passing_style/find.cpp)
+add_executable(cps_plus_reduce         samples/continuation_passing_style/plus_reduce.cpp)
+add_executable(handcrafted_find        samples/handcrafted/find.cpp)
 add_executable(handcrafted_plus_reduce samples/handcrafted/plus_reduce.cpp)
-add_executable(cps_plus_reduce samples/continuation_passing_style/plus_reduce.cpp)
-add_executable(handcrafted_find samples/handcrafted/find.cpp)
-add_executable(cps_find samples/continuation_passing_style/find.cpp)
 
 # Locate GTest
 find_package(GTest REQUIRED)
