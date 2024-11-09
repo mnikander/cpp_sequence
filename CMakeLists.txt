@@ -10,6 +10,7 @@ add_executable(handcrafted_find         samples/handcrafted/find.cpp)
 add_executable(handcrafted_plus_reduce  samples/handcrafted/plus_reduce.cpp)
 add_executable(structured_plus_reduce   samples/structured_program/plus_reduce.cpp)
 add_executable(structured_find          samples/structured_program/find.cpp)
+add_executable(structured_map           samples/structured_program/map.cpp)
 
 # Locate GTest
 find_package(GTest REQUIRED)
