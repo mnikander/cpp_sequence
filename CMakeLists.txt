@@ -8,6 +8,7 @@ add_executable(continuation_find        samples/continuation_passing_style/find.
 add_executable(continuation_plus_reduce samples/continuation_passing_style/plus_reduce.cpp)
 add_executable(handcrafted_find         samples/handcrafted/find.cpp)
 add_executable(handcrafted_plus_reduce  samples/handcrafted/plus_reduce.cpp)
+add_executable(structured_plus_reduce   samples/structured_program/plus_reduce.cpp)
 
 # Locate GTest
 find_package(GTest REQUIRED)
