@@ -7,7 +7,7 @@ void plus_reduce(A accumulator, I first, I last, C continuation)
     }
     else
     {
-        accumulator+=first;
+        accumulator += first;
         plus_reduce(accumulator, ++first, last, continuation);
     }
 }
