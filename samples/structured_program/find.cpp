@@ -9,35 +9,25 @@ A reduce(F function, A accumulator, I first, I last, P predicate)
     return accumulator;
 }
 
-template <typename T>
-struct Result
-{
-    T _value;
-    bool _keep_going = true;
-};
-
 template <typename A, typename I>
 bool keepSearching(A accumulator, I first, I last)
 {
     (void)last;
-    const bool already_found = (accumulator._value == 4);
-    accumulator._keep_going &= !already_found;
-    return (accumulator._keep_going);
+    const bool done_searching = (accumulator == 4);
+    return !done_searching;
 }
 
 template <typename A, typename I>
 A current(A accumulator, I first, I last)
 {
     (void)last;
-    accumulator._value = first;
+    accumulator = first;
     return accumulator;
 }
 
 int main()
 {
-    using R = Result<int>;
-
-    R result{0};
-    result = reduce(current<R, int>, R{0}, 0, 5, keepSearching<R, int>);
-    return result._value;
+    int result = 0;
+    result = reduce(current<int, int>, 0, 0, 5, keepSearching<int, int>);
+    return result;
 }
