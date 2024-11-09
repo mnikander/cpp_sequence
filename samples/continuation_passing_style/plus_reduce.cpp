@@ -16,9 +16,9 @@ template <typename T>
 struct assign
 {
     explicit assign(T& t) : _t{t} {}
-    void operator()(T const& t)
+    void operator()(T const& value)
     {
-        _t = t;
+        _t = value;
     }
 
     T& _t;
