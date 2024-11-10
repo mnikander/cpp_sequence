@@ -21,13 +21,13 @@ include_directories(${GTEST_INCLUDE_DIRS})
 
 # Link unit_tests with what we want to test and the GTest and pthread library
 add_executable(unit_tests ${SOURCES}
-                          test/main.cpp
-                          test/test_compose.cpp
-                          test/test_fold_left.cpp
-                          test/test_from.cpp
-                          test/test_iterate.cpp
-                          test/test_select.cpp
-                          test/test_sequence.cpp
-                          test/test_to.cpp
+               test/test_compose.cpp
+               test/test_fold_left.cpp
+               test/test_from.cpp
+               test/test_iterate.cpp
+               test/test_select.cpp
+               test/test_sequence.cpp
+               test/test_to.cpp
+               test/unit_testing_main.cpp
 )
 target_link_libraries(unit_tests ${GTEST_LIBRARIES} pthread)
