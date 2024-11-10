@@ -1,6 +1,12 @@
-# cpp_structured_templates
+# Structured programs via meta-programming
 
 Can structured programs be generated at compile-time using templates?
+Can such a structured program closely approximate the code from a handcrafted solution for a map-filter-reduce program?
+What about for other linear algorithms in the STL?
+
+If this is possible, then perhaps a small library of composeable algorithms could be created with this technique.
+
+This is inspired by the 'Rappel' library presented at CppNow 2024 ([youtube](https://www.youtube.com/watch?v=itnyR9j8y6E)).
 
 ## Getting started
 
