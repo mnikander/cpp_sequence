@@ -27,8 +27,8 @@ mkdir out && cd out && cmake .. && cd .. # out-of-source build
 cmake --build out/ && ./out/unit_tests
 ```
 
-
 ## Goals
+
 1. The following shall be valid code: `from(vec) | filter(isEven) | take(3) | to(outputVec);`
 2. Find out if structured programms can be constructed by template meta-programming, to create such algorithm pipelines.
 3. After substitution of the templates, the code should be very similar to a handcrafted for-loop for this example, so that very little runtime overhead is introduced.
@@ -56,7 +56,6 @@ There are two ways the results of a pipeline can be handled:
 1. Return the result
 2. Continuation-passing style (CPS), where nothing ever returns
 
-Note that CPS _may_ be able to model `filter` in a zero-overhead way, but output is a little more difficult since I would always need something similar to the `to` function object, even for the output of single values.
-I am not sure yet how to implement the following things, in a non-recursive way, using CPS:
-- iteration over a container
-- early exit, `find` for example
+Note that CPS may be able to model `filter` in a zero-overhead way, but output is a little more difficult since I would always need something similar to the `to` function object, even for the output of single values.
+Since the C++ standard does not guaranty the tail-call optimization, I am concerned I may have performance problems with loops, or nested loops, if I implement the whole thing with CPS.
+Depending on how complicated the holding of intermediate state becomes, a solution based on CPS might actually be easier to implement.
