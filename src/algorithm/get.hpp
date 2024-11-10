@@ -13,7 +13,7 @@ struct get
     ResultType operator()(int i, Arg argument) const
     {
         (void)argument;
-        return _container[i];
+        return _container[static_cast<size_t>(i)];
     }
 
     Container const& _container;

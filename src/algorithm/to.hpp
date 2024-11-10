@@ -23,7 +23,7 @@ struct to
     template <typename T>
     ResultType operator()(int i, T const& argument)
     {
-       _container[i] = argument;
+       _container[static_cast<size_t>(i)] = argument;
        return Nothing{};
     }
 

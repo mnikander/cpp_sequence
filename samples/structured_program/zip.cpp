@@ -22,9 +22,9 @@ bool inBounds(A const& accumulator, I first, I last)
 
 struct Vectors
 {
-    std::vector<int> _a{0, 2, 4, 6, 8};
-    std::vector<int> _b{1, 3, 5, 7, 9};
-    std::vector<std::pair<int,int>> _result{};
+    std::vector<size_t> _a{0u, 2u, 4u, 6u, 8u};
+    std::vector<size_t> _b{1u, 3u, 5u, 7u, 9u};
+    std::vector<std::pair<size_t, size_t>> _result{};
 };
 
 template <typename I>
@@ -38,6 +38,6 @@ Vectors& zip(Vectors& vectors, I first, I last)
 int main()
 {
     Vectors result{};
-    result = reduce(zip<int>, result, 0, 5, inBounds<Vectors, int>);
-    return result._result[4].first + result._result[4].second;
+    result = reduce(zip<size_t>, result, 0u, 5u, inBounds<Vectors, size_t>);
+    return static_cast<int>(result._result[4u].first + result._result[4u].second);
 }
