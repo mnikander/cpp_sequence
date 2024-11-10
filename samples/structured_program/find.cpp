@@ -12,6 +12,7 @@ A reduce(F function, A accumulator, I first, I last, P predicate)
 template <typename A, typename I>
 bool keepSearching(A accumulator, I first, I last)
 {
+    (void)first;
     (void)last;
     const bool done_searching = (accumulator == 4);
     return !done_searching;

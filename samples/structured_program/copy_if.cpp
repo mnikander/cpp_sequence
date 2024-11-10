@@ -14,6 +14,8 @@ A reduce(F function, A accumulator, I first, I last, P predicate)
 template <typename A, typename I>
 std::vector<A>& append_if_divisible_by_two(std::vector<A>& output, I first, I last)
 {
+    (void)last;
+    
     if(first % 2 == 0) // TODO: make predicate a parameter and find a way to pass it into reduce
     {
         output.push_back(first);

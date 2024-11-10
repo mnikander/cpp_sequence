@@ -43,6 +43,7 @@ TEST(from, map)
 
     auto       f      = from{input, reverse_compose{increment_int_value{}, to{output}}};
     auto const result = f(0, -1);
+    (void)result; // the returned value is not used, only the output vector
 
     EXPECT_EQ(output, expected);
 }

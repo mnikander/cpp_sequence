@@ -14,8 +14,9 @@ A reduce(F function, A accumulator, I first, I last, P predicate)
 template <typename A, typename I>
 std::vector<A>& append(std::vector<A>& output, I first, I last)
 {
-     output.push_back(first);
-     return output; 
+    (void)last;
+    output.push_back(first);
+    return output; 
 }
 
 template <typename A, typename I>

@@ -10,7 +10,11 @@
 
 struct Empty
 {
-    bool operator==(Empty e) const { return true; }
+    bool operator==(Empty e) const
+    {
+        (void)e;
+        return true;
+    }
 };
 
 struct return_empty
