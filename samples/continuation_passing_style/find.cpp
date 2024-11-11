@@ -1,5 +1,5 @@
-template <typename I, typename P, typename C>
-void find(I current, I sentinel, P predicate, C continuation)
+template <typename P, typename I, typename C>
+void find(P predicate, I current, I sentinel, C continuation)
 {
     if(current == sentinel || predicate(current))
     {
@@ -7,7 +7,7 @@ void find(I current, I sentinel, P predicate, C continuation)
     }
     else
     {
-        find(++current, sentinel, predicate, continuation);
+        find(predicate, ++current, sentinel, continuation);
     }
 }
 
@@ -31,6 +31,6 @@ struct assign
 int main()
 {
     int result = 0;
-    find(0, 5, isFour, assign{result});
+    find(isFour, 0, 5, assign{result});
     return result;
 }

@@ -1,7 +1,7 @@
 #include <vector>
 
-template <typename F, typename A, typename I, typename P>
-A fold_left(F function, A accumulator, I current, I sentinel, P predicate)
+template <typename F, typename P, typename A, typename I>
+A fold_left(F function, P predicate, A accumulator, I current, I sentinel)
 {
     while (predicate(accumulator, current, sentinel))
     {
@@ -29,6 +29,6 @@ bool inBounds(std::vector<A> const& accumulator, I current, I sentinel)
 int main()
 {
     std::vector<int> result{};
-    result = fold_left(append<int, int>, result, 0, 5, inBounds<int, int>);
+    result = fold_left(append<int, int>, inBounds<int, int>, result, 0, 5);
     return result[4];
 }

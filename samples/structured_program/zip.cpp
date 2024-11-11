@@ -1,8 +1,8 @@
 #include <utility>
 #include <vector>
 
-template <typename F, typename A, typename I, typename P>
-A fold_left(F function, A accumulator, I current, I sentinel, P predicate)
+template <typename F, typename P, typename A, typename I>
+A fold_left(F function, P predicate, A accumulator, I current, I sentinel)
 {
     while (predicate(accumulator, current, sentinel))
     {
@@ -38,6 +38,6 @@ Vectors& zip(Vectors& vectors, I current, I sentinel)
 int main()
 {
     Vectors result{};
-    result = fold_left(zip<size_t>, result, 0u, 5u, inBounds<Vectors, size_t>);
+    result = fold_left(zip<size_t>, inBounds<Vectors, size_t>, result, 0u, 5u);
     return static_cast<int>(result._result[4u].first + result._result[4u].second);
 }

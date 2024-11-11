@@ -1,5 +1,5 @@
-template <typename I, typename P>
-I find(I current, I sentinel, P predicate)
+template <typename P, typename I>
+I find(P predicate, I current, I sentinel)
 {
     for ( ; current != sentinel; ++current)
     if(predicate(current))
@@ -17,6 +17,6 @@ bool isFour(int i)
 int main()
 {
     int i = 0;
-    i = find(0, 5, isFour);
+    i = find(isFour, 0, 5);
     return i;
 }
