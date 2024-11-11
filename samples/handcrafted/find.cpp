@@ -1,12 +1,12 @@
 template <typename I, typename P>
-I find(I first, I last, P predicate)
+I find(I current, I last, P predicate)
 {
-    for ( ; first != last; ++first)
-    if(predicate(first))
+    for ( ; current != last; ++current)
+    if(predicate(current))
     {
-        return first;
+        return current;
     }
-    return first;
+    return current;
 }
 
 bool isFour(int i)

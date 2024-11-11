@@ -1,29 +1,29 @@
 #include <vector>
 
 template <typename F, typename A, typename I, typename P>
-A fold_left(F function, A accumulator, I first, I last, P predicate)
+A fold_left(F function, A accumulator, I current, I last, P predicate)
 {
-    while (predicate(accumulator, first, last))
+    while (predicate(accumulator, current, last))
     {
-        accumulator = function(accumulator, first, last);
-        ++first;
+        accumulator = function(accumulator, current, last);
+        ++current;
     }
     return accumulator;
 }
 
 template <typename A, typename I>
-std::vector<A>& append(std::vector<A>& output, I first, I last)
+std::vector<A>& append(std::vector<A>& output, I current, I last)
 {
     (void)last;
-    output.push_back(first);
+    output.push_back(current);
     return output; 
 }
 
 template <typename A, typename I>
-bool inBounds(std::vector<A> const& accumulator, I first, I last)
+bool inBounds(std::vector<A> const& accumulator, I current, I last)
 {
     (void)accumulator;
-    return first != last;
+    return current != last;
 }
 
 int main()

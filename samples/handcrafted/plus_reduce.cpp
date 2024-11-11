@@ -1,9 +1,9 @@
 template <typename A, typename I>
-A plus_reduce(A accumulator, I first, I last)
+A plus_reduce(A accumulator, I current, I last)
 {
-    for (; first != last; ++first)
+    for (; current != last; ++current)
     {
-        accumulator += first;
+        accumulator += current;
     }
     return accumulator;
 }
