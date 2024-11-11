@@ -1,20 +1,20 @@
 #include <vector>
 
 template <typename F, typename A, typename I, typename P>
-A fold_left(F function, A accumulator, I current, I last, P predicate)
+A fold_left(F function, A accumulator, I current, I sentinel, P predicate)
 {
-    while (predicate(accumulator, current, last))
+    while (predicate(accumulator, current, sentinel))
     {
-        accumulator = function(accumulator, current, last);
+        accumulator = function(accumulator, current, sentinel);
         ++current;
     }
     return accumulator;
 }
 
 template <typename A, typename I>
-std::vector<A>& append_if_divisible_by_two(std::vector<A>& output, I current, I last)
+std::vector<A>& append_if_divisible_by_two(std::vector<A>& output, I current, I sentinel)
 {
-    (void)last;
+    (void)sentinel;
     
     if(current % 2 == 0) // TODO: make predicate a parameter and find a way to pass it into fold_left
     {
@@ -24,10 +24,10 @@ std::vector<A>& append_if_divisible_by_two(std::vector<A>& output, I current, I 
 }
 
 template <typename A, typename I>
-bool inBounds(std::vector<A> const& accumulator, I current, I last)
+bool inBounds(std::vector<A> const& accumulator, I current, I sentinel)
 {
     (void)accumulator;
-    return current != last;
+    return current != sentinel;
 }
 
 int main()

@@ -1,7 +1,7 @@
 template <typename I, typename P>
-I find(I current, I last, P predicate)
+I find(I current, I sentinel, P predicate)
 {
-    for ( ; current != last; ++current)
+    for ( ; current != sentinel; ++current)
     if(predicate(current))
     {
         return current;

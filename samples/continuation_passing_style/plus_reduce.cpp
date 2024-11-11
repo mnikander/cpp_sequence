@@ -1,10 +1,10 @@
 template <typename F, typename A, typename I, typename C>
-void fold_left(F function, A accumulator, I current, I last, C continuation)
+void fold_left(F function, A accumulator, I current, I sentinel, C continuation)
 {
-    if (current != last)
+    if (current != sentinel)
     {
         accumulator = function(accumulator, current);
-        fold_left(function, accumulator, ++current, last, continuation);
+        fold_left(function, accumulator, ++current, sentinel, continuation);
     }
     else
     {

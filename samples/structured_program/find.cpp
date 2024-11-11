@@ -1,27 +1,27 @@
 template <typename F, typename A, typename I, typename P>
-A fold_left(F function, A accumulator, I current, I last, P predicate)
+A fold_left(F function, A accumulator, I current, I sentinel, P predicate)
 {
-    while (predicate(accumulator, current, last))
+    while (predicate(accumulator, current, sentinel))
     {
-        accumulator = function(accumulator, current, last);
+        accumulator = function(accumulator, current, sentinel);
         ++current;
     }
     return accumulator;
 }
 
 template <typename A, typename I>
-bool keepSearching(A accumulator, I current, I last)
+bool keepSearching(A accumulator, I current, I sentinel)
 {
     (void)current;
-    (void)last;
+    (void)sentinel;
     const bool done_searching = (accumulator == 4);
     return !done_searching;
 }
 
 template <typename A, typename I>
-A current(A accumulator, I current, I last)
+A current(A accumulator, I current, I sentinel)
 {
-    (void)last;
+    (void)sentinel;
     accumulator = current;
     return accumulator;
 }

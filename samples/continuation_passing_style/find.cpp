@@ -1,13 +1,13 @@
 template <typename I, typename P, typename C>
-void find(I current, I last, P predicate, C continuation)
+void find(I current, I sentinel, P predicate, C continuation)
 {
-    if(current == last || predicate(current))
+    if(current == sentinel || predicate(current))
     {
         continuation(current);
     }
     else
     {
-        find(++current, last, predicate, continuation);
+        find(++current, sentinel, predicate, continuation);
     }
 }
 

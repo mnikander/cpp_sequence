@@ -2,11 +2,11 @@
 #include <vector>
 
 template <typename F, typename A, typename I, typename P>
-A fold_left(F function, A accumulator, I current, I last, P predicate)
+A fold_left(F function, A accumulator, I current, I sentinel, P predicate)
 {
-    while (predicate(accumulator, current, last))
+    while (predicate(accumulator, current, sentinel))
     {
-        accumulator = function(accumulator, current, last);
+        accumulator = function(accumulator, current, sentinel);
         ++current;
     }
     return accumulator;
@@ -14,10 +14,10 @@ A fold_left(F function, A accumulator, I current, I last, P predicate)
 
 
 template <typename A, typename I>
-bool inBounds(A const& accumulator, I current, I last)
+bool inBounds(A const& accumulator, I current, I sentinel)
 {
     (void)accumulator;
-    return current != last;
+    return current != sentinel;
 }
 
 struct Vectors
@@ -28,9 +28,9 @@ struct Vectors
 };
 
 template <typename I>
-Vectors& zip(Vectors& vectors, I current, I last)
+Vectors& zip(Vectors& vectors, I current, I sentinel)
 {
-    (void)last;
+    (void)sentinel;
     vectors._result.push_back(std::make_pair(vectors._a[current], vectors._b[current]));
     return vectors; 
 }

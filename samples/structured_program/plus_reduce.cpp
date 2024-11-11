@@ -1,25 +1,25 @@
 template <typename F, typename A, typename I, typename P>
-A fold_left(F function, A accumulator, I current, I last, P predicate)
+A fold_left(F function, A accumulator, I current, I sentinel, P predicate)
 {
-    while (predicate(accumulator, current, last))
+    while (predicate(accumulator, current, sentinel))
     {
-        accumulator = function(accumulator, current, last);
+        accumulator = function(accumulator, current, sentinel);
         ++current;
     }
     return accumulator;
 }
 
 template <typename A, typename I>
-bool inBounds(A accumulator, I current, I last)
+bool inBounds(A accumulator, I current, I sentinel)
 {
     (void)accumulator;
-    return current != last;
+    return current != sentinel;
 }
 
 template <typename A, typename I>
-A plus(A accumulator, I current, I last)
+A plus(A accumulator, I current, I sentinel)
 {
-    (void)last;
+    (void)sentinel;
     return accumulator + current;
 }
 

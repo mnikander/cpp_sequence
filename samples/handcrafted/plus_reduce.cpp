@@ -1,7 +1,7 @@
 template <typename A, typename I>
-A plus_reduce(A accumulator, I current, I last)
+A plus_reduce(A accumulator, I current, I sentinel)
 {
-    for (; current != last; ++current)
+    for (; current != sentinel; ++current)
     {
         accumulator += current;
     }
