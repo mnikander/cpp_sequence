@@ -1,7 +1,7 @@
 #include <vector>
 
 template <typename F, typename A, typename I, typename P>
-A reduce(F function, A accumulator, I first, I last, P predicate)
+A fold_left(F function, A accumulator, I first, I last, P predicate)
 {
     while (predicate(accumulator, first, last))
     {
@@ -29,6 +29,6 @@ bool inBounds(std::vector<A> const& accumulator, I first, I last)
 int main()
 {
     std::vector<int> result{};
-    result = reduce(append<int, int>, result, 0, 5, inBounds<int, int>);
+    result = fold_left(append<int, int>, result, 0, 5, inBounds<int, int>);
     return result[4];
 }

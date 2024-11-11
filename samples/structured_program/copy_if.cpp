@@ -1,7 +1,7 @@
 #include <vector>
 
 template <typename F, typename A, typename I, typename P>
-A reduce(F function, A accumulator, I first, I last, P predicate)
+A fold_left(F function, A accumulator, I first, I last, P predicate)
 {
     while (predicate(accumulator, first, last))
     {
@@ -16,7 +16,7 @@ std::vector<A>& append_if_divisible_by_two(std::vector<A>& output, I first, I la
 {
     (void)last;
     
-    if(first % 2 == 0) // TODO: make predicate a parameter and find a way to pass it into reduce
+    if(first % 2 == 0) // TODO: make predicate a parameter and find a way to pass it into fold_left
     {
         output.push_back(first);
     }
@@ -33,6 +33,6 @@ bool inBounds(std::vector<A> const& accumulator, I first, I last)
 int main()
 {
     std::vector<int> result{};
-    result = reduce(append_if_divisible_by_two<int, int>, result, 0, 5, inBounds<int, int>);
+    result = fold_left(append_if_divisible_by_two<int, int>, result, 0, 5, inBounds<int, int>);
     return result[2];
 }

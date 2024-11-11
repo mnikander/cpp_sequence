@@ -2,7 +2,7 @@
 #include <vector>
 
 template <typename F, typename A, typename I, typename P>
-A reduce(F function, A accumulator, I first, I last, P predicate)
+A fold_left(F function, A accumulator, I first, I last, P predicate)
 {
     while (predicate(accumulator, first, last))
     {
@@ -38,6 +38,6 @@ Vectors& zip(Vectors& vectors, I first, I last)
 int main()
 {
     Vectors result{};
-    result = reduce(zip<size_t>, result, 0u, 5u, inBounds<Vectors, size_t>);
+    result = fold_left(zip<size_t>, result, 0u, 5u, inBounds<Vectors, size_t>);
     return static_cast<int>(result._result[4u].first + result._result[4u].second);
 }

@@ -1,5 +1,5 @@
 template <typename F, typename A, typename I, typename P>
-A reduce(F function, A accumulator, I first, I last, P predicate)
+A fold_left(F function, A accumulator, I first, I last, P predicate)
 {
     while (predicate(accumulator, first, last))
     {
@@ -26,6 +26,6 @@ A plus(A accumulator, I first, I last)
 int main()
 {
     int result = 0;
-    result     = reduce(plus<int, int>, 0, 0, 5, inBounds<int, int>);
+    result     = fold_left(plus<int, int>, 0, 0, 5, inBounds<int, int>);
     return result;
 }

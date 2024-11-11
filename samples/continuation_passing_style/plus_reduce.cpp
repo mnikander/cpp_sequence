@@ -1,10 +1,10 @@
 template <typename F, typename A, typename I, typename C>
-void reduce(F function, A accumulator, I first, I last, C continuation)
+void fold_left(F function, A accumulator, I first, I last, C continuation)
 {
     if (first != last)
     {
         accumulator = function(accumulator, first);
-        reduce(function, accumulator, ++first, last, continuation);
+        fold_left(function, accumulator, ++first, last, continuation);
     }
     else
     {
@@ -33,6 +33,6 @@ struct assign
 int main()
 {
     int result = 0;
-    reduce(plus<int, int>, 0, 0, 5, assign{result});
+    fold_left(plus<int, int>, 0, 0, 5, assign{result});
     return result;
 }
