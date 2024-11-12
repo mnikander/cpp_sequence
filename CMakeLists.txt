@@ -33,6 +33,7 @@ add_executable(deprecated_unit_tests
 target_link_libraries(deprecated_unit_tests ${GTEST_LIBRARIES} pthread)
 
 add_executable(unit_tests ${SOURCES}
+               test/test_find.cpp
                test/test_fold_left.cpp
                test/unit_testing_main.cpp
 )
