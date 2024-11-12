@@ -7,7 +7,7 @@ A fold_left(F function, P stopping_predicate, A accumulator, I current, S sentin
 {
     while (current != sentinel)
     {
-        accumulator     = function(accumulator, current, sentinel);
+        accumulator = function(accumulator, current, sentinel);
         if(stopping_predicate(accumulator, current, sentinel))
         {
             return accumulator;
