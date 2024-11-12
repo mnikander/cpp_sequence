@@ -3,8 +3,8 @@
 #include "../src/fold_left.hpp"
 #include "../src/global_datatypes.hpp"
 
-template <typename A, typename I>
-bool always_false(A accumulator, I current, I sentinel)
+template <typename A, typename I, typename S>
+bool always_false(A accumulator, I current, S sentinel)
 {
     (void)accumulator;
     (void)current;
@@ -12,8 +12,8 @@ bool always_false(A accumulator, I current, I sentinel)
     return false;
 }
 
-template <typename A, typename I>
-A plus(A accumulator, I current, I sentinel)
+template <typename A, typename I, typename S>
+A plus(A accumulator, I current, S sentinel)
 {
     (void)sentinel;
     return accumulator + current;
@@ -21,12 +21,12 @@ A plus(A accumulator, I current, I sentinel)
 
 TEST(fold_left, integer_sum)
 {
-    i32 result = fp::fold_left(plus<i32, i32>, always_false<i32, i32>, 0, 0, 5);
+    i32 result = fp::fold_left(plus<i32, i32, i32>, always_false<i32, i32, i32>, 0, 0, 5);
     EXPECT_EQ(result, 10);
 }
 
-template <typename A, typename I>
-A plus_iter(A accumulator, I current, I sentinel)
+template <typename A, typename I, typename S>
+A plus_iter(A accumulator, I current, S sentinel)
 {
     (void)sentinel;
     return accumulator + (*current);
@@ -36,6 +36,6 @@ TEST(fold_left, container_sum)
 {
     using iter = typename vi32::const_iterator;
     vi32 V{1, 2, 4, 8, 16};
-    i32 result = fp::fold_left(plus_iter<i32, iter>, always_false<i32, iter>, 0, V.cbegin(), V.cend());
+    i32 result = fp::fold_left(plus_iter<i32, iter, iter>, always_false<i32, iter, iter>, 0, V.cbegin(), V.cend());
     EXPECT_EQ(result, 31);
 }
