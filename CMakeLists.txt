@@ -34,7 +34,7 @@ target_link_libraries(deprecated_unit_tests ${GTEST_LIBRARIES} pthread)
 
 add_executable(unit_tests ${SOURCES}
                test/test_find.cpp
-               test/test_fold_left.cpp
+               test/test_fold_left_if.cpp
                test/unit_testing_main.cpp
 )
 target_link_libraries(unit_tests ${GTEST_LIBRARIES} pthread)
