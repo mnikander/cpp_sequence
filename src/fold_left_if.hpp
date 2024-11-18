@@ -3,12 +3,15 @@
 namespace fp {
 
 template <typename F, typename P, typename A, typename I, typename S>
-A fold_left_if(F function, P predicate, A accumulator, I first, S sentinel)
+A fold_left_if(F function, P stopping_predicate, A accumulator, I current, S sentinel)
 {
-    while ((first != sentinel) && predicate(accumulator, first, sentinel))
+    bool keep_going = true;
+    while (current != sentinel && keep_going)
     {
-        accumulator = function(accumulator, first, sentinel);
-        ++first;
+        // note that the predicate uses the _updated_ accumulator value
+        accumulator = function(accumulator, current, sentinel);
+        keep_going  = !stopping_predicate(accumulator, current, sentinel);
+        ++current;
     }
     return accumulator;
 }
