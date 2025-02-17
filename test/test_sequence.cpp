@@ -1,5 +1,9 @@
+#include <array>
 #include <gtest/gtest.h>
-#include "../src/sequence.hpp"
+#include "../src/stage.hpp"
+#include "../src/sink.hpp"
+#include "../src/emit.hpp"
+#include "../src/generator.hpp"
 
 TEST(sequence, map)
 {
