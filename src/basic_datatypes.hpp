@@ -1,11 +1,11 @@
-//! @brief Several useful datatypes which are const by default. Note these are
-//!        in the GLOBAL NAMESPACE, so only include this file if you REALLY
-//!        want to use these aliases.
-
 #pragma once
 
 #include <cstdint>
 #include <vector>
+
+// several useful datatypes which are const by default
+
+namespace seq {
 
 // primitive aliases
 using b8       = const bool;
@@ -34,3 +34,5 @@ using mut_vi32 = std::vector<int>;
 using mut_vi64 = std::vector<int64_t>;
 using mut_vf32 = std::vector<float>;
 using mut_vf64 = std::vector<double>;
+
+}

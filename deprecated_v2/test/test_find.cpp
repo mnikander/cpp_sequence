@@ -1,6 +1,6 @@
 #include <gtest/gtest.h>
 #include "../src/fold_left_if.hpp"
-#include "../../src/global_datatypes.hpp"
+#include "../../src/basic_datatypes.hpp"
 
 template <typename I>
 I assign_if_four(I accumulator, I current, I sentinel)
@@ -27,12 +27,14 @@ bool is_found(A accumulator, I current, S sentinel)
 
 TEST(find, integer)
 {
+    using namespace seq;
     i32 result = fp::fold_left_if(assign_if_four<i32>, is_found<i32, i32, i32>, 6, 0, 6);
     EXPECT_EQ(result, 4);
 }
 
 TEST(find, container_empty)
 {
+    using namespace seq;
     using iter = typename vi32::const_iterator;
     vi32 V{};
     iter result = fp::fold_left_if(assign_if_four_iter<iter, iter>, is_found<iter, iter, iter>, V.cend(), V.cbegin(), V.cend());
@@ -43,6 +45,7 @@ TEST(find, container_empty)
 
 TEST(find, container_true)
 {
+    using namespace seq;
     using iter = typename vi32::const_iterator;
     vi32 V{1, 2, 4, 8, 16};
     iter result = fp::fold_left_if(assign_if_four_iter<iter, iter>, is_found<iter, iter, iter>, V.cend(), V.cbegin(), V.cend());
@@ -53,6 +56,7 @@ TEST(find, container_true)
 
 TEST(find, container_false)
 {
+    using namespace seq;
     using iter = typename vi32::const_iterator;
     vi32 V{1, 2};
     iter result = fp::fold_left_if(assign_if_four_iter<iter, iter>, is_found<iter, iter, iter>, V.cend(), V.cbegin(), V.cend());
