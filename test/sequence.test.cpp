@@ -1,5 +1,6 @@
 #include <array>
 #include <gtest/gtest.h>
+#include "../src/datatypes.hpp"
 #include "../src/emit.hpp"
 #include "../src/iota_generator.hpp"
 #include "../src/range_sink.hpp"
