@@ -1,6 +1,6 @@
 #pragma once
 #include <utility> // forward
-#include "../src/basic_datatypes.hpp"
+#include "basic_datatypes.hpp"
 #include "emit.hpp"
 
 namespace seq {
