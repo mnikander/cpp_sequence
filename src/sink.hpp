@@ -10,8 +10,8 @@ struct RangeSink {
 
     RangeSink(Range& range) : _range{range} {}
 
-    void receive(value_type value) {
-        *(_range.begin() + _target_index) = value;
+    void receive(value_type&& value) {
+        *(_range.begin() + _target_index) = std::forward<value_type>(value);
         ++_target_index;
     }
 

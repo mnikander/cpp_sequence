@@ -15,8 +15,8 @@ struct Emit {
     // may become incosistent, since there are multiple copies of each stage.
     Emit(S& successor) : _successor{successor} {}
 
-    void operator()(typename S::value_type value) {
-        _successor.receive(value);
+    void operator()(typename S::value_type&& value) {
+        _successor.receive(std::forward<typename S::value_type>(value));
     }
 
     S& _successor;

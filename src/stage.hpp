@@ -11,8 +11,8 @@ struct Stage {
 
     Stage(F transformation, S successor) : _transformation{transformation}, _successor{successor}, _emit{_successor} {}
 
-    void receive(value_type value) {
-        _transformation(_emit, value);
+    void receive(value_type&& value) {
+        _transformation(_emit, std::forward<value_type>(value));
     }
 
     F _transformation;

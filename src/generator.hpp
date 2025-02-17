@@ -16,7 +16,7 @@ struct Generator : public Stage<mut_i64, F, S> {
     // Let's try it without back communication and see if we get a simpler design, which actually works.
     void yield(mut_i64 const count = 1) {
         for(mut_i64 i = 0; i < count; ++i) {
-            Stage<mut_i64, F, S>::receive(_index);
+            Stage<mut_i64, F, S>::receive(std::forward<value_type>(_index));
             ++_index;
         }
     }
