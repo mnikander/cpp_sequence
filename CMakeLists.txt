@@ -40,7 +40,7 @@ add_executable(deprecated_v2_unit_tests ${SOURCES}
 target_link_libraries(deprecated_v2_unit_tests ${GTEST_LIBRARIES} pthread)
 
 add_executable(unit_tests ${SOURCES}
-               test/test_sequence.cpp
-               test/unit_testing_main.cpp
+               test/main.test.cpp
+               test/sequence.test.cpp
 )
 target_link_libraries(unit_tests ${GTEST_LIBRARIES} pthread)
