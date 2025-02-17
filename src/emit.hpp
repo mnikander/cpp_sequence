@@ -2,6 +2,8 @@
 #include <utility> // forward
 #include "../src/global_datatypes.hpp"
 
+namespace seq {
+
 // Since I need to pass 'emit' as a function object which the user can use in his transform function, emit should not
 // have its own template parameter value. Instead, we have to set it at construction by getting the type information
 // from the successor stage. This means that while values propagate through the pipeline from start to finish, type
@@ -19,3 +21,5 @@ struct Emit {
 
     S& _successor;
 };
+
+}

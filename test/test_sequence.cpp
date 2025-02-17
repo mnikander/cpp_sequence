@@ -7,6 +7,8 @@
 
 TEST(sequence, map)
 {
+    using namespace seq;
+
     std::array<mut_i64, 5> result{0, 0, 0, 0, 0};
     std::array<mut_i64, 5> expected{0, 1, 4, 9, 16};
 

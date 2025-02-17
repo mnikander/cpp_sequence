@@ -3,6 +3,8 @@
 #include "../src/global_datatypes.hpp"
 #include "emit.hpp"
 
+namespace seq {
+
 template <typename T, typename F, typename S>
 struct Stage {
     using value_type = T;
@@ -21,4 +23,6 @@ struct Stage {
 template <typename T, typename F, typename S>
 Stage<T, F, S> make_stage(F function, S successor) {
     return Stage<T, F, S>{function, successor};
+}
+
 }

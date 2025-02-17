@@ -2,6 +2,8 @@
 #include <utility> // forward
 #include "../src/global_datatypes.hpp"
 
+namespace seq {
+
 template <typename Range>
 struct RangeSink {
     using value_type = typename Range::value_type;
@@ -16,3 +18,5 @@ struct RangeSink {
     Range& _range;
     mut_i64 _target_index{0};
 };
+
+}

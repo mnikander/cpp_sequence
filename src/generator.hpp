@@ -3,6 +3,8 @@
 #include "../src/global_datatypes.hpp"
 #include "stage.hpp"
 
+namespace seq {
+
 template <typename F, typename S>
 struct Generator : public Stage<mut_i64, F, S> {
     using value_type = mut_i64;
@@ -25,4 +27,6 @@ struct Generator : public Stage<mut_i64, F, S> {
 template <typename F, typename S>
 Generator<F, S> make_generator(F function, S successor) {
     return Generator<F, S>{function, successor};
+}
+
 }
