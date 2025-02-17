@@ -7,6 +7,13 @@
 
 TEST(sequence, map)
 {
+    // In this example we define a pipeline with the following stages:
+    // - generate a sequence of integers (starts at 0, by definition)
+    // - map each value to its square
+    // - write each result to an output range
+    //
+    // Then we execute the pipeline, to generate 5 values, by calling '.yield(5)' on it
+
     using namespace seq;
 
     std::array<mut_i64, 5> result{0, 0, 0, 0, 0};
