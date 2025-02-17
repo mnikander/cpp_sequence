@@ -32,9 +32,14 @@ add_executable(deprecated_unit_tests
 )
 target_link_libraries(deprecated_unit_tests ${GTEST_LIBRARIES} pthread)
 
+add_executable(deprecated_v2_unit_tests ${SOURCES}
+               deprecated_v2/test/test_find.cpp
+               deprecated_v2/test/test_fold_left_if.cpp
+               deprecated_v2/test/unit_testing_main.cpp
+)
+target_link_libraries(deprecated_v2_unit_tests ${GTEST_LIBRARIES} pthread)
+
 add_executable(unit_tests ${SOURCES}
-               test/test_find.cpp
-               test/test_fold_left_if.cpp
                test/test_sequence.cpp
                test/unit_testing_main.cpp
 )
