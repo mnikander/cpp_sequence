@@ -13,7 +13,7 @@ There are three building blocks from which a pipeline is built:
 - a stage receives values, transforms them, and passes them onwards, possibly to other intermediate stages
 - a sink receives values and writes them into a container or result field
 
-This workflow is heavily inspired by the streaming library in Kotlin and the 'Rappel' library presented at CppNow 2024 ([youtube](https://www.youtube.com/watch?v=itnyR9j8y6E)).
+This workflow is heavily inspired by the sequences and streams libraries in Kotlin, as well as the 'Rappel' library presented at CppNow 2024 ([youtube](https://www.youtube.com/watch?v=itnyR9j8y6E)).
 
 ## Getting started
 
