@@ -1,5 +1,6 @@
 #pragma once
 #include <utility> // forward
+#include "functional/identity.hpp"
 #include "basic_datatypes.hpp"
 #include "stage.hpp"
 
@@ -25,6 +26,11 @@ struct Generator : public Stage<mut_i64, F, S> {
 
     mut_i64 _index{0};
 };
+
+template <typename S>
+Generator<Identity, S> make_generator(S successor) {
+    return Generator<Identity, S>{Identity{}, successor};
+}
 
 template <typename F, typename S>
 Generator<F, S> make_generator(F function, S successor) {
