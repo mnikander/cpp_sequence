@@ -1,14 +1,14 @@
 #include <array>
 #include <gtest/gtest.h>
-#include "../src/stage.hpp"
-#include "../src/sink.hpp"
 #include "../src/emit.hpp"
-#include "../src/generator.hpp"
+#include "../src/iota_generator.hpp"
+#include "../src/range_sink.hpp"
+#include "../src/stage.hpp"
 
 TEST(sequence, map)
 {
     // In this example we define a pipeline with the following stages:
-    // - generate a sequence of integers (starts at 0, by definition)
+    // - generate a sequence of integers
     // - map each value to its square
     // - write each result to an output range
     //
@@ -24,7 +24,7 @@ TEST(sequence, map)
     // pipeline stages, from last to first
     auto sink     = RangeSink{result};
     auto square   = make_stage<mut_i64>(f_sq, sink);
-    auto sequence = make_generator(square);
+    auto sequence = make_iota_generator(square);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);

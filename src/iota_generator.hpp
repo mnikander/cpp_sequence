@@ -1,7 +1,7 @@
 #pragma once
 #include <utility> // forward
-#include "functional/identity.hpp"
 #include "basic_datatypes.hpp"
+#include "emit.hpp"
 #include "stage.hpp"
 
 namespace seq {
@@ -11,30 +11,27 @@ namespace seq {
 // This would complicate the design though, and make it similar to my prior design.
 // Let's try it without back-communication, and see if we get a simpler design, which actually works.
 
-template <typename F, typename S>
-struct Generator : public Stage<mut_i64, F, S> {
+template <typename S>
+struct IotaGenerator {
     using value_type = mut_i64;
 
-    Generator(F transformation, S successor) : Stage<mut_i64, F, S>{transformation, successor} {}
+    IotaGenerator(S successor) : _successor{successor}, _emit{_successor} {}
 
-    void yield(mut_i64 const count = 1) {
+    void yield(i64 count = 1) {
         for(mut_i64 i = 0; i < count; ++i) {
-            Stage<mut_i64, F, S>::receive(std::forward<value_type>(_index));
+            _emit(std::forward<mut_i64>(_index));
             ++_index;
         }
     }
 
+    S _successor;
+    Emit<S> _emit;
     mut_i64 _index{0};
 };
 
 template <typename S>
-Generator<Identity, S> make_generator(S successor) {
-    return Generator<Identity, S>{Identity{}, successor};
-}
-
-template <typename F, typename S>
-Generator<F, S> make_generator(F function, S successor) {
-    return Generator<F, S>{function, successor};
+IotaGenerator<S> make_iota_generator(S successor) {
+    return IotaGenerator<S>{successor};
 }
 
 }
