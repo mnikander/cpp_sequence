@@ -1,12 +1,19 @@
-# Structured programs via meta-programming
+# Sequence library
 
-Can structured programs be generated at compile-time using templates?
-Can such a structured program closely approximate the code from a handcrafted solution for a map-filter-reduce program?
-What about for other linear algorithms in the STL?
+This library generates a sequence of values and performs arbitrary transformations on that sequence.
+The goal is to create a small library of composeable algorithms, including map, filter, reduce, and several other algorithms.
+These algorithms should be easy use and easy to compose.
+The resulting code should have only a small runtime overhead compared to the equivalent hand-crafted code.
+Another goal is to avoid some of the pitfalls of the C++ ranges library, such as the 'terrible problem of incrementing a smart iterator'.
 
-If this is possible, then perhaps a small library of composeable algorithms could be created with this technique.
+A variety of possible approaches have been explored.
+The current approach builds a pipeline out of stages.
+There are three building blocks from which a pipeline is built:
+- a generator stage creates values and passes them onwards
+- a stage receives values, transforms them, and passes them onwards, possibly to other intermediate stages
+- a sink receives values and writes them into a container or result field
 
-This is inspired by the 'Rappel' library presented at CppNow 2024 ([youtube](https://www.youtube.com/watch?v=itnyR9j8y6E)).
+This workflow is heavily inspired by the streaming library in Kotlin and the 'Rappel' library presented at CppNow 2024 ([youtube](https://www.youtube.com/watch?v=itnyR9j8y6E)).
 
 ## Getting started
 
@@ -30,11 +37,24 @@ cmake --build out/ && ./out/unit_tests
 ## Goals
 
 1. The following shall be valid code: `from(vec) | filter(isEven) | take(3) | to(outputVec);`
-2. Find out if structured programms can be constructed by template meta-programming, to create such algorithm pipelines.
-3. After substitution of the templates, the code should be very similar to a handcrafted for-loop for this example, so that very little runtime overhead is introduced.
-4. By extension, the generated assembly code should be very similar to that of the handcrafted for-loop.
+2. After substitution of the templates, the code should be very similar to a handcrafted for-loop for this example, so that very little runtime overhead is introduced.
+3. By extension, the generated assembly code should be very similar to that of the handcrafted for-loop.
 
 ## Design
+
+How can pipelines of STL algorithms be decomposed? What sorts of operations are there?
+- the elements (iterators, counters, generators)
+- access pattern (iteration, strided access, binary search)
+- iteration begin
+- iteration end (end of range, count, or reached sentinel)
+- skip elements (filter)
+- modify iteration bounds (take, drop)
+- early stopping criterion (predicate)
+- transform elements (map)
+- return value: accumulator, iterator, index, output range
+- process one or more sequences (zip)
+- how many elements to process (single element, adjacent elements)
+- reorder input sequence (gather, scatter, rotate, reverse, sort, nth_element, permutation)
 
 ### Handling intermediate results
 
@@ -54,8 +74,7 @@ I think #3 is the easiest to implement, and has the best separation of concerns 
 
 There are two ways the results of a pipeline can be handled:
 1. Return the result
-2. Continuation-passing style (CPS), where nothing ever returns
+2. Continuation-passing style (CPS), where nothing ever returns, and the final result is written somewhere
 
-Note that CPS may be able to model `filter` in a zero-overhead way, but output is a little more difficult since I would always need something similar to the `to` function object, even for the output of single values.
-Since the C++ standard does not guaranty the tail-call optimization, I am concerned I may have performance problems with loops, or nested loops, if I implement the whole thing with CPS.
-Depending on how complicated the holding of intermediate state becomes, a solution based on CPS might actually be easier to implement.
+Note that CPS may be able to model `filter` in a zero-overhead way, but output is a little more difficult since I would always need something similar to the `to` function object, even for the output of individual result values.
+Since the C++ standard does not guarantee the tail-call optimization, I am concerned I may have performance problems with loops, or nested loops, if I implement the whole thing with CPS.

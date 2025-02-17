@@ -2,13 +2,6 @@
 #include <utility> // forward
 #include "../src/global_datatypes.hpp"
 
-// Generate a sequence of values and perform arbitrary transformations on it.
-// This workflow is heavily inspired by the streaming library in Kotlin.
-// It consists of the following three kinds of stages
-// - a generator creates values and passes them onwards
-// - a sequence stages receives values, transforms them, and passes them onwards, possibly to other intermediate stages
-// - at the end, a final stage receives values and writes them into a container -- or it could do a reduction and return a value...
-
 // Since I need to pass 'emit' as a function object which the user can use in his transform function, emit should not
 // have its own template parameter value. Instead, we have to set it at construction by getting the type information
 // from the successor stage. This means that while values propagate through the pipeline from start to finish, type
