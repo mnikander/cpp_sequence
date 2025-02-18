@@ -63,7 +63,7 @@ TEST(map_stage, nested_call)
     std::vector<int> result{};
     auto squared = [](int value){ return value*value; };
 
-    // pipeline stages, nested in order
+    // pipeline, nested in order
     auto pipeline = iota(map<int>(squared, toVector(result)));
 
     // run the pipeline to produce the first 5 values

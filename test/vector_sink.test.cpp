@@ -33,3 +33,18 @@ TEST(vector_sink, five)
     sequence.yield(5);
     EXPECT_EQ(result, expected);
 }
+
+TEST(vector_sink, nested_pipeline)
+{
+    using namespace seq;
+    std::vector<i64> result{};
+    std::vector<i64> const expected{0, 1, 2, 3, 4};
+
+    // pipeline, nested in order
+    auto sequence =
+        iota(
+            toVector(result));
+
+    sequence.yield(5);
+    EXPECT_EQ(result, expected);
+}

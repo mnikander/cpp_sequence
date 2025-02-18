@@ -107,7 +107,7 @@ TEST(take_stage, nested_call)
     std::vector<i64> const expected{0, 2, 4};
     auto isEven = [](i64 i) {return i % 2 == 0; };
 
-    // pipeline stages, nested in order
+    // pipeline, nested in order
     auto sequence =
         iota(
             filter<i64>(isEven,

@@ -40,7 +40,7 @@ TEST(value_sink, nested_call)
     i64 result{};
     i64 const expected{4};
 
-    // pipeline stages, nested in order
+    // pipeline, nested in order
     auto sequence = iota(toValue(result));
 
     sequence.yield(5);

@@ -31,8 +31,11 @@ TEST(reduce_stage, nested_pipeline)
     i64 result = 0;
     i64 const expected = 10;
 
-    // pipeline stages, nested in order
-    auto sequence = iota(reduce<i64>(std::plus<i64>{}, 0LL, toValue(result)));
+    // pipeline, nested in order
+    auto sequence =
+        iota(
+            reduce<i64>(std::plus<i64>{}, 0LL,
+                toValue(result)));
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
@@ -45,6 +48,7 @@ TEST(reduce_stage, map_filter_reduce) {
     auto isEven     = [](int i){ return i % 2 == 0; };
     int result = 0;
 
+    // pipeline, nested in order
     auto sequence =
         iota(
             map<int>(minusThree,
