@@ -14,9 +14,9 @@ struct ReduceTransformation {
 
     // TODO: benchmark this against an equivalent 'Stage', to check if this transformation introduces overhead
     template <typename Emitter>
-    void operator()(Emitter& emit, T&& arg) {
+    Status operator()(Emitter& emit, T&& arg) {
         _accumulator = _function(_accumulator, std::forward<T>(arg));
-        emit(std::forward<T>(_accumulator));
+        return emit(std::forward<T>(_accumulator));
     }
 
     F _function;

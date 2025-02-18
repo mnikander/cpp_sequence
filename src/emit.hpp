@@ -16,8 +16,8 @@ struct Emit {
     // the pipeline stage which is using this emitter. Otherwise there would be multiple copies of each stage.
     Emit(S& successor) : _successor{successor} {}
 
-    void operator()(typename S::Input&& value) {
-        _successor.receive(std::forward<typename S::Input>(value));
+    Status operator()(typename S::Input&& value) {
+        return _successor.receive(std::forward<typename S::Input>(value));
     }
 
     S& _successor;

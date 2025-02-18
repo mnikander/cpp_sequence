@@ -14,9 +14,12 @@ struct FilterTransformation {
 
     // TODO: benchmark the 'Stage' against an equivalent 'FilterStage'
     template <typename Emitter, typename T>
-    void operator()(Emitter& emit, T&& arg) {
+    Status operator()(Emitter& emit, T&& arg) {
         if (_predicate(std::forward<T>(arg))) {
-            emit(std::forward<T>(arg));
+            return emit(std::forward<T>(arg));
+        }
+        else {
+            return OK;
         }
     }
 

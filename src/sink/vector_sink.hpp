@@ -13,8 +13,9 @@ struct VectorSink {
 
     VectorSink(std::vector<T>& vector) : _vector{vector} {}
 
-    void receive(Input&& value) {
+    Status receive(Input&& value) {
         _vector.push_back(std::forward<Input>(value));
+        return OK;
     }
 
     std::vector<T>& _vector;

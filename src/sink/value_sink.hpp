@@ -12,8 +12,9 @@ struct ValueSink {
 
     ValueSink(T& value) : _value{value} {}
 
-    void receive(Input&& value) {
+    Status receive(Input&& value) {
         _value = std::forward<Input>(value);
+        return OK;
     }
 
     T& _value;

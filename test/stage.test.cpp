@@ -21,7 +21,7 @@ TEST(stage, map)
     std::array<i64, 5> result{0, 0, 0, 0, 0};
     std::array<i64, 5> expected{0, 1, 4, 9, 16};
 
-    auto f_sq = [](auto emit, auto&& value)->void { emit(value*value); };
+    auto f_sq = [](auto emit, auto&& value) -> Status { return emit(value*value); };
 
     // pipeline stages, from last to first
     auto sink     = toRange(result);

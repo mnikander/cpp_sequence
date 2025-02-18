@@ -17,8 +17,8 @@ struct UnaryTransformation {
     // must pass it in every call. I am not sure if this has runtime performance repercussions.
     // To find out, I would need to benchmark the 'Stage' against an equivalent 'MapStage'.
     template <typename Emitter, typename T>
-    void operator()(Emitter& emit, T&& arg) {
-        emit(_function(std::forward<T>(arg)));
+    Status operator()(Emitter& emit, T&& arg) {
+        return emit(_function(std::forward<T>(arg)));
     }
 
     F _function;

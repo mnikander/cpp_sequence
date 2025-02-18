@@ -18,11 +18,26 @@ struct IotaSource {
 
     IotaSource(T init, S successor) : _index{init}, _successor{successor}, _emit{_successor} {}
 
-    void yield(T const count = 1) {
-        for(T i = 0; i < count; ++i) {
-            _emit(std::forward<T>(_index));
+    // yield runs a fixed number of times, unless it gets a HALT signal beforehand
+    // yield can be called again, and it will continue where it left off last time, even if it stopped due to a HALT
+    Status yield(T const count = 1) {
+        Status status = OK;
+        for(T i = 0; i < count && status == OK; ++i) {
+            status = _emit(std::forward<T>(_index));
             ++_index;
         }
+        return status;
+    }
+
+    Status run() {
+        Status status = OK;
+        while(status == OK) {
+            status = _emit(std::forward<T>(_index));
+            if(status == OK) {
+                ++_index;
+            }
+        }
+        return status;
     }
 
     T _index;

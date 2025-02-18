@@ -45,6 +45,7 @@ add_executable(unit_tests ${SOURCES}
                test/map_stage.test.cpp
                test/reduce_stage.test.cpp
                test/stage.test.cpp
+               test/take_stage.test.cpp
                test/value_sink.test.cpp
                test/vector_sink.test.cpp
 )
