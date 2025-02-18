@@ -34,7 +34,7 @@ mkdir out && cd out && cmake .. && cd .. # out-of-source build
 cmake --build out/ && ./out/unit_tests
 ```
 
-## Usage example
+## Usage examples
 
 The following example illustrates a pipeline where values are created using `iota`, are squared (i.e. x^2) using `map`, and then written to an output vector.
 
@@ -59,6 +59,24 @@ Note that intermediate stages, such as `map` must explicitly specify the value t
 This allows any possible type mismatches to be localized identified by the compiler.
 This ensures relatively short error messages, which clearly state where in the pipeline the type mismatch occured.
 
+An example for a **map-filter-reduce** pipeline, common in functional programming languages, is given below:
+
+```cpp
+using namespace seq;
+
+auto minusThree = [](int i){ return i - 3; };
+auto isEven     = [](int i){ return i % 2 == 0; };
+int result = 0;
+
+auto sequence =
+    iota(
+        map<int>(minusThree,
+            filter<int>(isEven,
+                reduce<int>(std::plus<int>{}, 0,
+                    toValue(result)))));
+sequence.yield(8); // sum of (-2, 0, 2, 4)
+assert(result == 4);
+```
 
 ---
 Copyright (c) 2024, Marco Nikander
