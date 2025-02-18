@@ -32,7 +32,7 @@ struct IotaGenerator {
 };
 
 template <typename S>
-IotaGenerator<S> make_iota_generator(S successor) {
+auto make_iota_generator(S successor) {
     return IotaGenerator<S>{successor};
 }
 

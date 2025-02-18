@@ -25,7 +25,7 @@ TEST(sequence, map)
     auto f_sq = [](auto emit, auto&& value)->void { emit(value*value); };
 
     // pipeline stages, from last to first
-    auto sink     = RangeSink{result};
+    auto sink     = make_range_sink(result);
     auto square   = make_stage<mutable_i64>(f_sq, sink);
     auto sequence = make_iota_generator(square);
 

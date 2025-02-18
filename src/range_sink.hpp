@@ -21,4 +21,10 @@ struct RangeSink {
     mutable_i64 _target_index{0};
 };
 
+
+template <typename R>
+auto make_range_sink(R& range) {
+    return RangeSink<R>{range};
+}
+
 }
