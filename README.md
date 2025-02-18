@@ -9,7 +9,7 @@ Another goal is to avoid some of the pitfalls of the C++ ranges library, such as
 A variety of possible approaches have been explored.
 The current approach builds a pipeline out of stages.
 There are three building blocks from which a pipeline is built:
-- a generator creates values and passes them onwards
+- a source creates values and passes them onwards
 - a stage receives values, transforms them, and passes them onwards, possibly to other intermediate stages
 - a sink receives values and writes them into a container or result field
 

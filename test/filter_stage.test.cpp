@@ -3,7 +3,7 @@
 #include <vector>
 #include <gtest/gtest.h>
 #include "../src/datatypes.hpp"
-#include "../src/generator/iota_generator.hpp"
+#include "../src/source/iota_source.hpp"
 #include "../src/sink/vector_sink.hpp"
 #include "../src/stage/filter_stage.hpp"
 
@@ -16,7 +16,7 @@ TEST(filter_stage, all)
     // pipeline stages, from last to first
     auto sink     = make_vector_sink(result);
     auto square   = make_filter_stage<i64>([](i64 const i){ (void)i; return true; }, sink);
-    auto sequence = make_iota_generator(square);
+    auto sequence = make_iota_source(square);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
@@ -30,7 +30,7 @@ TEST(filter_stage, none)
     // pipeline stages, from last to first
     auto sink     = make_vector_sink(result);
     auto square   = make_filter_stage<i64>([](i64 const i){ (void)i; return false; }, sink);
-    auto sequence = make_iota_generator(square);
+    auto sequence = make_iota_source(square);
 
     sequence.yield(5);
     ASSERT_EQ(result.size(), 0);
@@ -45,7 +45,7 @@ TEST(filter_stage, one)
     // pipeline stages, from last to first
     auto sink     = make_vector_sink(result);
     auto square   = make_filter_stage<i64>([](i64 const i){ return i == 1; }, sink);
-    auto sequence = make_iota_generator(square);
+    auto sequence = make_iota_source(square);
 
     sequence.yield(5);
     ASSERT_EQ(result.size(), 1);
@@ -61,7 +61,7 @@ TEST(filter_stage, even)
     // pipeline stages, from last to first
     auto sink     = make_vector_sink(result);
     auto square   = make_filter_stage<i64>([](i64 const i){ return i % 2 == 0; }, sink);
-    auto sequence = make_iota_generator(square);
+    auto sequence = make_iota_source(square);
 
     sequence.yield(5);
     ASSERT_EQ(result.size(), 3);

@@ -3,7 +3,7 @@
 #include <vector>
 #include <gtest/gtest.h>
 #include "../src/datatypes.hpp"
-#include "../src/generator/iota_generator.hpp"
+#include "../src/source/iota_source.hpp"
 #include "../src/sink/value_sink.hpp"
 
 TEST(value_sink, one)
@@ -14,7 +14,7 @@ TEST(value_sink, one)
 
     // pipeline stages, from last to first
     auto sink     = make_value_sink(result);
-    auto sequence = make_iota_generator(sink);
+    auto sequence = make_iota_source(sink);
 
     sequence.yield(1);
     EXPECT_EQ(result, expected);
@@ -28,7 +28,7 @@ TEST(value_sink, five)
 
     // pipeline stages, from last to first
     auto sink     = make_value_sink(result);
-    auto sequence = make_iota_generator(sink);
+    auto sequence = make_iota_source(sink);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);

@@ -3,7 +3,7 @@
 #include <array>
 #include <gtest/gtest.h>
 #include "../src/datatypes.hpp"
-#include "../src/generator/iota_generator.hpp"
+#include "../src/source/iota_source.hpp"
 #include "../src/sink/range_sink.hpp"
 #include "../src/stage/map_stage.hpp"
 
@@ -16,7 +16,7 @@ TEST(map_stage, identity)
     // pipeline stages, from last to first
     auto sink     = make_range_sink(result);
     auto square   = make_map_stage<i64 const>([](i64 const i){ return i; }, sink);
-    auto sequence = make_iota_generator(square);
+    auto sequence = make_iota_source(square);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
@@ -32,7 +32,7 @@ TEST(map_stage, square)
     // pipeline stages, from last to first
     auto sink     = make_range_sink(result);
     auto square   = make_map_stage<i64 const>([](i64 const value){ return value*value; }, sink);
-    auto sequence = make_iota_generator(square);
+    auto sequence = make_iota_source(square);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
@@ -47,7 +47,7 @@ TEST(map_stage, int_to_float)
     // pipeline stages, from last to first
     auto sink     = make_range_sink(result);
     auto square   = make_map_stage<i64 const>([](i64 const i){ return static_cast<f64>(i); }, sink);
-    auto sequence = make_iota_generator(square);
+    auto sequence = make_iota_source(square);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);

@@ -13,10 +13,10 @@ namespace seq {
 // Let's try it without back-communication, and see if we get a simpler design, which actually works.
 
 template <typename S>
-struct IotaGenerator {
+struct IotaSource {
     using Input = i64;
 
-    IotaGenerator(S successor) : _successor{successor}, _emit{_successor} {}
+    IotaSource(S successor) : _successor{successor}, _emit{_successor} {}
 
     void yield(i64 const count = 1) {
         for(i64 i = 0; i < count; ++i) {
@@ -31,8 +31,8 @@ struct IotaGenerator {
 };
 
 template <typename S>
-auto make_iota_generator(S successor) {
-    return IotaGenerator<S>{successor};
+auto make_iota_source(S successor) {
+    return IotaSource<S>{successor};
 }
 
 }
