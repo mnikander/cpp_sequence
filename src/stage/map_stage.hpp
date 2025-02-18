@@ -29,7 +29,7 @@ template <typename T, typename F, typename S>
 using MapStage = Stage<T, UnaryTransformation<F>, S>;
 
 template <typename T, typename F, typename S>
-auto make_map_stage(F unaryFunction, S successor) {
+auto map(F unaryFunction, S successor) {
     return Stage<T, UnaryTransformation<F>, S>{UnaryTransformation{unaryFunction}, successor};
 }
 

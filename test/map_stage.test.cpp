@@ -14,9 +14,9 @@ TEST(map_stage, identity)
     std::array<i64, 5> const expected{0, 1, 2, 3, 4};
 
     // pipeline stages, from last to first
-    auto sink     = make_range_sink(result);
-    auto square   = make_map_stage<i64 const>([](i64 const i){ return i; }, sink);
-    auto sequence = make_iota_source(square);
+    auto sink     = toRange(result);
+    auto square   = map<i64 const>([](i64 const i){ return i; }, sink);
+    auto sequence = iota(square);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
@@ -30,9 +30,9 @@ TEST(map_stage, square)
     std::array<i64, 5> const expected{0, 1, 4, 9, 16};
 
     // pipeline stages, from last to first
-    auto sink     = make_range_sink(result);
-    auto square   = make_map_stage<i64 const>([](i64 const value){ return value*value; }, sink);
-    auto sequence = make_iota_source(square);
+    auto sink     = toRange(result);
+    auto square   = map<i64 const>([](i64 const value){ return value*value; }, sink);
+    auto sequence = iota(square);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
@@ -45,9 +45,9 @@ TEST(map_stage, int_to_float)
     std::array<f64, 5> const expected{0.0, 1.0, 2.0, 3.0, 4.0};
 
     // pipeline stages, from last to first
-    auto sink     = make_range_sink(result);
-    auto square   = make_map_stage<i64 const>([](i64 const i){ return static_cast<f64>(i); }, sink);
-    auto sequence = make_iota_source(square);
+    auto sink     = toRange(result);
+    auto square   = map<i64 const>([](i64 const i){ return static_cast<f64>(i); }, sink);
+    auto sequence = iota(square);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);

@@ -13,8 +13,8 @@ TEST(vector_sink, one)
     std::vector<i64> const expected{0};
 
     // pipeline stages, from last to first
-    auto sink     = make_vector_sink(result);
-    auto sequence = make_iota_source(sink);
+    auto sink     = toVector(result);
+    auto sequence = iota(sink);
 
     sequence.yield(1);
     EXPECT_EQ(result, expected);
@@ -27,8 +27,8 @@ TEST(vector_sink, five)
     std::vector<i64> const expected{0, 1, 2, 3, 4};
 
     // pipeline stages, from last to first
-    auto sink     = make_vector_sink(result);
-    auto sequence = make_iota_source(sink);
+    auto sink     = toVector(result);
+    auto sequence = iota(sink);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);

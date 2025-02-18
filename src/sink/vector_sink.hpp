@@ -21,7 +21,7 @@ struct VectorSink {
 };
 
 template <typename T>
-auto make_vector_sink(std::vector<T>& vector) {
+auto toVector(std::vector<T>& vector) {
     return VectorSink<T>{vector};
 }
 

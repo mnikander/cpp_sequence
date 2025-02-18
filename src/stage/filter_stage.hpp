@@ -28,7 +28,7 @@ template <typename T, typename F, typename S>
 using FilterStage = Stage<T, FilterTransformation<F>, S>;
 
 template <typename T, typename F, typename S>
-auto make_filter_stage(F unaryFunction, S successor) {
+auto filter(F unaryFunction, S successor) {
     return Stage<T, FilterTransformation<F>, S>{FilterTransformation{unaryFunction}, successor};
 }
 

@@ -22,7 +22,7 @@ struct Stage {
 };
 
 template <typename T, typename F, typename S>
-auto make_stage(F function, S successor) {
+auto stage(F function, S successor) {
     return Stage<T, F, S>{function, successor};
 }
 

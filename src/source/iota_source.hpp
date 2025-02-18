@@ -31,7 +31,7 @@ struct IotaSource {
 };
 
 template <typename S>
-auto make_iota_source(S successor) {
+auto iota(S successor) {
     return IotaSource<S>{successor};
 }
 

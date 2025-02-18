@@ -28,7 +28,7 @@ template <typename T, typename F, typename S>
 using ReduceStage = Stage<T, ReduceTransformation<F, T>, S>;
 
 template <typename T, typename F, typename S>
-auto make_reduce_stage(F binaryFunction, T init, S successor) {
+auto reduce(F binaryFunction, T init, S successor) {
     return Stage<T, ReduceTransformation<F, T>, S>{ReduceTransformation<F, T>{binaryFunction, init}, successor};
 }
 

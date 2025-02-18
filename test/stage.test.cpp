@@ -24,9 +24,9 @@ TEST(stage, map)
     auto f_sq = [](auto emit, auto&& value)->void { emit(value*value); };
 
     // pipeline stages, from last to first
-    auto sink     = make_range_sink(result);
-    auto square   = make_stage<i64>(f_sq, sink);
-    auto sequence = make_iota_source(square);
+    auto sink     = toRange(result);
+    auto square   = stage<i64>(f_sq, sink);
+    auto sequence = iota(square);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);

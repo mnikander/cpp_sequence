@@ -22,7 +22,7 @@ struct RangeSink {
 };
 
 template <typename R>
-auto make_range_sink(R& range) {
+auto toRange(R& range) {
     return RangeSink<R>{range};
 }
 

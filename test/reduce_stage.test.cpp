@@ -15,9 +15,22 @@ TEST(reduce_stage, sum)
     i64 const expected = 10;
 
     // pipeline stages, from last to first
-    auto sink     = make_value_sink(result);
-    auto square   = make_reduce_stage<i64>(std::plus<i64>{}, 0LL, sink);
-    auto sequence = make_iota_source(square);
+    auto sink     = toValue(result);
+    auto square   = reduce<i64>(std::plus<i64>{}, 0LL, sink);
+    auto sequence = iota(square);
+
+    sequence.yield(5);
+    EXPECT_EQ(result, expected);
+}
+
+TEST(reduce_stage, nested_pipeline)
+{
+    using namespace seq;
+    i64 result = 0;
+    i64 const expected = 10;
+
+    // pipeline stages, nested in order
+    auto sequence = iota(reduce<i64>(std::plus<i64>{}, 0LL, toValue(result)));
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);

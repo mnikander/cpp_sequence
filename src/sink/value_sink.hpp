@@ -20,7 +20,7 @@ struct ValueSink {
 };
 
 template <typename T>
-auto make_value_sink(T& value) {
+auto toValue(T& value) {
     return ValueSink<T>{value};
 }
 
