@@ -33,3 +33,28 @@ cd #... navigate into the freshly cloned repo
 mkdir out && cd out && cmake .. && cd .. # out-of-source build
 cmake --build out/ && ./out/unit_tests
 ```
+
+## Usage example
+
+The following example illustrates a pipeline where values are created using `iota`, are squared (i.e. x^2) using `map`, and then written to an output vector.
+
+```cpp
+using namespace seq;
+
+std::vector<int> const expected{0, 1, 4, 9, 16};
+std::vector<int> result{};
+auto sq = [](int value){ return value*value; };
+
+// pipeline stages, nested in order
+auto pipeline = iota(map<int>(sq, toVector(result)));
+
+// run the pipeline to produce the first 5 values
+pipeline.yield(5);
+
+assert(result.size() == 5);
+assert(result == expected);
+```
+
+Note that intermediate stages, such as `map` must explicitly specify the value type of their _inputs_, in this case `int`.
+This allows any possible type mismatches to be localized identified by the compiler.
+This ensures relatively short error messages, which clearly state where in the pipeline the type mismatch occured.

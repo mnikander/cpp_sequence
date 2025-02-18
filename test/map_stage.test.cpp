@@ -1,10 +1,12 @@
 // Copyright (c) 2025, Marco Nikander
 
 #include <array>
+#include <vector>
 #include <gtest/gtest.h>
 #include "../src/datatypes.hpp"
 #include "../src/source/iota_source.hpp"
 #include "../src/sink/range_sink.hpp"
+#include "../src/sink/vector_sink.hpp"
 #include "../src/stage/map_stage.hpp"
 
 TEST(map_stage, identity)
@@ -50,5 +52,21 @@ TEST(map_stage, int_to_float)
     auto sequence = iota(square);
 
     sequence.yield(5);
+    EXPECT_EQ(result, expected);
+}
+
+TEST(map_stage, nested_call)
+{
+    using namespace seq;
+
+    std::vector<i64> result{};
+    std::vector<i64> const expected{0, 1, 4, 9, 16};
+    auto sq = [](i64 value){ return value*value; };
+
+    // pipeline stages, nested in order
+    auto sequence = iota(map<i64 const>(sq, toVector(result)));
+
+    sequence.yield(5);
+    ASSERT_EQ(result.size(), 5);
     EXPECT_EQ(result, expected);
 }
