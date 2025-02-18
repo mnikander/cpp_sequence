@@ -12,27 +12,32 @@ namespace seq {
 // This would complicate the design though, and make it similar to my prior design.
 // Let's try it without back-communication, and see if we get a simpler design, which actually works.
 
-template <typename S>
+template <typename T, typename S>
 struct IotaSource {
-    using Input = i64;
+    using Input = T;
 
-    IotaSource(S successor) : _successor{successor}, _emit{_successor} {}
+    IotaSource(T init, S successor) : _index{init}, _successor{successor}, _emit{_successor} {}
 
-    void yield(i64 const count = 1) {
-        for(i64 i = 0; i < count; ++i) {
-            _emit(std::forward<i64>(_index));
+    void yield(T const count = 1) {
+        for(T i = 0; i < count; ++i) {
+            _emit(std::forward<T>(_index));
             ++_index;
         }
     }
 
+    T _index;
     S _successor;
     Emit<S> _emit;
-    i64 _index{0};
 };
+
+template <typename T, typename S>
+auto iota(T init, S successor) {
+    return IotaSource<T, S>{init, successor};
+}
 
 template <typename S>
 auto iota(S successor) {
-    return IotaSource<S>{successor};
+    return IotaSource<int, S>{0, successor};
 }
 
 }

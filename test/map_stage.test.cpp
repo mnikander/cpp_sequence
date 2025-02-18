@@ -59,14 +59,16 @@ TEST(map_stage, nested_call)
 {
     using namespace seq;
 
-    std::vector<i64> result{};
-    std::vector<i64> const expected{0, 1, 4, 9, 16};
-    auto sq = [](i64 value){ return value*value; };
+    std::vector<int> const expected{0, 1, 4, 9, 16};
+    std::vector<int> result{};
+    auto squared = [](int value){ return value*value; };
 
     // pipeline stages, nested in order
-    auto sequence = iota(map<i64 const>(sq, toVector(result)));
+    auto pipeline = iota(map<int>(squared, toVector(result)));
 
-    sequence.yield(5);
+    // run the pipeline to produce the first 5 values
+    pipeline.yield(5);
+
     ASSERT_EQ(result.size(), 5);
     EXPECT_EQ(result, expected);
 }
