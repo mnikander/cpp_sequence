@@ -1,3 +1,5 @@
+// Copyright (c) 2025, Marco Nikander
+
 #include <array>
 #include <gtest/gtest.h>
 #include "../src/datatypes.hpp"

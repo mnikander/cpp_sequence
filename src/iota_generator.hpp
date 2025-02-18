@@ -1,3 +1,5 @@
+// Copyright (c) 2025, Marco Nikander
+
 #pragma once
 #include <utility> // forward
 #include "datatypes.hpp"
