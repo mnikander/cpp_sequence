@@ -6,6 +6,7 @@
 
 namespace seq {
 
+namespace {
 template <typename F>
 struct UnaryTransformation {
 
@@ -22,6 +23,7 @@ struct UnaryTransformation {
 
     F _function;
 };
+}
 
 template <typename T, typename F, typename S>
 using MapStage = Stage<T, UnaryTransformation<F>, S>;

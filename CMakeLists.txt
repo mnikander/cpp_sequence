@@ -42,6 +42,6 @@ target_link_libraries(deprecated_v2_unit_tests ${GTEST_LIBRARIES} pthread)
 add_executable(unit_tests ${SOURCES}
                test/main.test.cpp
                test/map_stage.test.cpp
-               test/sequence.test.cpp
+               test/stage.test.cpp
 )
 target_link_libraries(unit_tests ${GTEST_LIBRARIES} pthread)

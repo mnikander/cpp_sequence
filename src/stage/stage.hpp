@@ -2,8 +2,7 @@
 
 #pragma once
 #include <utility> // forward
-#include "datatypes.hpp"
-#include "emit.hpp"
+#include "../emit.hpp"
 
 namespace seq {
 

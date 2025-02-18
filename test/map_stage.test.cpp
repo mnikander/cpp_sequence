@@ -4,9 +4,9 @@
 #include <gtest/gtest.h>
 #include "../src/datatypes.hpp"
 #include "../src/emit.hpp"
-#include "../src/iota_generator.hpp"
-#include "../src/map_stage.hpp"
-#include "../src/range_sink.hpp"
+#include "../src/generator/iota_generator.hpp"
+#include "../src/sink/range_sink.hpp"
+#include "../src/stage/map_stage.hpp"
 
 TEST(map_stage, identity)
 {

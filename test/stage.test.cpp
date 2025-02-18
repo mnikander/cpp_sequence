@@ -4,11 +4,11 @@
 #include <gtest/gtest.h>
 #include "../src/datatypes.hpp"
 #include "../src/emit.hpp"
-#include "../src/iota_generator.hpp"
-#include "../src/range_sink.hpp"
-#include "../src/stage.hpp"
+#include "../src/generator/iota_generator.hpp"
+#include "../src/sink/range_sink.hpp"
+#include "../src/stage/stage.hpp"
 
-TEST(sequence, map)
+TEST(stage, map)
 {
     // In this example we define a pipeline with the following stages:
     // - generate a sequence of integers
