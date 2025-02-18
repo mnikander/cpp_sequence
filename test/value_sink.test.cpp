@@ -1,6 +1,5 @@
 // Copyright (c) 2025, Marco Nikander
 
-#include <vector>
 #include <gtest/gtest.h>
 #include "../src/datatypes.hpp"
 #include "../src/source/iota_source.hpp"

@@ -3,6 +3,7 @@
 #pragma once
 #include <utility> // forward
 #include "stage.hpp"
+#include "../datatypes.hpp"
 
 namespace seq {
 
