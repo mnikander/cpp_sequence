@@ -18,7 +18,7 @@ struct RangeSink {
     }
 
     Range& _range;
-    mut_i64 _target_index{0};
+    mutable_i64 _target_index{0};
 };
 
 }
