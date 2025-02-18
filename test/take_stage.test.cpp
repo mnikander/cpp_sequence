@@ -6,6 +6,7 @@
 #include "../src/source/iota_source.hpp"
 #include "../src/sink/vector_sink.hpp"
 #include "../src/stage/filter_stage.hpp"
+#include "../src/stage/map_stage.hpp"
 #include "../src/stage/take_stage.hpp"
 
 
@@ -80,6 +81,25 @@ TEST(take_stage, halt_and_restart)
     sequence.run(); // get 2 values
     sequence.run(); // continue where we left off, and get another 2 values ;)
     EXPECT_EQ(result.size(), 4);
+    EXPECT_EQ(result, expected);
+}
+
+TEST(take_stage, map_three_numbers)
+{
+    using namespace seq;
+    std::vector<i64> const expected{0, 1, 4};
+    std::vector<i64> result{};
+    auto square = [](int value){ return value*value; };
+
+    // define the pipeline stages, from last to first
+    auto sink     = toVector(result);          // write each result
+    auto take3    = take<int>(3, sink);        // HALT after 3 elements
+    auto map_sq   = map<int>(square, take3);   // square each element
+    auto sequence = iota(map_sq);              // generate integers [0, inf)
+
+    // run the pipeline until one of the stages signals HALT
+    sequence.run();
+    EXPECT_EQ(result.size(), 3);
     EXPECT_EQ(result, expected);
 }
 
