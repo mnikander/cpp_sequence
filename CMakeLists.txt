@@ -43,7 +43,9 @@ add_executable(unit_tests ${SOURCES}
                test/filter_stage.test.cpp
                test/main.test.cpp
                test/map_stage.test.cpp
+               test/reduce_stage.test.cpp
                test/stage.test.cpp
+               test/value_sink.test.cpp
                test/vector_sink.test.cpp
 )
 target_link_libraries(unit_tests ${GTEST_LIBRARIES} pthread)
