@@ -6,6 +6,8 @@
 #include "../src/source/iota_source.hpp"
 #include "../src/sink/range_sink.hpp"
 #include "../src/sink/value_sink.hpp"
+#include "../src/stage/filter_stage.hpp"
+#include "../src/stage/map_stage.hpp"
 #include "../src/stage/reduce_stage.hpp"
 
 TEST(reduce_stage, sum)
@@ -34,4 +36,21 @@ TEST(reduce_stage, nested_pipeline)
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
+}
+
+TEST(reduce_stage, map_filter_reduce) {
+    using namespace seq;
+
+    auto minusThree = [](int i){ return i - 3; };
+    auto isEven     = [](int i){ return i % 2 == 0; };
+    int result = 0;
+
+    auto sequence =
+        iota(
+            map<int>(minusThree,
+                filter<int>(isEven,
+                    reduce<int>(std::plus<int>{}, 0,
+                        toValue(result)))));
+    sequence.yield(8); // sum of (-2, 0, 2, 4)
+    EXPECT_EQ(result, 4);
 }
