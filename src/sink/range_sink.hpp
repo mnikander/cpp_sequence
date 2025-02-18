@@ -8,12 +8,12 @@ namespace seq {
 
 template <typename Range>
 struct RangeSink {
-    using value_type = typename Range::value_type;
+    using Input = typename Range::value_type;
 
     RangeSink(Range& range) : _range{range} {}
 
-    void receive(value_type&& value) {
-        *(_range.begin() + _target_index) = std::forward<value_type>(value);
+    void receive(Input&& value) {
+        *(_range.begin() + _target_index) = std::forward<Input>(value);
         ++_target_index;
     }
 

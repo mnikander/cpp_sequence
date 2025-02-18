@@ -14,7 +14,7 @@ namespace seq {
 
 template <typename S>
 struct IotaGenerator {
-    using value_type = mutable_i64;
+    using Input = mutable_i64;
 
     IotaGenerator(S successor) : _successor{successor}, _emit{_successor} {}
 

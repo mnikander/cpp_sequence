@@ -8,12 +8,12 @@ namespace seq {
 
 template <typename T, typename F, typename S>
 struct Stage {
-    using value_type = T;
+    using Input = T;
 
     Stage(F transformation, S successor) : _transformation{transformation}, _successor{successor}, _emit{_successor} {}
 
-    void receive(value_type&& value) {
-        _transformation(_emit, std::forward<value_type>(value));
+    void receive(Input&& value) {
+        _transformation(_emit, std::forward<Input>(value));
     }
 
     F _transformation;

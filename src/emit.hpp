@@ -7,7 +7,7 @@
 namespace seq {
 
 // To pass a value to the next stage in the pipeline, we need a reference to the next stage, and we need to know the
-// value_type it works with. This means that values propagate forwards through the pipeline from the beginning to the
+// Input type it works with. This means that values propagate forwards through the pipeline from the beginning to the
 // end, but type information propagates through the pipeline backwards, from the end to the beginning.
 
 template<typename S>
@@ -16,8 +16,8 @@ struct Emit {
     // the pipeline stage which is using this emitter. Otherwise there would be multiple copies of each stage.
     Emit(S& successor) : _successor{successor} {}
 
-    void operator()(typename S::value_type&& value) {
-        _successor.receive(std::forward<typename S::value_type>(value));
+    void operator()(typename S::Input&& value) {
+        _successor.receive(std::forward<typename S::Input>(value));
     }
 
     S& _successor;
