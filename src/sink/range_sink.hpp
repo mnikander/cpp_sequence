@@ -18,7 +18,7 @@ struct RangeSink {
     }
 
     Range& _range;
-    mutable_i64 _target_index{0};
+    i64 _target_index{0};
 };
 
 template <typename R>

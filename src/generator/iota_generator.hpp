@@ -14,20 +14,20 @@ namespace seq {
 
 template <typename S>
 struct IotaGenerator {
-    using Input = mutable_i64;
+    using Input = i64;
 
     IotaGenerator(S successor) : _successor{successor}, _emit{_successor} {}
 
-    void yield(i64 count = 1) {
-        for(mutable_i64 i = 0; i < count; ++i) {
-            _emit(std::forward<mutable_i64>(_index));
+    void yield(i64 const count = 1) {
+        for(i64 i = 0; i < count; ++i) {
+            _emit(std::forward<i64>(_index));
             ++_index;
         }
     }
 
     S _successor;
     Emit<S> _emit;
-    mutable_i64 _index{0};
+    i64 _index{0};
 };
 
 template <typename S>

@@ -9,8 +9,8 @@
 TEST(value_sink, one)
 {
     using namespace seq;
-    mutable_i64 result{};
-    mutable_i64 const expected{0};
+    i64 result{};
+    i64 const expected{0};
 
     // pipeline stages, from last to first
     auto sink     = make_value_sink(result);
@@ -23,8 +23,8 @@ TEST(value_sink, one)
 TEST(value_sink, five)
 {
     using namespace seq;
-    mutable_i64 result{};
-    mutable_i64 const expected{4};
+    i64 result{};
+    i64 const expected{4};
 
     // pipeline stages, from last to first
     auto sink     = make_value_sink(result);

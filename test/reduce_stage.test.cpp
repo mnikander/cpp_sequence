@@ -11,12 +11,12 @@
 TEST(reduce_stage, sum)
 {
     using namespace seq;
-    mutable_i64 result = 0;
-    i64 expected = 10;
+    i64 result = 0;
+    i64 const expected = 10;
 
     // pipeline stages, from last to first
     auto sink     = make_value_sink(result);
-    auto square   = make_reduce_stage<mutable_i64>(std::plus<mutable_i64>{}, 0LL, sink);
+    auto square   = make_reduce_stage<i64>(std::plus<i64>{}, 0LL, sink);
     auto sequence = make_iota_generator(square);
 
     sequence.yield(5);

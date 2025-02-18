@@ -9,8 +9,8 @@
 TEST(vector_sink, one)
 {
     using namespace seq;
-    std::vector<mutable_i64> result{};
-    std::vector<mutable_i64> const expected{0};
+    std::vector<i64> result{};
+    std::vector<i64> const expected{0};
 
     // pipeline stages, from last to first
     auto sink     = make_vector_sink(result);
@@ -23,8 +23,8 @@ TEST(vector_sink, one)
 TEST(vector_sink, five)
 {
     using namespace seq;
-    std::vector<mutable_i64> result{};
-    std::vector<mutable_i64> const expected{0, 1, 2, 3, 4};
+    std::vector<i64> result{};
+    std::vector<i64> const expected{0, 1, 2, 3, 4};
 
     // pipeline stages, from last to first
     auto sink     = make_vector_sink(result);
