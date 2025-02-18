@@ -3,7 +3,6 @@
 #include <array>
 #include <gtest/gtest.h>
 #include "../src/datatypes.hpp"
-#include "../src/emit.hpp"
 #include "../src/generator/iota_generator.hpp"
 #include "../src/sink/range_sink.hpp"
 #include "../src/stage/stage.hpp"
