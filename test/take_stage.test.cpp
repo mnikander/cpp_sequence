@@ -68,19 +68,20 @@ TEST(take_stage, five)
     EXPECT_EQ(result, expected);
 }
 
-TEST(take_stage, halt_and_restart)
+TEST(take_stage, halt_and_attempt_restart)
 {
     using namespace seq;
     std::vector<i64> result{};
-    std::vector<i64> const expected{0, 1, 2, 3};
+    std::vector<i64> const expected{0, 1};
 
     // pipeline stages, from last to first
     auto sink     = toVector(result);
     auto take2    = take<i64>(2, sink);
     auto sequence = iota(take2);
     sequence.run(); // get 2 values
-    sequence.run(); // continue where we left off, and get another 2 values ;)
-    EXPECT_EQ(result.size(), 4);
+    sequence.run(); // attempt to restart the pipeline: it should NOT start
+    sequence.yield(2); // attempt to restart via yield: it should NOT start
+    EXPECT_EQ(result.size(), 2);
     EXPECT_EQ(result, expected);
 }
 

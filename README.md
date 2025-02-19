@@ -85,8 +85,11 @@ auto sequence =
 sequence.yield(8); // sum of (-2, 0, 2, 4)
 assert(result == 4);
 ```
-Note that when we use `yield(n)`, execution will terminate for sure, and we don't _need_ to have a stage which signals HALT.
-Also note that the pipeline can be restarted where it left off, by simply calling `yield(n)` or `run()` again.
+Note that when we use `yield(n)`, execution will terminate after at most `n` iterations.
+We don't _need_ to have a stage in the pipeline which signals HALT.
+We can also call `yield(n)` multiple times to get more elements, and execution will continue, from where it left off, each time.
+If any stage, for example a `take` or a `find` signals a HALT, however, the pipeline finishes the processing of the current element and then stops permanently.
+In case of a halt, the pipeline cannot be restarted, and no further elements can be obtained via `yield(n)` or `run()`.
 
 ---
 Copyright (c) 2024, Marco Nikander

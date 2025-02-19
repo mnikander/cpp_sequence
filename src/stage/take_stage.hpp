@@ -21,7 +21,6 @@ struct TakeTransformation {
             return emit(std::forward<T>(arg));
         }
         else {
-            _counter = 0; // reset the counter, to allow restarting the pipeline where it left off
             return HALT;
         }
     }
