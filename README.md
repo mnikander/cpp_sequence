@@ -3,17 +3,47 @@
 This library generates a sequence of values and performs arbitrary transformations on that sequence.
 The goal is to create a small library of composeable algorithms, including map, filter, reduce, and several other algorithms.
 These algorithms should be easy use and easy to compose.
-The resulting code should have only a small runtime overhead compared to the equivalent hand-crafted code.
-Another goal is to avoid some of the pitfalls of the C++ ranges library, such as the 'terrible problem of incrementing a smart iterator'.
+It is hoped that the codebase can be kept small and simple.
+The error messages, if something is put together incorrectly, should be human-readable (and not pages and pages of template errors).
+Aspirationally, the resulting code should have only a small runtime overhead compared to the equivalent hand-crafted code.
+It is also hoped that some of the pitfalls of the C++ ranges library, such as the '[terrible problem of incrementing a smart iterator](https://www.fluentcpp.com/2019/02/12/the-terrible-problem-of-incrementing-a-smart-iterator/)', can be avoided by using generators instead of iterators.
 
-A variety of possible approaches have been explored.
-The current approach builds a pipeline out of stages.
+Overall, a variety of possible approaches were explored.
+This implementation is based on [continuation-passing style](https://en.wikipedia.org/wiki/Continuation-passing_style), and is heavily inspired by the **Sequences** and **Streams** libraries in Kotlin, as well as the C++ **Rappel** library presented at C++Now 2024 ([youtube](https://www.youtube.com/watch?v=itnyR9j8y6E)).
+
+## How does it work?
 There are three building blocks from which a pipeline is built:
-- a source creates values and passes them onwards
-- a stage receives values, transforms them, and passes them onwards, possibly to other intermediate stages
-- a sink receives values and writes them into a container or result field
+- a **source** creates values one at a time, and passes them onwards
+- a **stage** receives a value, does something with it, and (usually) passes the result onwards
+- a **sink** receives values and writes them into a container or result variable
 
-This workflow is heavily inspired by the **Sequences** and **Streams** libraries in Kotlin, as well as the C++ **Rappel** library presented at CppNow 2024 ([youtube](https://www.youtube.com/watch?v=itnyR9j8y6E)).
+Each stage has a member function `receive(value)`.
+Sinks also have this function.
+Each stage has a member variable called `_successor`, which is the next stage in the pipeline.
+To run the pipeline, each stage does what it has to do, and if it has a result it wants to push into the next stage, it calls `_successor.receive(result);`.
+This passes the intermediate result onwards, and executes the next stage on that value.
+Here is a simplified implementation of 'receive' for a [map](https://en.wikipedia.org/wiki/Map_(higher-order_function)) stage:
+```cpp
+void receive(value) {
+    _successor.receive(func(value));
+}
+```
+where `func` is a unary function which was specified when the stage was created.
+This could be the square root function, for example.
+As a second example, here is a simplified implementation of 'receive' for a [filter](https://en.wikipedia.org/wiki/Filter_(higher-order_function)) stage:
+```cpp
+void receive(value) {
+    if(func(value)) {
+        _successor.receive(value);
+    }
+}
+```
+where `func` is a function which returns `true` if the value should be passed onwards, and `false` otherwise.
+An example could be a function which checks whether or not a number is positive.
+Note that a _filter_ passes values forward and executes the following stages _if and only if_ that value matches the filter.
+Otherwise, the following stages are not even executed -- so we are not wasting any CPU cycles. ;)
+
+At the end of a pipeline, a sink receives the value and writes it to some sort of output field or container.
 
 ## Getting started
 
