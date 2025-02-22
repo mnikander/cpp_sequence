@@ -40,6 +40,7 @@ add_executable(deprecated_v2_unit_tests ${SOURCES}
 target_link_libraries(deprecated_v2_unit_tests ${GTEST_LIBRARIES} pthread)
 
 add_executable(unit_tests ${SOURCES}
+               test/prototype/crtp_take.test.cpp
                test/prototype/direct_take.test.cpp
                test/filter_stage.test.cpp
                test/main.test.cpp
