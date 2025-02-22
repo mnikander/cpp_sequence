@@ -16,9 +16,9 @@ TEST(prototype_concept_take, zero)
     std::vector<i64> result{};
 
     // pipeline stages, from last to first
-    auto sink     = toVectorConcept(result);
-    auto take0    = takeConcept<i64>(0, sink);
-    auto sequence = iotaConcept(take0);
+    auto sink     = con::toVector(result);
+    auto take0    = con::take<i64>(0, sink);
+    auto sequence = con::iota(take0);
     sequence.run();
     EXPECT_EQ(result.size(), 0);
 }
@@ -30,9 +30,9 @@ TEST(prototype_concept_take, one)
     std::vector<i64> const expected{0};
 
     // pipeline stages, from last to first
-    auto sink     = toVectorConcept(result);
-    auto take1    = takeConcept<i64>(1, sink);
-    auto sequence = iotaConcept(take1);
+    auto sink     = con::toVector(result);
+    auto take1    = con::take<i64>(1, sink);
+    auto sequence = con::iota(take1);
     sequence.run();
     EXPECT_EQ(result.size(), 1);
     EXPECT_EQ(result, expected);
@@ -45,9 +45,9 @@ TEST(prototype_concept_take, two)
     std::vector<i64> const expected{0, 1};
 
     // pipeline stages, from last to first
-    auto sink     = toVectorConcept(result);
-    auto take2    = takeConcept<i64>(2, sink);
-    auto sequence = iotaConcept(take2);
+    auto sink     = con::toVector(result);
+    auto take2    = con::take<i64>(2, sink);
+    auto sequence = con::iota(take2);
     sequence.run();
     EXPECT_EQ(result.size(), 2);
     EXPECT_EQ(result, expected);
@@ -60,9 +60,9 @@ TEST(prototype_concept_take, five)
     std::vector<i64> const expected{0, 1, 2, 3, 4};
 
     // pipeline stages, from last to first
-    auto sink     = toVectorConcept(result);
-    auto take5    = takeConcept<i64>(5, sink);
-    auto sequence = iotaConcept(take5);
+    auto sink     = con::toVector(result);
+    auto take5    = con::take<i64>(5, sink);
+    auto sequence = con::iota(take5);
     sequence.run();
     EXPECT_EQ(result.size(), 5);
     EXPECT_EQ(result, expected);
@@ -75,9 +75,9 @@ TEST(prototype_concept_take, halt_and_attempt_restart)
     std::vector<i64> const expected{0, 1};
 
     // pipeline stages, from last to first
-    auto sink     = toVectorConcept(result);
-    auto take2    = takeConcept<i64>(2, sink);
-    auto sequence = iotaConcept(take2);
+    auto sink     = con::toVector(result);
+    auto take2    = con::take<i64>(2, sink);
+    auto sequence = con::iota(take2);
     sequence.run(); // get 2 values
     sequence.run(); // attempt to restart the pipeline: it should NOT start
     sequence.yield(2); // attempt to restart via yield: it should NOT start
@@ -93,10 +93,10 @@ TEST(prototype_concept_take, halt_and_attempt_restart)
 //     auto square = [](int value){ return value*value; };
 
 //     // define the pipeline stages, from last to first
-//     auto sink     = toVectorConcept(result);          // write each result
-//     auto take3    = takeConcept<int>(3, sink);        // HALT after 3 elements
+//     auto sink     = con::toVector(result);          // write each result
+//     auto take3    = con::take<int>(3, sink);        // HALT after 3 elements
 //     auto map_sq   = map<int>(square, take3);   // square each element
-//     auto sequence = iotaConcept(map_sq);              // generate integers [0, inf)
+//     auto sequence = con::iota(map_sq);              // generate integers [0, inf)
 
 //     // run the pipeline until one of the stages signals HALT
 //     sequence.run();
@@ -113,7 +113,7 @@ TEST(prototype_concept_take, halt_and_attempt_restart)
 
 //     // pipeline stages, from last to first
 //     auto sink     = toVector(result);
-//     auto take3    = takeConcept<i64>(3, sink);
+//     auto take3    = con::take<i64>(3, sink);
 //     auto filterEv = filter<i64>(isEven, take3);
 //     auto sequence = iota(filterEv);
 //     sequence.run();
@@ -132,7 +132,7 @@ TEST(prototype_concept_take, halt_and_attempt_restart)
 //     auto sequence =
 //         iota(
 //             filter<i64>(isEven,
-//                 takeConcept<i64>(3,
+//                 con::take<i64>(3,
 //                     toVector(result))));
 //     sequence.run();
 //     EXPECT_EQ(result.size(), 3);

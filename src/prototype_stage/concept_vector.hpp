@@ -7,12 +7,13 @@
 #include "concept_stage.hpp"
 
 namespace seq {
+namespace con {
 
 template <typename I>
-struct ConceptVector {
+struct ToVectorImpl {
     using Input = I;
 
-    ConceptVector(std::vector<I>& vector) : _vector{vector} {}
+    ToVectorImpl(std::vector<I>& vector) : _vector{vector} {}
     
     Status receive(I&& value) {
         _vector.push_back(std::forward<I>(value));
@@ -23,8 +24,9 @@ struct ConceptVector {
 };    
 
 template <typename I>
-auto toVectorConcept(std::vector<I>& vector) {
-    return ConceptVector<I>{vector};
+auto toVector(std::vector<I>& vector) {
+    return ToVectorImpl<I>{vector};
 }
 
+}
 }

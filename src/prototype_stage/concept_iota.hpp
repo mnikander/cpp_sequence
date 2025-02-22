@@ -8,12 +8,13 @@
 #include "concept_stage.hpp"
 
 namespace seq {
+namespace con {
 
 template <typename I, typename S> requires Receiver<S>
-struct ConceptIota {
+struct IotaImpl {
     using Input = I;
 
-    ConceptIota(I init, S successor) : _index{init}, _successor{successor}, _emit{_successor} {}
+    IotaImpl(I init, S successor) : _index{init}, _successor{successor}, _emit{_successor} {}
     
     Status yield(I const count = 1) {
         assert(count >= 0);
@@ -44,13 +45,14 @@ struct ConceptIota {
 };    
 
 template <typename I, typename S> requires Receiver<S>
-auto iotaConcept(I init, S successor) {
-    return ConceptIota<I, S>{init, successor};
+auto iota(I init, S successor) {
+    return IotaImpl<I, S>{init, successor};
 }
 
 template <typename S> requires Receiver<S>
-auto iotaConcept(S successor) {
-    return ConceptIota<typename S::Input, S>{0, successor};
+auto iota(S successor) {
+    return IotaImpl<typename S::Input, S>{0, successor};
 }
 
+}
 }

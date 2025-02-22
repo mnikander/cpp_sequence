@@ -7,13 +7,14 @@
 #include "crtp_ base_stage.hpp"
 
 namespace seq {
+namespace crtp {
 
 template <typename I, typename S>
-struct CrtpTake : BaseStage<I, S, CrtpTake<I, S>> {
+struct TakeImpl : BaseStage<I, S, TakeImpl<I, S>> {
     using Input     = I;
     using Successor = S;
 
-    CrtpTake(i64 howMany, S successor) : BaseStage<I, S, CrtpTake<I, S>>(successor), _howMany{howMany} { assert(_howMany >= 0); }
+    TakeImpl(i64 howMany, S successor) : BaseStage<I, S, TakeImpl<I, S>>(successor), _howMany{howMany} { assert(_howMany >= 0); }
 
     Status receive_impl(Input&& value) {
         if (_counter < _howMany) {
@@ -30,8 +31,9 @@ struct CrtpTake : BaseStage<I, S, CrtpTake<I, S>> {
 };
 
 template <typename I, typename S>
-auto takeCrtp(i64 howMany, S successor) {
-    return CrtpTake<I, S>{howMany, successor};
+auto take(i64 howMany, S successor) {
+    return TakeImpl<I, S>{howMany, successor};
 }
 
+}
 }

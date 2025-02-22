@@ -6,6 +6,7 @@
 #include "../datatypes.hpp"
 
 namespace seq {
+namespace crtp {
 
 template <typename I, typename S, typename Derived>
 struct BaseStage {
@@ -22,4 +23,5 @@ struct BaseStage {
     Successor _successor;
 };
 
+}
 }

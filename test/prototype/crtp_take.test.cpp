@@ -17,7 +17,7 @@ TEST(prototype_crtp_take, zero)
 
     // pipeline stages, from last to first
     auto sink     = toVector(result);
-    auto take0    = takeCrtp<i64>(0, sink);
+    auto take0    = crtp::take<i64>(0, sink);
     auto sequence = iota(take0);
     sequence.run();
     EXPECT_EQ(result.size(), 0);
@@ -31,7 +31,7 @@ TEST(prototype_crtp_take, one)
 
     // pipeline stages, from last to first
     auto sink     = toVector(result);
-    auto take1    = takeCrtp<i64>(1, sink);
+    auto take1    = crtp::take<i64>(1, sink);
     auto sequence = iota(take1);
     sequence.run();
     EXPECT_EQ(result.size(), 1);
@@ -46,7 +46,7 @@ TEST(prototype_crtp_take, two)
 
     // pipeline stages, from last to first
     auto sink     = toVector(result);
-    auto take2    = takeCrtp<i64>(2, sink);
+    auto take2    = crtp::take<i64>(2, sink);
     auto sequence = iota(take2);
     sequence.run();
     EXPECT_EQ(result.size(), 2);
@@ -61,7 +61,7 @@ TEST(prototype_crtp_take, five)
 
     // pipeline stages, from last to first
     auto sink     = toVector(result);
-    auto take5    = takeCrtp<i64>(5, sink);
+    auto take5    = crtp::take<i64>(5, sink);
     auto sequence = iota(take5);
     sequence.run();
     EXPECT_EQ(result.size(), 5);
@@ -76,7 +76,7 @@ TEST(prototype_crtp_take, halt_and_attempt_restart)
 
     // pipeline stages, from last to first
     auto sink     = toVector(result);
-    auto take2    = takeCrtp<i64>(2, sink);
+    auto take2    = crtp::take<i64>(2, sink);
     auto sequence = iota(take2);
     sequence.run(); // get 2 values
     sequence.run(); // attempt to restart the pipeline: it should NOT start
@@ -94,7 +94,7 @@ TEST(prototype_crtp_take, map_three_numbers)
 
     // define the pipeline stages, from last to first
     auto sink     = toVector(result);          // write each result
-    auto take3    = takeCrtp<int>(3, sink);        // HALT after 3 elements
+    auto take3    = crtp::take<int>(3, sink);        // HALT after 3 elements
     auto map_sq   = map<int>(square, take3);   // square each element
     auto sequence = iota(map_sq);              // generate integers [0, inf)
 
@@ -113,7 +113,7 @@ TEST(prototype_crtp_take, three_even_numbers)
 
     // pipeline stages, from last to first
     auto sink     = toVector(result);
-    auto take3    = takeCrtp<i64>(3, sink);
+    auto take3    = crtp::take<i64>(3, sink);
     auto filterEv = filter<i64>(isEven, take3);
     auto sequence = iota(filterEv);
     sequence.run();
@@ -132,7 +132,7 @@ TEST(prototype_crtp_take, nested_call)
     auto sequence =
         iota(
             filter<i64>(isEven,
-                takeCrtp<i64>(3,
+                crtp::take<i64>(3,
                     toVector(result))));
     sequence.run();
     EXPECT_EQ(result.size(), 3);
