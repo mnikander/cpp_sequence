@@ -5,6 +5,7 @@
 #include "../src/sink/to_vector.hpp"
 #include "../src/source/from_iota.hpp"
 #include "../src/stage/duplicate.hpp"
+#include "../src/stage/take.hpp"
 #include "../src/datatypes.hpp"
 
 TEST(duplicate, nothing)
@@ -80,5 +81,23 @@ TEST(duplicate, nested_pipeline)
                 to_vector(result)));
 
     sequence.yield(5);
+    EXPECT_EQ(result, expected);
+}
+
+TEST(duplicate, halt_during_duplication)
+{
+    using namespace seq;
+    std::vector<i64> result{};
+    std::vector<i64> const expected{0, 0, 0, 0, 1, 1, 1, 1, 2, 2};
+
+    // pipeline, nested in order
+    auto sequence =
+        from_iota(
+            duplicate<i64>(4,
+                take<i64>(10,
+                    to_vector(result))));
+
+    sequence.run();
+    EXPECT_EQ(result.size(), 10);
     EXPECT_EQ(result, expected);
 }
