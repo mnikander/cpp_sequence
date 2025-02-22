@@ -43,6 +43,7 @@ add_executable(unit_tests ${SOURCES}
                test/generic_stage.test.cpp
                test/prototype/concept_take.test.cpp
                test/prototype/crtp_take.test.cpp
+               test/duplicate.test.cpp
                test/filter.test.cpp
                test/main.test.cpp
                test/map.test.cpp
