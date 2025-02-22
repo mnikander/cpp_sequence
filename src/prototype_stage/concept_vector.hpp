@@ -24,7 +24,7 @@ struct ToVectorImpl {
 };    
 
 template <typename I>
-auto toVector(std::vector<I>& vector) {
+auto to_vector(std::vector<I>& vector) {
     return ToVectorImpl<I>{vector};
 }
 

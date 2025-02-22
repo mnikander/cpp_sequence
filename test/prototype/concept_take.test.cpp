@@ -16,7 +16,7 @@ TEST(prototype_concept_take, zero)
     std::vector<i64> result{};
 
     // pipeline stages, from last to first
-    auto sink     = con::toVector(result);
+    auto sink     = con::to_vector(result);
     auto take0    = con::take<i64>(0, sink);
     auto sequence = con::from_iota(take0);
     sequence.run();
@@ -30,7 +30,7 @@ TEST(prototype_concept_take, one)
     std::vector<i64> const expected{0};
 
     // pipeline stages, from last to first
-    auto sink     = con::toVector(result);
+    auto sink     = con::to_vector(result);
     auto take1    = con::take<i64>(1, sink);
     auto sequence = con::from_iota(take1);
     sequence.run();
@@ -45,7 +45,7 @@ TEST(prototype_concept_take, two)
     std::vector<i64> const expected{0, 1};
 
     // pipeline stages, from last to first
-    auto sink     = con::toVector(result);
+    auto sink     = con::to_vector(result);
     auto take2    = con::take<i64>(2, sink);
     auto sequence = con::from_iota(take2);
     sequence.run();
@@ -60,7 +60,7 @@ TEST(prototype_concept_take, five)
     std::vector<i64> const expected{0, 1, 2, 3, 4};
 
     // pipeline stages, from last to first
-    auto sink     = con::toVector(result);
+    auto sink     = con::to_vector(result);
     auto take5    = con::take<i64>(5, sink);
     auto sequence = con::from_iota(take5);
     sequence.run();
@@ -75,7 +75,7 @@ TEST(prototype_concept_take, halt_and_attempt_restart)
     std::vector<i64> const expected{0, 1};
 
     // pipeline stages, from last to first
-    auto sink     = con::toVector(result);
+    auto sink     = con::to_vector(result);
     auto take2    = con::take<i64>(2, sink);
     auto sequence = con::from_iota(take2);
     sequence.run(); // get 2 values
@@ -93,7 +93,7 @@ TEST(prototype_concept_take, halt_and_attempt_restart)
 //     auto square = [](int value){ return value*value; };
 
 //     // define the pipeline stages, from last to first
-//     auto sink     = con::toVector(result);     // write each result
+//     auto sink     = con::to_vector(result);    // write each result
 //     auto take3    = con::take<int>(3, sink);   // HALT after 3 elements
 //     auto map_sq   = map<int>(square, take3);   // square each element
 //     auto sequence = con::from_iota(map_sq);    // generate integers [0, inf)
@@ -112,7 +112,7 @@ TEST(prototype_concept_take, halt_and_attempt_restart)
 //     auto isEven = [](i64 i) {return i % 2 == 0; };
 
 //     // pipeline stages, from last to first
-//     auto sink     = toVector(result);
+//     auto sink     = to_vector(result);
 //     auto take3    = con::take<i64>(3, sink);
 //     auto filterEv = filter<i64>(isEven, take3);
 //     auto sequence = from_iota(filterEv);
@@ -133,7 +133,7 @@ TEST(prototype_concept_take, halt_and_attempt_restart)
 //         from_iota(
 //             filter<i64>(isEven,
 //                 con::take<i64>(3,
-//                     toVector(result))));
+//                     to_vector(result))));
 //     sequence.run();
 //     EXPECT_EQ(result.size(), 3);
 //     EXPECT_EQ(result, expected);

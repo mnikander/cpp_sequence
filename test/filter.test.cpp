@@ -15,7 +15,7 @@ TEST(filter, all)
     auto alwaysTrue = [](i64 const i){ (void)i; return true; };
 
     // pipeline stages, from last to first
-    auto sink     = toVector(result);
+    auto sink     = to_vector(result);
     auto square   = filter<i64>(alwaysTrue, sink);
     auto sequence = from_iota(square);
 
@@ -30,7 +30,7 @@ TEST(filter, none)
     auto alwaysFalse = [](i64 const i){ (void)i; return false; };
 
     // pipeline stages, from last to first
-    auto sink     = toVector(result);
+    auto sink     = to_vector(result);
     auto square   = filter<i64>(alwaysFalse, sink);
     auto sequence = from_iota(square);
 
@@ -46,7 +46,7 @@ TEST(filter, one)
     auto isOne = [](i64 const i){ return i == 1; };
 
     // pipeline stages, from last to first
-    auto sink     = toVector(result);
+    auto sink     = to_vector(result);
     auto square   = filter<i64>(isOne, sink);
     auto sequence = from_iota(square);
 
@@ -63,7 +63,7 @@ TEST(filter, even)
     auto isEven = [](i64 const i){ return i % 2 == 0; };
 
     // pipeline stages, from last to first
-    auto sink     = toVector(result);
+    auto sink     = to_vector(result);
     auto square   = filter<i64>(isEven, sink);
     auto sequence = from_iota(square);
 
@@ -83,7 +83,7 @@ TEST(filter, nested_pipeline)
     auto sequence =
         from_iota(
             filter<i64>(isEven,
-                toVector(result)));
+                to_vector(result)));
 
     sequence.yield(5);
     ASSERT_EQ(result.size(), 3);

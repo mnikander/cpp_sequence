@@ -48,7 +48,7 @@ add_executable(unit_tests ${SOURCES}
                test/map.test.cpp
                test/reduce.test.cpp
                test/take.test.cpp
-               test/toValue.test.cpp
-               test/toVector.test.cpp
+               test/to_value.test.cpp
+               test/to_vector.test.cpp
 )
 target_link_libraries(unit_tests ${GTEST_LIBRARIES} pthread)

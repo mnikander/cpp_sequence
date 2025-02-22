@@ -16,7 +16,7 @@ TEST(map, identity)
     std::array<i64, 5> const expected{0, 1, 2, 3, 4};
 
     // pipeline stages, from last to first
-    auto sink     = toRange(result);
+    auto sink     = to_range(result);
     auto square   = map<i64 const>([](i64 const i){ return i; }, sink);
     auto sequence = from_iota(square);
 
@@ -32,7 +32,7 @@ TEST(map, square)
     std::array<i64, 5> const expected{0, 1, 4, 9, 16};
 
     // pipeline stages, from last to first
-    auto sink     = toRange(result);
+    auto sink     = to_range(result);
     auto square   = map<i64 const>([](i64 const value){ return value*value; }, sink);
     auto sequence = from_iota(square);
 
@@ -47,7 +47,7 @@ TEST(map, int_to_float)
     std::array<f64, 5> const expected{0.0, 1.0, 2.0, 3.0, 4.0};
 
     // pipeline stages, from last to first
-    auto sink     = toRange(result);
+    auto sink     = to_range(result);
     auto square   = map<i64 const>([](i64 const i){ return static_cast<f64>(i); }, sink);
     auto sequence = from_iota(square);
 
@@ -64,7 +64,7 @@ TEST(map, nested_call)
     auto squared = [](int value){ return value*value; };
 
     // pipeline, nested in order
-    auto pipeline = from_iota(map<int>(squared, toVector(result)));
+    auto pipeline = from_iota(map<int>(squared, to_vector(result)));
 
     // run the pipeline to produce the first 5 values
     pipeline.yield(5);

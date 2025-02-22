@@ -17,7 +17,7 @@ TEST(reduce, sum)
     i64 const expected = 10;
 
     // pipeline stages, from last to first
-    auto sink     = toValue(result);
+    auto sink     = to_value(result);
     auto square   = reduce<i64>(std::plus<i64>{}, 0LL, sink);
     auto sequence = from_iota(square);
 
@@ -35,7 +35,7 @@ TEST(reduce, nested_pipeline)
     auto sequence =
         from_iota(
             reduce<i64>(std::plus<i64>{}, 0LL,
-                toValue(result)));
+                to_value(result)));
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
@@ -54,7 +54,7 @@ TEST(reduce, map_filter_reduce) {
             map<int>(minusThree,
                 filter<int>(isEven,
                     reduce<int>(std::plus<int>{}, 0,
-                        toValue(result)))));
+                        to_value(result)))));
     sequence.yield(8); // sum of (-2, 0, 2, 4)
     EXPECT_EQ(result, 4);
 }

@@ -1,46 +1,49 @@
 // Copyright (c) 2025, Marco Nikander
 
+#include <vector>
 #include <gtest/gtest.h>
-#include "../src/sink/to_value.hpp"
+#include "../src/sink/to_vector.hpp"
 #include "../src/source/from_iota.hpp"
 #include "../src/datatypes.hpp"
 
-TEST(toValue, one)
+TEST(toVector, one)
 {
     using namespace seq;
-    i64 result{};
-    i64 const expected{0};
+    std::vector<i64> result{};
+    std::vector<i64> const expected{0};
 
     // pipeline stages, from last to first
-    auto sink     = toValue(result);
+    auto sink     = to_vector(result);
     auto sequence = from_iota(sink);
 
     sequence.yield(1);
     EXPECT_EQ(result, expected);
 }
 
-TEST(toValue, five)
+TEST(toVector, five)
 {
     using namespace seq;
-    i64 result{};
-    i64 const expected{4};
+    std::vector<i64> result{};
+    std::vector<i64> const expected{0, 1, 2, 3, 4};
 
     // pipeline stages, from last to first
-    auto sink     = toValue(result);
+    auto sink     = to_vector(result);
     auto sequence = from_iota(sink);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
 }
 
-TEST(toValue, nested_call)
+TEST(toVector, nested_pipeline)
 {
     using namespace seq;
-    i64 result{};
-    i64 const expected{4};
+    std::vector<i64> result{};
+    std::vector<i64> const expected{0, 1, 2, 3, 4};
 
     // pipeline, nested in order
-    auto sequence = from_iota(toValue(result));
+    auto sequence =
+        from_iota(
+            to_vector(result));
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);

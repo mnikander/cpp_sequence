@@ -24,7 +24,7 @@ TEST(stage, map)
     auto f_sq = [](auto emit, auto&& value) -> Status { return emit(value*value); };
 
     // pipeline stages, from last to first
-    auto sink     = toRange(result);
+    auto sink     = to_range(result);
     auto square   = stage<i64>(f_sq, sink);
     auto sequence = from_iota(square);
 

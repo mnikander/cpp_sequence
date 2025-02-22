@@ -47,7 +47,7 @@ std::vector<i64> result{};
 auto square = [](int value){ return value*value; };
 
 // define the pipeline stages, from last to first
-auto sink     = toVector(result);          // write each result
+auto sink     = to_vector(result);         // write each result
 auto take3    = take<int>(3, sink);        // HALT after 3 elements
 auto map_sq   = map<int>(square, take3);   // square each element
 auto sequence = from_iota(map_sq);         // generate integers [0, inf)
@@ -81,7 +81,7 @@ auto sequence =
         map<int>(minusThree,
             filter<int>(isEven,
                 reduce<int>(std::plus<int>{}, 0,
-                    toValue(result)))));
+                    to_value(result)))));
 sequence.yield(8); // sum of (-2, 0, 2, 4)
 assert(result == 4);
 ```
