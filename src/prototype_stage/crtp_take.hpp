@@ -4,7 +4,7 @@
 #include <cassert>
 #include <utility> // forward
 #include "../datatypes.hpp"
-#include "crtp_ base_stage.hpp"
+#include "crtp_base_stage.hpp"
 
 namespace seq {
 namespace crtp {
