@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.12)
 project(cpp_sequence)
 
 set(CMAKE_CXX_STANDARD 23)
-add_compile_options(-g -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wfloat-conversion)
+add_compile_options(-g -Wall -Wextra -Wpedantic -Wconversion -Wsign-conversion -Wfloat-conversion -fconcepts-diagnostics-depth=3)
 
 add_executable(continuation_find        deprecated/techniques/continuation_passing_style/find.cpp)
 add_executable(continuation_plus_reduce deprecated/techniques/continuation_passing_style/plus_reduce.cpp)
@@ -40,6 +40,7 @@ add_executable(deprecated_v2_unit_tests ${SOURCES}
 target_link_libraries(deprecated_v2_unit_tests ${GTEST_LIBRARIES} pthread)
 
 add_executable(unit_tests ${SOURCES}
+               test/prototype/concept_take.test.cpp
                test/prototype/crtp_take.test.cpp
                test/prototype/direct_take.test.cpp
                test/filter_stage.test.cpp
