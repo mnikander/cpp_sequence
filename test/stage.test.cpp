@@ -3,9 +3,9 @@
 #include <array>
 #include <gtest/gtest.h>
 #include "../src/datatypes.hpp"
-#include "../src/source/iota_source.hpp"
 #include "../src/sink/range_sink.hpp"
 #include "../src/stage/stage.hpp"
+#include "../src/source/iota.hpp"
 
 TEST(stage, map)
 {

@@ -3,12 +3,12 @@
 #include <functional>
 #include <gtest/gtest.h>
 #include "../src/datatypes.hpp"
-#include "../src/source/iota_source.hpp"
+#include "../src/source/iota.hpp"
 #include "../src/sink/range_sink.hpp"
 #include "../src/sink/value_sink.hpp"
-#include "../src/stage/filter_stage.hpp"
-#include "../src/stage/map_stage.hpp"
-#include "../src/stage/reduce_stage.hpp"
+#include "../src/stage/filter.hpp"
+#include "../src/stage/map.hpp"
+#include "../src/stage/reduce.hpp"
 
 TEST(reduce, sum)
 {

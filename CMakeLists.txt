@@ -42,7 +42,6 @@ target_link_libraries(deprecated_v2_unit_tests ${GTEST_LIBRARIES} pthread)
 add_executable(unit_tests ${SOURCES}
                test/prototype/concept_take.test.cpp
                test/prototype/crtp_take.test.cpp
-               test/prototype/direct_take.test.cpp
                test/filter.test.cpp
                test/main.test.cpp
                test/map.test.cpp

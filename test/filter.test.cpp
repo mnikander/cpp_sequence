@@ -3,9 +3,9 @@
 #include <vector>
 #include <gtest/gtest.h>
 #include "../src/datatypes.hpp"
-#include "../src/source/iota_source.hpp"
+#include "../src/source/iota.hpp"
 #include "../src/sink/vector_sink.hpp"
-#include "../src/stage/filter_stage.hpp"
+#include "../src/stage/filter.hpp"
 
 TEST(filter, all)
 {

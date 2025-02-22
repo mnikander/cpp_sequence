@@ -4,10 +4,10 @@
 #include <vector>
 #include <gtest/gtest.h>
 #include "../src/datatypes.hpp"
-#include "../src/source/iota_source.hpp"
+#include "../src/source/iota.hpp"
 #include "../src/sink/range_sink.hpp"
 #include "../src/sink/vector_sink.hpp"
-#include "../src/stage/map_stage.hpp"
+#include "../src/stage/map.hpp"
 
 TEST(map, identity)
 {

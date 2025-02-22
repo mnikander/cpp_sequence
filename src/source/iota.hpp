@@ -4,7 +4,6 @@
 #include <cassert>
 #include <utility> // forward
 #include "../datatypes.hpp"
-#include "../emit.hpp"
 
 namespace seq {
 
@@ -13,19 +12,19 @@ namespace seq {
 // This would complicate the design though, and make it similar to my prior design.
 // Let's try it without back-communication, and see if we get a simpler design, which actually works.
 
-template <typename T, typename S>
-struct IotaSource {
-    using Input = T;
+template <typename I, typename S>
+struct IotaImpl {
+    using Input = I;
 
-    IotaSource(T init, S successor) : _index{init}, _successor{successor}, _emit{_successor} {}
+    IotaImpl(I init, S successor) : _index{init}, _successor{successor} {}
 
     // yield runs a fixed number of times, unless it gets a HALT signal beforehand
     // yield can be called again, and it will continue where it left off last time, even if it stopped due to a HALT
-    Status yield(T const count = 1) {
+    Status yield(I const count = 1) {
         assert(count >= 0);
         Status status = OK;
-        for(T i = 0; i < count && status == OK; ++i) {
-            status = _emit(std::forward<T>(_index));
+        for(I i = 0; i < count && status == OK; ++i) {
+            status = _successor.receive(std::forward<I>(_index));
             ++_index;
         }
         return status;
@@ -34,7 +33,7 @@ struct IotaSource {
     Status run() {
         Status status = OK;
         while(status == OK) {
-            status = _emit(std::forward<T>(_index));
+            status = _successor.receive(std::forward<I>(_index));
             if(status == OK) {
                 ++_index;
             }
@@ -42,19 +41,18 @@ struct IotaSource {
         return status;
     }
 
-    T _index;
+    I _index;
     S _successor;
-    Emit<S> _emit;
 };
 
-template <typename T, typename S>
-auto iota(T init, S successor) {
-    return IotaSource<T, S>{init, successor};
+template <typename I, typename S>
+auto iota(I init, S successor) {
+    return IotaImpl<I, S>{init, successor};
 }
 
 template <typename S>
 auto iota(S successor) {
-    return IotaSource<int, S>{0, successor};
+    return IotaImpl<int, S>{0, successor};
 }
 
 }

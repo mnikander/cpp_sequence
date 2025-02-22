@@ -6,8 +6,8 @@
 #include "../../src/prototype_stage/concept_take.hpp"
 #include "../../src/prototype_stage/concept_vector.hpp"
 #include "../../src/datatypes.hpp"
-// #include "../../src/stage/filter_stage.hpp"
-// #include "../../src/stage/map_stage.hpp"
+// #include "../../src/stage/filter.hpp"
+// #include "../../src/stage/map.hpp"
 
 
 TEST(prototype_concept_take, zero)
