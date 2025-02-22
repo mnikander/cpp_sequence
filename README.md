@@ -1,10 +1,9 @@
 # Sequence library
 
-This library generates a sequence of values and performs arbitrary transformations on that sequence.
-The goal is to create a small library of composeable algorithms, including map, filter, reduce, and several other algorithms.
+This library allows creating and transforming sequences of values, and doing computations on them.
+The goal is to create a small and simple library of composeable algorithms, including map, filter, reduce, and several other algorithms.
 These algorithms should be easy use and easy to compose.
-It is hoped that the codebase can be kept small and simple.
-The error messages, if something is put together incorrectly, should be human-readable (and not pages and pages of template errors).
+If something is put together incorrectly, the error messages should be human-readable (and not pages and pages of template errors).
 Aspirationally, the resulting code should have only a small runtime overhead compared to the equivalent hand-crafted code.
 It is also hoped that some of the pitfalls of the C++ ranges library, such as the '[terrible problem of incrementing a smart iterator](https://www.fluentcpp.com/2019/02/12/the-terrible-problem-of-incrementing-a-smart-iterator/)', can be avoided by using generators instead of iterators.
 
