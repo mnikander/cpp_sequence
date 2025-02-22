@@ -14,14 +14,13 @@ struct ConceptVector {
 
     ConceptVector(std::vector<I>& vector) : _vector{vector} {}
     
-    std::vector<I>& _vector;
-};
+    Status receive(I&& value) {
+        _vector.push_back(std::forward<I>(value));
+        return OK;
+    }
 
-template <typename I>
-Status receive(I&& value, ConceptVector<I>& sink) {
-    sink._vector.push_back(std::forward<I>(value));
-    return OK;
-}
+    std::vector<I>& _vector;
+};    
 
 template <typename I>
 auto toVectorConcept(std::vector<I>& vector) {

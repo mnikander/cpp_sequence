@@ -15,21 +15,20 @@ struct ConceptTake {
 
     ConceptTake(i64 howMany, S successor) : _howMany{howMany}, _successor{successor} { assert(_howMany >= 0); }
     
+    Status receive(I&& value) {
+        if (_counter < _howMany) {
+            _counter++;
+            return _successor.receive(std::forward<typename ConceptTake<I, S>::Input>(value));
+        }
+        else {
+            return HALT;
+        }
+    }
+
     i64 const _howMany;
     i64 _counter{0};
     S _successor;
 };
-
-template <typename I, typename S> requires Receiver<S>
-Status receive(I&& value, ConceptTake<I, S>& stage) {
-    if (stage._counter < stage._howMany) {
-        stage._counter++;
-        return receive(std::forward<typename ConceptTake<I, S>::Input>(value), stage._successor);
-    }
-    else {
-        return HALT;
-    }
-}
 
 template <typename I, typename S> requires Receiver<S>
 auto takeConcept(i64 howMany, S successor) {

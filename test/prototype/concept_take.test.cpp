@@ -19,7 +19,7 @@ TEST(prototype_concept_take, zero)
     auto sink     = toVectorConcept(result);
     auto take0    = takeConcept<i64>(0, sink);
     auto sequence = iotaConcept(take0);
-    run(sequence);
+    sequence.run();
     EXPECT_EQ(result.size(), 0);
 }
 
@@ -33,7 +33,7 @@ TEST(prototype_concept_take, one)
     auto sink     = toVectorConcept(result);
     auto take1    = takeConcept<i64>(1, sink);
     auto sequence = iotaConcept(take1);
-    run(sequence);
+    sequence.run();
     EXPECT_EQ(result.size(), 1);
     EXPECT_EQ(result, expected);
 }
@@ -48,7 +48,7 @@ TEST(prototype_concept_take, two)
     auto sink     = toVectorConcept(result);
     auto take2    = takeConcept<i64>(2, sink);
     auto sequence = iotaConcept(take2);
-    run(sequence);
+    sequence.run();
     EXPECT_EQ(result.size(), 2);
     EXPECT_EQ(result, expected);
 }
@@ -63,7 +63,7 @@ TEST(prototype_concept_take, five)
     auto sink     = toVectorConcept(result);
     auto take5    = takeConcept<i64>(5, sink);
     auto sequence = iotaConcept(take5);
-    run(sequence);
+    sequence.run();
     EXPECT_EQ(result.size(), 5);
     EXPECT_EQ(result, expected);
 }
@@ -78,9 +78,9 @@ TEST(prototype_concept_take, halt_and_attempt_restart)
     auto sink     = toVectorConcept(result);
     auto take2    = takeConcept<i64>(2, sink);
     auto sequence = iotaConcept(take2);
-    run(sequence); // get 2 values
-    run(sequence); // attempt to restart the pipeline: it should NOT start
-    yield(sequence, 2); // attempt to restart via yield: it should NOT start
+    sequence.run(); // get 2 values
+    sequence.run(); // attempt to restart the pipeline: it should NOT start
+    sequence.yield(2); // attempt to restart via yield: it should NOT start
     EXPECT_EQ(result.size(), 2);
     EXPECT_EQ(result, expected);
 }
@@ -99,7 +99,7 @@ TEST(prototype_concept_take, halt_and_attempt_restart)
 //     auto sequence = iotaConcept(map_sq);              // generate integers [0, inf)
 
 //     // run the pipeline until one of the stages signals HALT
-//     run(sequence);
+//     sequence.run();
 //     EXPECT_EQ(result.size(), 3);
 //     EXPECT_EQ(result, expected);
 // }
@@ -116,7 +116,7 @@ TEST(prototype_concept_take, halt_and_attempt_restart)
 //     auto take3    = takeConcept<i64>(3, sink);
 //     auto filterEv = filter<i64>(isEven, take3);
 //     auto sequence = iota(filterEv);
-//     run(sequence);
+//     sequence.run();
 //     EXPECT_EQ(result.size(), 3);
 //     EXPECT_EQ(result, expected);
 // }
@@ -134,7 +134,7 @@ TEST(prototype_concept_take, halt_and_attempt_restart)
 //             filter<i64>(isEven,
 //                 takeConcept<i64>(3,
 //                     toVector(result))));
-//     run(sequence);
+//     sequence.run();
 //     EXPECT_EQ(result.size(), 3);
 //     EXPECT_EQ(result, expected);
 // }

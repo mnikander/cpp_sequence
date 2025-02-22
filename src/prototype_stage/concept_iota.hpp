@@ -15,33 +15,33 @@ struct ConceptIota {
 
     ConceptIota(I init, S successor) : _index{init}, _successor{successor}, _emit{_successor} {}
     
+    Status yield(I const count = 1) {
+        assert(count >= 0);
+        Status status = OK;
+        for(I i = 0; i < count && status == OK; ++i) {
+            status = _successor.receive(std::forward<I>(_index));
+            if(status == OK) {
+                ++(_index);
+            }
+        }
+        return status;
+    }
+    
+    Status run() {
+        Status status = OK;
+        while(status == OK) {
+            status = _successor.receive(std::forward<I>(_index));
+            if(status == OK) {
+                ++(_index);
+            }
+        }
+        return status;
+    }
+
     I _index;
     S _successor;
     Emit<S> _emit;
-};
-
-template <typename I, typename S> requires Receiver<S>
-Status yield(ConceptIota<I, S> & generator, typename ConceptIota<I, S>::Input const count = 1) {
-    assert(count >= 0);
-    Status status = OK;
-    for(typename ConceptIota<I, S>::Input i = 0; i < count && status == OK; ++i) {
-        status = receive(std::forward<typename ConceptIota<I, S>::Input>(generator._index), generator._successor);
-        ++(generator._index);
-    }
-    return status;
-}
-
-template <typename I, typename S> requires Receiver<S>
-Status run(ConceptIota<I, S> & generator) {
-    Status status = OK;
-    while(status == OK) {
-        status = receive(std::forward<I>(generator._index), generator._successor);
-        if(status == OK) {
-            ++(generator._index);
-        }
-    }
-    return status;
-}
+};    
 
 template <typename I, typename S> requires Receiver<S>
 auto iotaConcept(I init, S successor) {
