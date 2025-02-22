@@ -27,8 +27,8 @@ void receive(value) {
     _successor.receive(func(value));
 }
 ```
-where `func` is a unary function which was specified when the stage was created.
-This could be the square root function, for example.
+where `func` is a unary function.
+This could be the square root function, for example, and is specified when the 'map' stage is created.
 As a second example, here is a simplified implementation of 'receive' for a [filter](https://en.wikipedia.org/wiki/Filter_(higher-order_function)) stage:
 ```cpp
 void receive(value) {
@@ -43,6 +43,7 @@ Note that a _filter_ passes values forward _if and only if_ that value matches t
 Otherwise, the following stages are not even executed -- so we are not wasting any CPU cycles. ;)
 
 At the end of a pipeline, a sink receives the result and writes it to some sort of output variable or container.
+After that, the source pushes the next value through the pipeline.
 
 ## Getting started
 
@@ -115,11 +116,14 @@ auto sequence =
 sequence.yield(8); // sum of (-2, 0, 2, 4)
 assert(result == 4);
 ```
-Note that when we use `yield(n)`, execution will terminate after at most `n` iterations.
-We don't _need_ to have a stage in the pipeline which signals HALT.
-We can also call `yield(n)` multiple times to get more elements, and execution will continue from where it left off, each time.
-If any stage, for example a `take` or a `find` signals a HALT, however, the pipeline finishes the processing of the current element and then stops permanently.
-In case of a HALT, the pipeline cannot be restarted, and no further elements can be obtained via `yield(n)` or `run()`.
+Note that `yield(n)` can be called multiple times to get more elements, and execution will continue from where it left off, each time.
+
+When we use `yield(n)`, execution will terminate after at most `n` iterations.
+Some stages, such as `take` or `find` are able to signal a HALT, however.
+When using `run()`, you need to have at least one stage in the pipeline which halts execution eventually.
+Otherwise, the pipeline will run endlessly.
+When a stage signals a HALT, the pipeline finishes processing the current element, and then the source stops iterating.
+After a HALT, the pipeline cannot be restarted, and no further elements can be obtained via `yield(n)` or `run()`.
 
 ---
 Copyright (c) 2024, Marco Nikander
