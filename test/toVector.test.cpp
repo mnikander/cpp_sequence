@@ -3,7 +3,7 @@
 #include <vector>
 #include <gtest/gtest.h>
 #include "../src/sink/to_vector.hpp"
-#include "../src/source/iota.hpp"
+#include "../src/source/from_iota.hpp"
 #include "../src/datatypes.hpp"
 
 TEST(toVector, one)
@@ -14,7 +14,7 @@ TEST(toVector, one)
 
     // pipeline stages, from last to first
     auto sink     = toVector(result);
-    auto sequence = iota(sink);
+    auto sequence = from_iota(sink);
 
     sequence.yield(1);
     EXPECT_EQ(result, expected);
@@ -28,7 +28,7 @@ TEST(toVector, five)
 
     // pipeline stages, from last to first
     auto sink     = toVector(result);
-    auto sequence = iota(sink);
+    auto sequence = from_iota(sink);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
@@ -42,7 +42,7 @@ TEST(toVector, nested_pipeline)
 
     // pipeline, nested in order
     auto sequence =
-        iota(
+        from_iota(
             toVector(result));
 
     sequence.yield(5);

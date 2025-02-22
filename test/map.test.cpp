@@ -5,7 +5,7 @@
 #include <gtest/gtest.h>
 #include "../src/sink/to_range.hpp"
 #include "../src/sink/to_vector.hpp"
-#include "../src/source/iota.hpp"
+#include "../src/source/from_iota.hpp"
 #include "../src/stage/map.hpp"
 #include "../src/datatypes.hpp"
 
@@ -18,7 +18,7 @@ TEST(map, identity)
     // pipeline stages, from last to first
     auto sink     = toRange(result);
     auto square   = map<i64 const>([](i64 const i){ return i; }, sink);
-    auto sequence = iota(square);
+    auto sequence = from_iota(square);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
@@ -34,7 +34,7 @@ TEST(map, square)
     // pipeline stages, from last to first
     auto sink     = toRange(result);
     auto square   = map<i64 const>([](i64 const value){ return value*value; }, sink);
-    auto sequence = iota(square);
+    auto sequence = from_iota(square);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
@@ -49,7 +49,7 @@ TEST(map, int_to_float)
     // pipeline stages, from last to first
     auto sink     = toRange(result);
     auto square   = map<i64 const>([](i64 const i){ return static_cast<f64>(i); }, sink);
-    auto sequence = iota(square);
+    auto sequence = from_iota(square);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
@@ -64,7 +64,7 @@ TEST(map, nested_call)
     auto squared = [](int value){ return value*value; };
 
     // pipeline, nested in order
-    auto pipeline = iota(map<int>(squared, toVector(result)));
+    auto pipeline = from_iota(map<int>(squared, toVector(result)));
 
     // run the pipeline to produce the first 5 values
     pipeline.yield(5);

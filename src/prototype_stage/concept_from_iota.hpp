@@ -4,38 +4,35 @@
 #include <cassert>
 #include <utility> // forward
 #include "../datatypes.hpp"
+#include "concept_stage.hpp"
 
 namespace seq {
+namespace con {
 
-// Is there a better way to make iteration end, than using the limit in the 'yield' function?
-// A later stage could communicate when to terminate the iteration, via a return value.
-// This would complicate the design though, and make it similar to my prior design.
-// Let's try it without back-communication, and see if we get a simpler design, which actually works.
-
-template <typename I, typename S>
+template <typename I, typename S> requires Receiver<S>
 struct IotaImpl {
     using Input = I;
 
     IotaImpl(I init, S successor) : _index{init}, _successor{successor} {}
-
-    // yield runs a fixed number of times, unless it gets a HALT signal beforehand
-    // yield can be called again, and it will continue where it left off last time, even if it stopped due to a HALT
+    
     Status yield(I const count = 1) {
         assert(count >= 0);
         Status status = OK;
         for(I i = 0; i < count && status == OK; ++i) {
             status = _successor.receive(std::forward<I>(_index));
-            ++_index;
+            if(status == OK) {
+                ++(_index);
+            }
         }
         return status;
     }
-
+    
     Status run() {
         Status status = OK;
         while(status == OK) {
             status = _successor.receive(std::forward<I>(_index));
             if(status == OK) {
-                ++_index;
+                ++(_index);
             }
         }
         return status;
@@ -43,16 +40,17 @@ struct IotaImpl {
 
     I _index;
     S _successor;
-};
+};    
 
-template <typename I, typename S>
-auto iota(I init, S successor) {
+template <typename I, typename S> requires Receiver<S>
+auto from_iota(I init, S successor) {
     return IotaImpl<I, S>{init, successor};
 }
 
-template <typename S>
-auto iota(S successor) {
-    return IotaImpl<int, S>{0, successor};
+template <typename S> requires Receiver<S>
+auto from_iota(S successor) {
+    return IotaImpl<typename S::Input, S>{0, successor};
 }
 
+}
 }

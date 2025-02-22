@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include "../src/sink/to_range.hpp"
 #include "../src/sink/to_value.hpp"
-#include "../src/source/iota.hpp"
+#include "../src/source/from_iota.hpp"
 #include "../src/stage/filter.hpp"
 #include "../src/stage/map.hpp"
 #include "../src/stage/reduce.hpp"
@@ -19,7 +19,7 @@ TEST(reduce, sum)
     // pipeline stages, from last to first
     auto sink     = toValue(result);
     auto square   = reduce<i64>(std::plus<i64>{}, 0LL, sink);
-    auto sequence = iota(square);
+    auto sequence = from_iota(square);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
@@ -33,7 +33,7 @@ TEST(reduce, nested_pipeline)
 
     // pipeline, nested in order
     auto sequence =
-        iota(
+        from_iota(
             reduce<i64>(std::plus<i64>{}, 0LL,
                 toValue(result)));
 
@@ -50,7 +50,7 @@ TEST(reduce, map_filter_reduce) {
 
     // pipeline, nested in order
     auto sequence =
-        iota(
+        from_iota(
             map<int>(minusThree,
                 filter<int>(isEven,
                     reduce<int>(std::plus<int>{}, 0,

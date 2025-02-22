@@ -3,7 +3,7 @@
 #include <vector>
 #include <gtest/gtest.h>
 #include "../src/sink/to_vector.hpp"
-#include "../src/source/iota.hpp"
+#include "../src/source/from_iota.hpp"
 #include "../src/stage/filter.hpp"
 #include "../src/datatypes.hpp"
 
@@ -17,7 +17,7 @@ TEST(filter, all)
     // pipeline stages, from last to first
     auto sink     = toVector(result);
     auto square   = filter<i64>(alwaysTrue, sink);
-    auto sequence = iota(square);
+    auto sequence = from_iota(square);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
@@ -32,7 +32,7 @@ TEST(filter, none)
     // pipeline stages, from last to first
     auto sink     = toVector(result);
     auto square   = filter<i64>(alwaysFalse, sink);
-    auto sequence = iota(square);
+    auto sequence = from_iota(square);
 
     sequence.yield(5);
     ASSERT_EQ(result.size(), 0);
@@ -48,7 +48,7 @@ TEST(filter, one)
     // pipeline stages, from last to first
     auto sink     = toVector(result);
     auto square   = filter<i64>(isOne, sink);
-    auto sequence = iota(square);
+    auto sequence = from_iota(square);
 
     sequence.yield(5);
     ASSERT_EQ(result.size(), 1);
@@ -65,7 +65,7 @@ TEST(filter, even)
     // pipeline stages, from last to first
     auto sink     = toVector(result);
     auto square   = filter<i64>(isEven, sink);
-    auto sequence = iota(square);
+    auto sequence = from_iota(square);
 
     sequence.yield(5);
     ASSERT_EQ(result.size(), 3);
@@ -81,7 +81,7 @@ TEST(filter, nested_pipeline)
 
     // pipeline, nested in order
     auto sequence =
-        iota(
+        from_iota(
             filter<i64>(isEven,
                 toVector(result)));
 

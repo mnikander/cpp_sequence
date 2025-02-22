@@ -2,7 +2,7 @@
 
 #include <gtest/gtest.h>
 #include "../src/sink/to_value.hpp"
-#include "../src/source/iota.hpp"
+#include "../src/source/from_iota.hpp"
 #include "../src/datatypes.hpp"
 
 TEST(toValue, one)
@@ -13,7 +13,7 @@ TEST(toValue, one)
 
     // pipeline stages, from last to first
     auto sink     = toValue(result);
-    auto sequence = iota(sink);
+    auto sequence = from_iota(sink);
 
     sequence.yield(1);
     EXPECT_EQ(result, expected);
@@ -27,7 +27,7 @@ TEST(toValue, five)
 
     // pipeline stages, from last to first
     auto sink     = toValue(result);
-    auto sequence = iota(sink);
+    auto sequence = from_iota(sink);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
@@ -40,7 +40,7 @@ TEST(toValue, nested_call)
     i64 const expected{4};
 
     // pipeline, nested in order
-    auto sequence = iota(toValue(result));
+    auto sequence = from_iota(toValue(result));
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);

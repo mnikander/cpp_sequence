@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include "../src/generic_stage/stage.hpp"
 #include "../src/sink/to_range.hpp"
-#include "../src/source/iota.hpp"
+#include "../src/source/from_iota.hpp"
 #include "../src/datatypes.hpp"
 
 TEST(stage, map)
@@ -26,7 +26,7 @@ TEST(stage, map)
     // pipeline stages, from last to first
     auto sink     = toRange(result);
     auto square   = stage<i64>(f_sq, sink);
-    auto sequence = iota(square);
+    auto sequence = from_iota(square);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);

@@ -50,7 +50,7 @@ auto square = [](int value){ return value*value; };
 auto sink     = toVector(result);          // write each result
 auto take3    = take<int>(3, sink);        // HALT after 3 elements
 auto map_sq   = map<int>(square, take3);   // square each element
-auto sequence = iota(map_sq);              // generate integers [0, inf)
+auto sequence = from_iota(map_sq);         // generate integers [0, inf)
 
 // run the pipeline until one of the stages signals HALT
 sequence.run();
@@ -77,7 +77,7 @@ auto isEven     = [](int i){ return i % 2 == 0; };
 int result = 0;
 
 auto sequence =
-    iota(
+    from_iota(
         map<int>(minusThree,
             filter<int>(isEven,
                 reduce<int>(std::plus<int>{}, 0,
