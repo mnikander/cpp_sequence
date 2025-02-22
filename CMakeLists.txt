@@ -40,13 +40,13 @@ add_executable(deprecated_v2_unit_tests ${SOURCES}
 target_link_libraries(deprecated_v2_unit_tests ${GTEST_LIBRARIES} pthread)
 
 add_executable(unit_tests ${SOURCES}
+               test/generic_stage.test.cpp
                test/prototype/concept_take.test.cpp
                test/prototype/crtp_take.test.cpp
                test/filter.test.cpp
                test/main.test.cpp
                test/map.test.cpp
                test/reduce.test.cpp
-               test/stage.test.cpp
                test/take.test.cpp
                test/toValue.test.cpp
                test/toVector.test.cpp

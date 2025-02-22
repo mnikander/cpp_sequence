@@ -2,10 +2,10 @@
 
 #include <array>
 #include <gtest/gtest.h>
-#include "../src/datatypes.hpp"
+#include "../src/generic_stage/stage.hpp"
 #include "../src/sink/range_sink.hpp"
-#include "../src/stage/stage.hpp"
 #include "../src/source/iota.hpp"
+#include "../src/datatypes.hpp"
 
 TEST(stage, map)
 {
