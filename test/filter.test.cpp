@@ -7,7 +7,7 @@
 #include "../src/sink/vector_sink.hpp"
 #include "../src/stage/filter_stage.hpp"
 
-TEST(filter_stage, all)
+TEST(filter, all)
 {
     using namespace seq;
     std::vector<i64> result{};
@@ -23,7 +23,7 @@ TEST(filter_stage, all)
     EXPECT_EQ(result, expected);
 }
 
-TEST(filter_stage, none)
+TEST(filter, none)
 {
     using namespace seq;
     std::vector<i64> result{};
@@ -38,7 +38,7 @@ TEST(filter_stage, none)
     ASSERT_EQ(result.size(), 0);
 }
 
-TEST(filter_stage, one)
+TEST(filter, one)
 {
     using namespace seq;
     std::vector<i64> result{};
@@ -55,7 +55,7 @@ TEST(filter_stage, one)
     EXPECT_EQ(result, expected);
 }
 
-TEST(filter_stage, even)
+TEST(filter, even)
 {
     using namespace seq;
     std::vector<i64> result{};
@@ -72,7 +72,7 @@ TEST(filter_stage, even)
     EXPECT_EQ(result, expected);
 }
 
-TEST(filter_stage, nested_pipeline)
+TEST(filter, nested_pipeline)
 {
     using namespace seq;
     std::vector<i64> result{};

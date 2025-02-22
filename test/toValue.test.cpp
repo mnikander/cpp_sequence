@@ -5,7 +5,7 @@
 #include "../src/source/iota_source.hpp"
 #include "../src/sink/value_sink.hpp"
 
-TEST(value_sink, one)
+TEST(toValue, one)
 {
     using namespace seq;
     i64 result{};
@@ -19,7 +19,7 @@ TEST(value_sink, one)
     EXPECT_EQ(result, expected);
 }
 
-TEST(value_sink, five)
+TEST(toValue, five)
 {
     using namespace seq;
     i64 result{};
@@ -33,7 +33,7 @@ TEST(value_sink, five)
     EXPECT_EQ(result, expected);
 }
 
-TEST(value_sink, nested_call)
+TEST(toValue, nested_call)
 {
     using namespace seq;
     i64 result{};

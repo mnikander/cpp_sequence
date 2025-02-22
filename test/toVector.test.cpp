@@ -6,7 +6,7 @@
 #include "../src/source/iota_source.hpp"
 #include "../src/sink/vector_sink.hpp"
 
-TEST(vector_sink, one)
+TEST(toVector, one)
 {
     using namespace seq;
     std::vector<i64> result{};
@@ -20,7 +20,7 @@ TEST(vector_sink, one)
     EXPECT_EQ(result, expected);
 }
 
-TEST(vector_sink, five)
+TEST(toVector, five)
 {
     using namespace seq;
     std::vector<i64> result{};
@@ -34,7 +34,7 @@ TEST(vector_sink, five)
     EXPECT_EQ(result, expected);
 }
 
-TEST(vector_sink, nested_pipeline)
+TEST(toVector, nested_pipeline)
 {
     using namespace seq;
     std::vector<i64> result{};

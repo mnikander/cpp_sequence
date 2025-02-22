@@ -9,7 +9,7 @@
 #include "../src/sink/vector_sink.hpp"
 #include "../src/stage/map_stage.hpp"
 
-TEST(map_stage, identity)
+TEST(map, identity)
 {
     using namespace seq;
     std::array<i64, 5> result{0, 0, 0, 0, 0};
@@ -24,7 +24,7 @@ TEST(map_stage, identity)
     EXPECT_EQ(result, expected);
 }
 
-TEST(map_stage, square)
+TEST(map, square)
 {
     using namespace seq;
 
@@ -40,7 +40,7 @@ TEST(map_stage, square)
     EXPECT_EQ(result, expected);
 }
 
-TEST(map_stage, int_to_float)
+TEST(map, int_to_float)
 {
     using namespace seq;
     std::array<f64, 5> result{0.0, 0.0, 0.0, 0.0, 0.0};
@@ -55,7 +55,7 @@ TEST(map_stage, int_to_float)
     EXPECT_EQ(result, expected);
 }
 
-TEST(map_stage, nested_call)
+TEST(map, nested_call)
 {
     using namespace seq;
 

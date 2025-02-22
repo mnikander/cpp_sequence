@@ -10,7 +10,7 @@
 #include "../src/stage/map_stage.hpp"
 #include "../src/stage/reduce_stage.hpp"
 
-TEST(reduce_stage, sum)
+TEST(reduce, sum)
 {
     using namespace seq;
     i64 result = 0;
@@ -25,7 +25,7 @@ TEST(reduce_stage, sum)
     EXPECT_EQ(result, expected);
 }
 
-TEST(reduce_stage, nested_pipeline)
+TEST(reduce, nested_pipeline)
 {
     using namespace seq;
     i64 result = 0;
@@ -41,7 +41,7 @@ TEST(reduce_stage, nested_pipeline)
     EXPECT_EQ(result, expected);
 }
 
-TEST(reduce_stage, map_filter_reduce) {
+TEST(reduce, map_filter_reduce) {
     using namespace seq;
 
     auto minusThree = [](int i){ return i - 3; };

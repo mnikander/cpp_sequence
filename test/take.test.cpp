@@ -10,7 +10,7 @@
 #include "../src/stage/take_stage.hpp"
 
 
-TEST(take_stage, zero)
+TEST(take, zero)
 {
     using namespace seq;
     std::vector<i64> result{};
@@ -23,7 +23,7 @@ TEST(take_stage, zero)
     EXPECT_EQ(result.size(), 0);
 }
 
-TEST(take_stage, one)
+TEST(take, one)
 {
     using namespace seq;
     std::vector<i64> result{};
@@ -38,7 +38,7 @@ TEST(take_stage, one)
     EXPECT_EQ(result, expected);
 }
 
-TEST(take_stage, two)
+TEST(take, two)
 {
     using namespace seq;
     std::vector<i64> result{};
@@ -53,7 +53,7 @@ TEST(take_stage, two)
     EXPECT_EQ(result, expected);
 }
 
-TEST(take_stage, five)
+TEST(take, five)
 {
     using namespace seq;
     std::vector<i64> result{};
@@ -68,7 +68,7 @@ TEST(take_stage, five)
     EXPECT_EQ(result, expected);
 }
 
-TEST(take_stage, halt_and_attempt_restart)
+TEST(take, halt_and_attempt_restart)
 {
     using namespace seq;
     std::vector<i64> result{};
@@ -85,7 +85,7 @@ TEST(take_stage, halt_and_attempt_restart)
     EXPECT_EQ(result, expected);
 }
 
-TEST(take_stage, map_three_numbers)
+TEST(take, map_three_numbers)
 {
     using namespace seq;
     std::vector<i64> const expected{0, 1, 4};
@@ -104,7 +104,7 @@ TEST(take_stage, map_three_numbers)
     EXPECT_EQ(result, expected);
 }
 
-TEST(take_stage, three_even_numbers)
+TEST(take, three_even_numbers)
 {
     using namespace seq;
     std::vector<i64> result{};
@@ -121,7 +121,7 @@ TEST(take_stage, three_even_numbers)
     EXPECT_EQ(result, expected);
 }
 
-TEST(take_stage, nested_call)
+TEST(take, nested_call)
 {
     using namespace seq;
     std::vector<i64> result{};
