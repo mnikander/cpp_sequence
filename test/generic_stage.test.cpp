@@ -3,7 +3,7 @@
 #include <array>
 #include <gtest/gtest.h>
 #include "../src/generic_stage/stage.hpp"
-#include "../src/sink/range_sink.hpp"
+#include "../src/sink/to_range.hpp"
 #include "../src/source/iota.hpp"
 #include "../src/datatypes.hpp"
 

@@ -3,11 +3,11 @@
 #include <array>
 #include <vector>
 #include <gtest/gtest.h>
-#include "../src/datatypes.hpp"
+#include "../src/sink/to_range.hpp"
+#include "../src/sink/to_vector.hpp"
 #include "../src/source/iota.hpp"
-#include "../src/sink/range_sink.hpp"
-#include "../src/sink/vector_sink.hpp"
 #include "../src/stage/map.hpp"
+#include "../src/datatypes.hpp"
 
 TEST(map, identity)
 {

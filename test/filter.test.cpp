@@ -2,10 +2,10 @@
 
 #include <vector>
 #include <gtest/gtest.h>
-#include "../src/datatypes.hpp"
+#include "../src/sink/to_vector.hpp"
 #include "../src/source/iota.hpp"
-#include "../src/sink/vector_sink.hpp"
 #include "../src/stage/filter.hpp"
+#include "../src/datatypes.hpp"
 
 TEST(filter, all)
 {

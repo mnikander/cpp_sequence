@@ -2,13 +2,13 @@
 
 #include <functional>
 #include <gtest/gtest.h>
-#include "../src/datatypes.hpp"
+#include "../src/sink/to_range.hpp"
+#include "../src/sink/to_value.hpp"
 #include "../src/source/iota.hpp"
-#include "../src/sink/range_sink.hpp"
-#include "../src/sink/value_sink.hpp"
 #include "../src/stage/filter.hpp"
 #include "../src/stage/map.hpp"
 #include "../src/stage/reduce.hpp"
+#include "../src/datatypes.hpp"
 
 TEST(reduce, sum)
 {

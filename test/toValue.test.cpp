@@ -1,9 +1,9 @@
 // Copyright (c) 2025, Marco Nikander
 
 #include <gtest/gtest.h>
-#include "../src/datatypes.hpp"
+#include "../src/sink/to_value.hpp"
 #include "../src/source/iota.hpp"
-#include "../src/sink/value_sink.hpp"
+#include "../src/datatypes.hpp"
 
 TEST(toValue, one)
 {
