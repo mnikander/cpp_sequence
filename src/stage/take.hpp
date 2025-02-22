@@ -10,7 +10,7 @@ namespace {
 
 template <typename I, typename S>
 struct TakeImpl {
-    using Input  = I;
+    using Input = I;
 
     TakeImpl(i64 howMany, S successor) : _howMany{howMany}, _successor{successor} { assert(_howMany >= 0); }
 

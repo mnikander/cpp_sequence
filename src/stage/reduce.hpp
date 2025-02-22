@@ -9,7 +9,7 @@ namespace {
 
 template <typename I, typename F, typename A, typename S>
 struct ReduceImpl {
-    using Input  = I;
+    using Input = I;
 
     explicit ReduceImpl(F binaryFunction, A init, S successor) : _function{binaryFunction}, _accumulator{init}, _successor{successor} {}
 

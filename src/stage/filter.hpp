@@ -9,7 +9,7 @@ namespace {
 
 template <typename I, typename F, typename S>
 struct FilterImpl {
-    using Input  = I;
+    using Input = I;
 
     explicit FilterImpl(F unaryPredicate, S successor) : _predicate{unaryPredicate}, _successor{successor} {}
 
