@@ -39,10 +39,10 @@ void receive(value) {
 ```
 where `func` is a function which returns `true` if the value should be passed onwards, and `false` otherwise.
 An example could be a function which checks whether or not a number is positive.
-Note that a _filter_ passes values forward and executes the following stages _if and only if_ that value matches the filter.
+Note that a _filter_ passes values forward _if and only if_ that value matches the filter.
 Otherwise, the following stages are not even executed -- so we are not wasting any CPU cycles. ;)
 
-At the end of a pipeline, a sink receives the value and writes it to some sort of output field or container.
+At the end of a pipeline, a sink receives the result and writes it to some sort of output variable or container.
 
 ## Getting started
 
@@ -91,12 +91,13 @@ assert(result == expected);
 Note that intermediate stages, such as `map` must explicitly specify the value type of their _inputs_, in this case `int`.
 This allows any possible type mismatches to be identified by the compiler.
 This ensures relatively short error messages, which clearly state _where_ in the pipeline the type mismatch occurred.
+This is mandatory, the pipeline will not compile if the input type of a stage is missing.
 
 An example for a **map-filter-reduce** pipeline, common in functional programming languages, is given below.
 Here, the pipeline stages are defined inline, from left-to-right, in the order in which they are executed.
-Here, we use the function `yield(n)`, to execute the generator a fixed number of times.
+Instead of `run()`, we use the function `yield(n)` to execute the generator a fixed number of times.
 The result may contain any number of values, depending on the pipeline.
-In this case, where we are filtering for even numbers, the result will contain half as many elements as the generator yielded.
+In this case, where we are filtering for even numbers, so the result will contain half as many elements as the generator yielded.
 
 ```cpp
 using namespace seq;
@@ -116,9 +117,9 @@ assert(result == 4);
 ```
 Note that when we use `yield(n)`, execution will terminate after at most `n` iterations.
 We don't _need_ to have a stage in the pipeline which signals HALT.
-We can also call `yield(n)` multiple times to get more elements, and execution will continue, from where it left off, each time.
+We can also call `yield(n)` multiple times to get more elements, and execution will continue from where it left off, each time.
 If any stage, for example a `take` or a `find` signals a HALT, however, the pipeline finishes the processing of the current element and then stops permanently.
-In case of a halt, the pipeline cannot be restarted, and no further elements can be obtained via `yield(n)` or `run()`.
+In case of a HALT, the pipeline cannot be restarted, and no further elements can be obtained via `yield(n)` or `run()`.
 
 ---
 Copyright (c) 2024, Marco Nikander
