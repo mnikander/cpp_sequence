@@ -6,7 +6,7 @@
 #include "../src/source/from_iota.hpp"
 #include "../src/datatypes.hpp"
 
-TEST(toVector, one)
+TEST(to_vector, one)
 {
     using namespace seq;
     std::vector<i64> result{};
@@ -20,7 +20,7 @@ TEST(toVector, one)
     EXPECT_EQ(result, expected);
 }
 
-TEST(toVector, five)
+TEST(to_vector, five)
 {
     using namespace seq;
     std::vector<i64> result{};
@@ -34,7 +34,7 @@ TEST(toVector, five)
     EXPECT_EQ(result, expected);
 }
 
-TEST(toVector, nested_pipeline)
+TEST(to_vector, nested_pipeline)
 {
     using namespace seq;
     std::vector<i64> result{};

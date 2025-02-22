@@ -5,7 +5,7 @@
 #include "../src/source/from_iota.hpp"
 #include "../src/datatypes.hpp"
 
-TEST(toValue, one)
+TEST(to_value, one)
 {
     using namespace seq;
     i64 result{};
@@ -19,7 +19,7 @@ TEST(toValue, one)
     EXPECT_EQ(result, expected);
 }
 
-TEST(toValue, five)
+TEST(to_value, five)
 {
     using namespace seq;
     i64 result{};
@@ -33,7 +33,7 @@ TEST(toValue, five)
     EXPECT_EQ(result, expected);
 }
 
-TEST(toValue, nested_call)
+TEST(to_value, nested_call)
 {
     using namespace seq;
     i64 result{};
