@@ -4,7 +4,6 @@
 #include <cassert>
 #include <utility> // forward
 #include "../datatypes.hpp"
-#include "../emit.hpp"
 #include "concept_stage.hpp"
 
 namespace seq {
@@ -14,7 +13,7 @@ template <typename I, typename S> requires Receiver<S>
 struct IotaImpl {
     using Input = I;
 
-    IotaImpl(I init, S successor) : _index{init}, _successor{successor}, _emit{_successor} {}
+    IotaImpl(I init, S successor) : _index{init}, _successor{successor} {}
     
     Status yield(I const count = 1) {
         assert(count >= 0);
@@ -41,7 +40,6 @@ struct IotaImpl {
 
     I _index;
     S _successor;
-    Emit<S> _emit;
 };    
 
 template <typename I, typename S> requires Receiver<S>
