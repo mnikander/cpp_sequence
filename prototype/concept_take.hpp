@@ -4,10 +4,11 @@
 #include <cassert>
 #include <concepts>
 #include <utility> // forward
-#include "../datatypes.hpp"
+#include "../src/datatypes.hpp"
 #include "concept_stage.hpp"
 
 namespace seq {
+namespace proto {
 namespace con {
 
 template <typename I, typename S> requires Receiver<S>
@@ -36,5 +37,6 @@ auto take(i64 howMany, S successor) {
     return TakeImpl<I, S>{howMany, successor};
 }
 
+}
 }
 }

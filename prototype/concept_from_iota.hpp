@@ -3,10 +3,11 @@
 #pragma once
 #include <cassert>
 #include <utility> // forward
-#include "../datatypes.hpp"
+#include "../src/datatypes.hpp"
 #include "concept_stage.hpp"
 
 namespace seq {
+namespace proto {
 namespace con {
 
 template <typename I, typename S> requires Receiver<S>
@@ -52,5 +53,6 @@ auto from_iota(S successor) {
     return IotaImpl<typename S::Input, S>{0, successor};
 }
 
+}
 }
 }

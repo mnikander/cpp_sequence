@@ -3,10 +3,11 @@
 #pragma once
 #include <utility> // forward
 #include <vector>
-#include "../datatypes.hpp"
+#include "../src/datatypes.hpp"
 #include "concept_stage.hpp"
 
 namespace seq {
+namespace proto {
 namespace con {
 
 template <typename I>
@@ -28,5 +29,6 @@ auto to_vector(std::vector<I>& vector) {
     return ToVectorImpl<I>{vector};
 }
 
+}
 }
 }

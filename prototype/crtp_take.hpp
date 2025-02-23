@@ -3,10 +3,11 @@
 #pragma once
 #include <cassert>
 #include <utility> // forward
-#include "../datatypes.hpp"
+#include "../src/datatypes.hpp"
 #include "crtp_base_stage.hpp"
 
 namespace seq {
+namespace proto {
 namespace crtp {
 
 template <typename I, typename S>
@@ -35,5 +36,6 @@ auto take(i64 howMany, S successor) {
     return TakeImpl<I, S>{howMany, successor};
 }
 
+}
 }
 }

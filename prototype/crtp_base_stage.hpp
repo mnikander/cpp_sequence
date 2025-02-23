@@ -3,9 +3,10 @@
 #pragma once
 #include <cassert>
 #include <utility> // forward
-#include "../datatypes.hpp"
+#include "../src/datatypes.hpp"
 
 namespace seq {
+namespace proto {
 namespace crtp {
 
 template <typename I, typename S, typename Derived>
@@ -23,5 +24,6 @@ struct BaseStage {
     Successor _successor;
 };
 
+}
 }
 }
