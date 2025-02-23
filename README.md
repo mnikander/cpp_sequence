@@ -90,15 +90,17 @@ auto pipeline = from_iota(
 pipeline.yield(8); // Process first 8 elements, filtering evens
 assert(result == 4); // Sum of (-2, 0, 2, 4)
 ```
+Each stage in the pipeline _must_ explicitly specify its input type (e.g., `map<int>`, `filter<int>`). This ensures simple compile-time type checking and results in clear, readable error messages, preventing template-related confusion.
+
 > Many more usage examples can be found in the [unit tests](https://github.com/mnikander/cpp_sequence/tree/main/test)!
 
 ### **Why Not Just Use `std::ranges`?**
 
 While `std::ranges` provides powerful sequence transformations, this library offers:
 
-- **Generator-based execution** – Avoids complex iterator issues like the '[terrible problem of incrementing a smart iterator](https://www.fluentcpp.com/2019/02/12/the-terrible-problem-of-incrementing-a-smart-iterator/)'
+- **Generator-based execution** – Avoids [complex iterator issues](https://www.fluentcpp.com/2019/02/12/the-terrible-problem-of-incrementing-a-smart-iterator/)
 - **More readable error messages** – Explicit input types prevent cryptic template errors
-- **Ease-of-use and composability** – Designed to easily create, combine, and extend pipelines
+- **Minimal boilerplate** – Easily chainable and more intuitive syntax
 
 If you’re looking for a **simple alternative to iterators** with **clear syntax and minimal boilerplate**, this library is a good fit!
 
