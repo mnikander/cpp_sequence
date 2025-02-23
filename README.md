@@ -16,8 +16,8 @@ This library provides a lightweight and expressive way to process sequences of v
 
 Before diving into details, here’s a simple example demonstrating how to create and run a sequence pipeline:
 
-<!-- #include <sequence.hpp> -->
 ```cpp
+#include "src/sequence.hpp"
 using namespace seq;
 
 std::vector<int> result;
@@ -76,6 +76,7 @@ A sequence processes values individually, pushing them through the stages step b
 ### Example: **Map-Filter-Reduce Pipeline**
 
 ```cpp
+#include "src/sequence.hpp"
 using namespace seq;
 
 int result = 0;
