@@ -1,129 +1,106 @@
-# Sequence library
 
-This library allows creating and transforming sequences of values, and doing computations on them.
-The goal is to create a small and simple library of composeable algorithms, including map, filter, reduce, and several other algorithms.
-These algorithms should be easy use and easy to compose.
-If something is put together incorrectly, the error messages should be human-readable (and not pages and pages of template errors).
-Aspirationally, the resulting code should have only a small runtime overhead compared to the equivalent hand-crafted code.
-It is also hoped that some of the pitfalls of the C++ ranges library, such as the '[terrible problem of incrementing a smart iterator](https://www.fluentcpp.com/2019/02/12/the-terrible-problem-of-incrementing-a-smart-iterator/)', can be avoided by using generators instead of iterators.
+# Sequence Library
 
-Overall, a variety of possible approaches were explored.
-This implementation is based on [continuation-passing style](https://en.wikipedia.org/wiki/Continuation-passing_style), and is heavily inspired by the **Sequences** and **Streams** libraries in Kotlin, as well as the C++ **Rappel** library presented at C++Now 2024 ([youtube](https://www.youtube.com/watch?v=itnyR9j8y6E)).
+**Efficient, composable, and easy-to-use pipelines for sequence processing in C++.**
 
-## How does it work?
-There are three building blocks from which a pipeline is built:
-- a **source** creates values one at a time, and passes them onwards
-- a **stage** receives a value, does something with it, and (usually) passes the result onwards
-- a **sink** receives values and writes them into a container or result variable
+This library provides a lightweight and expressive way to process sequences of values using functional programming concepts. Inspired by Kotlin Sequences and the C++ [Rappel](https://www.youtube.com/watch?v=itnyR9j8y6E) library, it enables the creation of **clear, efficient, and easily composable data transformations**.
 
-Each stage has a member function `receive(value)`.
-Sinks also have this function.
-Each stage has a member variable called `_successor`, which is the next stage in the pipeline.
-To run the pipeline, each stage does what it has to do, and if it has a result it wants to push into the next stage, it calls `_successor.receive(result);`.
-This passes the intermediate result onwards, and executes the next stage on that value.
-Here is a simplified implementation of 'receive' for a [map](https://en.wikipedia.org/wiki/Map_(higher-order_function)) stage:
+## Features
+
+- **Composable Functional Pipelines** – Chain `map`, `filter`, `reduce`, and more
+- **Readable Compile-Time Errors** – Short, clear error messages for easier debugging
+- **Avoids Iterator Pitfalls** – Uses generators instead of iterators to sidestep C++ iterator complexities
+- **Optimized for Performance** – Avoids unnecessary allocations and function calls
+
+## Quick Example
+
+Before diving into details, here’s a simple example demonstrating how to create and run a sequence pipeline:
+
+<!-- #include <sequence.hpp> -->
 ```cpp
-void receive(value) {
-    _successor.receive(func(value));
-}
+using namespace seq;
+
+std::vector<int> result;
+
+auto pipeline = from_iota(
+    map<int>([](int x) { return x * x; },
+        take<int>(3,
+            to_vector(result))));
+
+pipeline.run(); // Generates {0, 1, 4}
 ```
-where `func` is a unary function.
-This could be the square root function, for example, and is specified when the 'map' stage is created.
-As a second example, here is a simplified implementation of 'receive' for a [filter](https://en.wikipedia.org/wiki/Filter_(higher-order_function)) stage:
-```cpp
-void receive(value) {
-    if(func(value)) {
-        _successor.receive(value);
-    }
-}
-```
-where `func` is a function which returns `true` if the value should be passed onwards, and `false` otherwise.
-An example could be a function which checks whether or not a number is positive.
-Note that a _filter_ passes values forward _if and only if_ that value matches the filter.
-Otherwise, the following stages are not even executed -- so we are not wasting any CPU cycles. ;)
 
-At the end of a pipeline, a sink receives the result and writes it to some sort of output variable or container.
-After that, the source pushes the next value through the pipeline.
+This pipeline:
 
-## Getting started
+1. Generates integers from `0` onwards (`from_iota`)
+2. Squares each value (`map`)
+3. Takes the first 3 values (`take`)
+4. Collects them in `result` (`to_vector`)
 
-1. Install dependencies
+---
+
+## Installation & Setup
+
+### **1. Install Dependencies**
+
 ```bash
 sudo apt get install g++ cmake libgtest-dev
 ```
 
-2. Clone the repo
+### **2. Clone the Repository**
+
 ```bash
-git clone #...
-cd #... navigate into the freshly cloned repo
+git clone git@github.com:mnikander/cpp_sequence.git
+cd cpp_sequence
 ```
 
-3. Build and run:
+### **3. Build and Run Tests**
+
 ```bash
-mkdir out && cd out && cmake .. && cd .. # out-of-source build
+mkdir out && cd out && cmake .. && cd ..
 cmake --build out/ && ./out/unit_tests
 ```
 
-## Usage examples
+---
 
-**Lots of usage examples can be found in the unit tests.**
-We will take a detailed look at two examples here, to explain the basics, and to showcase some of the features.
-The first example illustrates a pipeline where values are created using `iota`, are squared (i.e. x^2) using `map`, and the first 3 such values are taken and written to an output vector.
+## How It Works
 
-```cpp
-using namespace seq;
-std::vector<i64> const expected{0, 1, 4};
-std::vector<i64> result{};
-auto square = [](int value){ return value*value; };
+This library models a **pipeline** using three building blocks:
 
-// define the pipeline stages, from last to first
-auto sink     = to_vector(result);         // write each result
-auto take3    = take<int>(3, sink);        // HALT after 3 elements
-auto map_sq   = map<int>(square, take3);   // square each element
-auto sequence = from_iota(map_sq);         // generate integers [0, inf)
+- **Source** – Generates values (`from_iota`, `from_vector`, etc.)
+- **Stage** – Transforms values (`map`, `filter`, `take`, `reduce`, etc.)
+- **Sink** – Collects results (`to_vector`, `to_value`, etc.)
 
-// run the pipeline until one of the stages signals HALT
-sequence.run();
+A sequence processes values individually, pushing them through the stages step by step.
 
-assert(result.size() == 3);
-assert(result == expected);
-```
-
-Note that intermediate stages, such as `map` must explicitly specify the value type of their _inputs_, in this case `int`.
-This allows any possible type mismatches to be identified by the compiler.
-This ensures relatively short error messages, which clearly state _where_ in the pipeline the type mismatch occurred.
-This is mandatory, the pipeline will not compile if the input type of a stage is missing.
-
-An example for a **map-filter-reduce** pipeline, common in functional programming languages, is given below.
-Here, the pipeline stages are defined inline, from left-to-right, in the order in which they are executed.
-Instead of `run()`, we use the function `yield(n)` to execute the generator a fixed number of times.
-The result may contain any number of values, depending on the pipeline.
-In this case, where we are filtering for even numbers, so the result will contain half as many elements as the generator yielded.
+### Example: **Map-Filter-Reduce Pipeline**
 
 ```cpp
 using namespace seq;
 
-auto minusThree = [](int i){ return i - 3; };
-auto isEven     = [](int i){ return i % 2 == 0; };
 int result = 0;
 
-auto sequence =
-    from_iota(
-        map<int>(minusThree,
-            filter<int>(isEven,
-                reduce<int>(std::plus<int>{}, 0,
-                    to_value(result)))));
-sequence.yield(8); // sum of (-2, 0, 2, 4)
-assert(result == 4);
-```
-Note that `yield(n)` can be called multiple times to get more elements, and execution will continue from where it left off, each time.
+auto pipeline = from_iota(
+    map<int>([](int i) { return i - 3; },
+        filter<int>([](int i) { return i % 2 == 0; },
+            reduce<int>(std::plus<int>{}, 0,
+                to_value(result)))));
 
-When we use `yield(n)`, execution will terminate after at most `n` iterations.
-Some stages, such as `take` or `find` are able to signal a HALT, however.
-When using `run()`, you need to have at least one stage in the pipeline which halts execution eventually.
-Otherwise, the pipeline will run endlessly.
-When a stage signals a HALT, the pipeline finishes processing the current element, and then the source stops iterating.
-After a HALT, the pipeline cannot be restarted, and no further elements can be obtained via `yield(n)` or `run()`.
+pipeline.yield(8); // Process first 8 elements, filtering evens
+assert(result == 4); // Sum of (-2, 0, 2, 4)
+```
+> Many more usage examples can be found in the [unit tests](https://github.com/mnikander/cpp_sequence/tree/main/test)!
+
+### **Why Not Just Use `std::ranges`?**
+
+While `std::ranges` provides powerful sequence transformations, this library offers:
+
+- **Generator-based execution** – Avoids complex iterator issues like the '[terrible problem of incrementing a smart iterator](https://www.fluentcpp.com/2019/02/12/the-terrible-problem-of-incrementing-a-smart-iterator/)'
+- **More readable error messages** – Explicit input types prevent cryptic template errors
+- **Ease-of-use and composability** – Designed to easily create, combine, and extend pipelines
+
+If you’re looking for a **simple alternative to iterators** with **clear syntax and minimal boilerplate**, this library is a good fit!
 
 ---
-Copyright (c) 2024, Marco Nikander
+
+**Copyright (c) 2024, Marco Nikander**
