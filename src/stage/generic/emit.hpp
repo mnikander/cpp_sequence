@@ -2,7 +2,7 @@
 
 #pragma once
 #include <utility> // forward
-#include "../datatypes.hpp"
+#include "../../datatypes.hpp"
 
 namespace seq {
 

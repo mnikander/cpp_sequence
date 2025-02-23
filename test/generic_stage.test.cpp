@@ -2,9 +2,9 @@
 
 #include <array>
 #include <gtest/gtest.h>
-#include "../src/generic_stage/stage.hpp"
 #include "../src/sink/to_range.hpp"
 #include "../src/source/from_iota.hpp"
+#include "../src/stage/generic/stage.hpp"
 #include "../src/datatypes.hpp"
 
 TEST(stage, map)
