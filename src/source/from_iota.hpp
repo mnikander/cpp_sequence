@@ -35,9 +35,7 @@ struct FromIotaImpl {
         Status status = OK;
         while(status == OK) {
             status = _successor.receive(std::forward<I>(_index));
-            if(status == OK) {
-                ++_index;
-            }
+            ++_index;
         }
         return status;
     }
