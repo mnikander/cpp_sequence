@@ -18,8 +18,8 @@ TEST(reduce, sum)
 
     // pipeline stages, from last to first
     auto sink     = to_value(result);
-    auto square   = reduce<i64>(std::plus<i64>{}, 0LL, sink);
-    auto sequence = from_iota(square);
+    auto add      = reduce<i64>(std::plus<i64>{}, 0LL, sink);
+    auto sequence = from_iota(add);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);

@@ -16,8 +16,8 @@ TEST(filter, all)
 
     // pipeline stages, from last to first
     auto sink     = to_vector(result);
-    auto square   = filter<i64>(alwaysTrue, sink);
-    auto sequence = from_iota(square);
+    auto stage    = filter<i64>(alwaysTrue, sink);
+    auto sequence = from_iota(stage);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
@@ -31,8 +31,8 @@ TEST(filter, none)
 
     // pipeline stages, from last to first
     auto sink     = to_vector(result);
-    auto square   = filter<i64>(alwaysFalse, sink);
-    auto sequence = from_iota(square);
+    auto stage    = filter<i64>(alwaysFalse, sink);
+    auto sequence = from_iota(stage);
 
     sequence.yield(5);
     ASSERT_EQ(result.size(), 0);
@@ -47,8 +47,8 @@ TEST(filter, one)
 
     // pipeline stages, from last to first
     auto sink     = to_vector(result);
-    auto square   = filter<i64>(isOne, sink);
-    auto sequence = from_iota(square);
+    auto stage    = filter<i64>(isOne, sink);
+    auto sequence = from_iota(stage);
 
     sequence.yield(5);
     ASSERT_EQ(result.size(), 1);
@@ -64,8 +64,8 @@ TEST(filter, even)
 
     // pipeline stages, from last to first
     auto sink     = to_vector(result);
-    auto square   = filter<i64>(isEven, sink);
-    auto sequence = from_iota(square);
+    auto stage    = filter<i64>(isEven, sink);
+    auto sequence = from_iota(stage);
 
     sequence.yield(5);
     ASSERT_EQ(result.size(), 3);

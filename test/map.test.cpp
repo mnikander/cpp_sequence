@@ -17,8 +17,8 @@ TEST(map, identity)
 
     // pipeline stages, from last to first
     auto sink     = to_range(result);
-    auto square   = map<i64 const>([](i64 const i){ return i; }, sink);
-    auto sequence = from_iota(square);
+    auto stage    = map<i64 const>([](i64 const i){ return i; }, sink);
+    auto sequence = from_iota(stage);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
@@ -48,8 +48,8 @@ TEST(map, int_to_float)
 
     // pipeline stages, from last to first
     auto sink     = to_range(result);
-    auto square   = map<i64 const>([](i64 const i){ return static_cast<f64>(i); }, sink);
-    auto sequence = from_iota(square);
+    auto stage    = map<i64 const>([](i64 const i){ return static_cast<f64>(i); }, sink);
+    auto sequence = from_iota(stage);
 
     sequence.yield(5);
     EXPECT_EQ(result, expected);
