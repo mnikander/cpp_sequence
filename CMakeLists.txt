@@ -17,6 +17,7 @@ add_executable(structured_zip           deprecated/techniques/structured_program
 
 # Locate GTest
 find_package(GTest REQUIRED)
+find_package(benchmark REQUIRED)
 include_directories(${GTEST_INCLUDE_DIRS})
 
 # Link unit_tests with what we want to test and the GTest and pthread library
@@ -53,3 +54,8 @@ add_executable(unit_tests ${SOURCES}
                test/to_vector.test.cpp
 )
 target_link_libraries(unit_tests ${GTEST_LIBRARIES} pthread)
+
+add_executable(benchmarks ${SOURCES}
+               benchmark/reduce.benchmark.cpp
+)
+target_link_libraries(benchmarks benchmark::benchmark benchmark::benchmark_main)

@@ -44,7 +44,7 @@ This pipeline:
 ### **1. Install Dependencies**
 
 ```bash
-sudo apt get install g++ cmake libgtest-dev
+sudo apt install g++ cmake libgtest-dev libbenchmark-dev
 ```
 
 ### **2. Clone the Repository**
