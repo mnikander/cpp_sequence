@@ -90,9 +90,10 @@ auto pipeline = from_iota(
 pipeline.yield(8); // Process first 8 elements, filtering evens
 assert(result == 4); // Sum of (-2, 0, 2, 4)
 ```
-Each stage in the pipeline _must_ explicitly specify its input type (e.g., `map<int>`, `filter<int>`). This ensures simple compile-time type checking and results in clear, readable error messages, preventing template-related confusion.
-
-> Many more usage examples can be found in the [unit tests](https://github.com/mnikander/cpp_sequence/tree/main/test)!
+Each stage in the pipeline _must_ explicitly specify its input type (e.g., `map<int>`, `filter<int>`).
+This ensures simple compile-time type checking and results in clear, readable error messages, preventing template-related confusion.
+Many more usage examples can be found in the [unit tests](https://github.com/mnikander/cpp_sequence/tree/main/test)!
+> Note: forgetting to specify the input type of stage is a common cause of errors such as _"no instance of function template 'reduce' matches the argument list"_.
 
 ### **Why Not Just Use `std::ranges`?**
 
