@@ -1,16 +1,16 @@
 
 # Sequence Library
 
-**Efficient, composable, and easy-to-use pipelines for sequence processing in C++.**
+**Composable and easy-to-use pipelines for sequence processing in C++.**
 
-This library provides a lightweight and expressive way to process sequences of values using functional programming concepts. Inspired by Kotlin Sequences and the C++ [Rappel](https://www.youtube.com/watch?v=itnyR9j8y6E) library, it enables the creation of **clear, efficient, and easily composable data transformations**.
+This library provides a lightweight and expressive way to process sequences of values using functional programming concepts.
+Inspired by Kotlin Sequences and the C++ [Rappel](https://www.youtube.com/watch?v=itnyR9j8y6E) library, it enables the creation of **clear and easily composable data transformations**.
 
 ## Features
 
 - **Composable Functional Pipelines** – Chain `map`, `filter`, `reduce`, and more
 - **Readable Compile-Time Errors** – Short, clear error messages for easier debugging
 - **Avoids Iterator Pitfalls** – Uses generators instead of iterators to sidestep C++ iterator complexities
-- **Optimized for Performance** – Avoids unnecessary allocations and function calls
 
 ## Quick Example
 
@@ -100,6 +100,7 @@ Many more usage examples can be found in the [unit tests](https://github.com/mni
 A [simple benchmark](https://github.com/mnikander/cpp_sequence/blob/main/benchmark/reduce.benchmark.cpp) is included, which generates a random vector of integers and sums all the even integers together.
 Initial benchmarking runs, without a direct `from_range` source, indicate that the sequence implementation takes 3-6 times as long as a handcrafted for-loop.
 Once a range source has been implemented, a fair comparison can be done.
+
 ### **Why Not Just Use `std::ranges`?**
 
 While `std::ranges` provides powerful sequence transformations, this library offers:
