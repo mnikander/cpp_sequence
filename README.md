@@ -95,6 +95,11 @@ This ensures simple compile-time type checking and results in clear, readable er
 Many more usage examples can be found in the [unit tests](https://github.com/mnikander/cpp_sequence/tree/main/test)!
 > Note: forgetting to specify the input type of stage is a common cause of errors such as _"no instance of function template 'reduce' matches the argument list"_.
 
+### **Is it fast?**
+
+A [simple benchmark](https://github.com/mnikander/cpp_sequence/blob/main/benchmark/reduce.benchmark.cpp) is included, which generates a random vector of integers and sums all the even integers together.
+Initial benchmarking runs, without a direct `from_range` source, indicate that the sequence implementation takes 3-6 times as long as a handcrafted for-loop.
+Once a range source has been implemented, a fair comparison can be done.
 ### **Why Not Just Use `std::ranges`?**
 
 While `std::ranges` provides powerful sequence transformations, this library offers:
