@@ -52,7 +52,41 @@ static void BM_for_loop(benchmark::State& state) {
     // std::cout << sum << std::endl;
 }
 
-static void BM_sequence(benchmark::State& state) {
+static void BM_sequence_from_vector(benchmark::State& state) {
+    using namespace seq;
+    std::vector<i64> numbers = random_vector(SAMPLES);
+    i64 sum = 0;
+
+    for (auto _ : state) {
+        // this code gets timed
+        auto pipeline = from_vector(numbers,
+                filter<i64>([](i64 i){ return i%2==0; },
+                    reduce<i64>(std::plus<i64>{}, 0LL,
+                        to_value(sum))));
+        pipeline.yield(SAMPLES);
+    }
+
+    assert(sum == expected.at(SAMPLES)); // check that the result is correct
+}
+
+static void BM_sequence_from_range(benchmark::State& state) {
+    using namespace seq;
+    std::vector<i64> numbers = random_vector(SAMPLES);
+    i64 sum = 0;
+
+    for (auto _ : state) {
+        // this code gets timed
+        auto pipeline = from_range(numbers.cbegin(), numbers.cend(),
+                filter<i64>([](i64 i){ return i%2==0; },
+                    reduce<i64>(std::plus<i64>{}, 0LL,
+                        to_value(sum))));
+        pipeline.yield(SAMPLES);
+    }
+
+    assert(sum == expected.at(SAMPLES)); // check that the result is correct
+}
+
+static void BM_sequence_map_hack(benchmark::State& state) {
     using namespace seq;
     std::vector<i64> numbers = random_vector(SAMPLES);
     i64 sum = 0;
@@ -72,4 +106,6 @@ static void BM_sequence(benchmark::State& state) {
 
 // Register the function as a benchmark
 BENCHMARK(BM_for_loop);
-BENCHMARK(BM_sequence);
+BENCHMARK(BM_sequence_from_range);
+BENCHMARK(BM_sequence_from_vector);
+BENCHMARK(BM_sequence_map_hack);
