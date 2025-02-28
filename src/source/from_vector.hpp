@@ -1,7 +1,6 @@
 // Copyright (c) 2025, Marco Nikander
 
 #pragma once
-#include <cassert>
 #include <utility> // forward
 #include "../datatypes.hpp"
 
@@ -25,7 +24,7 @@ struct FromVectorImpl {
     Status yield(uint64_t const count = 1u) {
         Status status = OK;
         for(uint64_t i = 0; i < count && _index != _vector.size() && status == OK; ++i) {
-            status = _successor.receive(T(_vector[_index])); // copy the element to get an rvalue :(
+            status = _successor.receive(Input{_vector[_index]}); // copy the element to get an rvalue :(
             ++_index;
         }
         if (_index == _vector.size()) {
@@ -37,7 +36,7 @@ struct FromVectorImpl {
     Status run() {
         Status status = OK;
         while(_index != _vector.size() && status == OK) {
-            status = _successor.receive(T(_vector[_index])); // copy the element to get an rvalue :(
+            status = _successor.receive(Input{_vector[_index]}); // copy the element to get an rvalue :(
             ++_index;
         }
         status = HALT;
