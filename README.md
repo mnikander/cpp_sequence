@@ -98,8 +98,7 @@ Many more usage examples can be found in the [unit tests](https://github.com/mni
 ### **Is it fast?**
 
 A [simple benchmark](https://github.com/mnikander/cpp_sequence/blob/main/benchmark/reduce.benchmark.cpp) is included, which generates a random vector of integers and sums all the even integers together.
-Initial benchmarking runs, without a direct `from_range` source, indicate that the sequence implementation takes 3-6 times as long as a handcrafted for-loop.
-Once a range source has been implemented, a fair comparison can be done.
+Initial benchmarking runs indicate that the sequence implementation takes 2-6 times as long as a handcrafted for-loop.
 
 ### **Why Not Just Use `std::ranges`?**
 

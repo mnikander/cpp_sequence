@@ -105,7 +105,7 @@ static void BM_sequence_map_hack(benchmark::State& state) {
 }
 
 // Register the function as a benchmark
-BENCHMARK(BM_for_loop);
+BENCHMARK(BM_for_loop); // the fastest by at least a factor of two
 BENCHMARK(BM_sequence_from_range);
-BENCHMARK(BM_sequence_from_vector);
+BENCHMARK(BM_sequence_from_vector); // of the sequence implementations, this one is currently the fastest
 BENCHMARK(BM_sequence_map_hack);
