@@ -17,16 +17,6 @@ jobs:
       - name: Install C++ dependencies
         run: sudo apt update && sudo apt install -y build-essential cmake libgtest-dev # libbenchmark-dev
 
-      # 2025-05-12: Added to resolve a linker error about the compiler and benchmark having different LTO versions.
-      #             Hopefully this can be removed in the future.
-      - name: Build Google Benchmark from source
-        run: |
-          git clone https://github.com/google/benchmark.git
-          cd benchmark
-          git clone https://github.com/google/googletest.git
-          cmake -B build -S . -DCMAKE_BUILD_TYPE=Release
-          cmake --build build --target install
-
       - name: Setup
         run: cmake -B out -S .
 
