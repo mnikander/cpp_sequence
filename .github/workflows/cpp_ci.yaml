@@ -1,0 +1,27 @@
+name: C++ CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-22.04
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install C++ dependencies
+        run: sudo apt-get update && sudo apt-get install -y build-essential cmake libgtest-dev
+
+      - name: Setup
+        run: cmake -B out -S .
+
+      - name: Build
+        run: cmake --build out/
+
+      - name: Unit Tests
+        run: ./out/unit_tests
